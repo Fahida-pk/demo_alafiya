@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import TopNavbar from "../dashboard/TopNavbar";
-import { FaTrash, FaPlus } from "react-icons/fa";
+import { FaTrash, FaPlus, FaEdit } from "react-icons/fa";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import "./Customer.css";
-
-const API = "https://zyntaweb.com/demoalafiya/api/customers.php";
+// ✅ FIXED API
+const API = "https://zyntaweb.com/demoalafiya/api/customer.php";
 
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
@@ -13,6 +15,10 @@ const Customers = () => {
 
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
+
+  // ✅ NEW STATES
+  const [nameError, setNameError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
 
   const [form, setForm] = useState({
     id: "",
@@ -33,14 +39,89 @@ const Customers = () => {
     loadCustomers();
   }, []);
 
-  // CHANGE
+  // ================= NAME VALIDATION =================
+  const handleNameChange = (e) => {
+    const { name, value } = e.target;
+
+    setForm({ ...form, [name]: value });
+
+    if (!value.trim()) {
+      setNameError("Customer name is required");
+      return;
+    }
+
+    const duplicate = customers.find(
+      (c) =>
+        c.name.toLowerCase().trim() === value.toLowerCase().trim() &&
+        c.id !== form.id
+    );
+
+    if (duplicate) {
+      setNameError("Customer name already exists");
+      return;
+    }
+
+    setNameError("");
+  };
+
+  // ================= NORMAL CHANGE =================
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // SUBMIT
+  // ================= PHONE VALIDATION =================
+  const handlePhoneChange = (value, country) => {
+    const fullNumber = "+" + value;
+    setForm({ ...form, phone: fullNumber });
+
+    const localNumber = value.slice(country.dialCode.length);
+
+    if (!localNumber) {
+      setPhoneError("Phone number is required");
+      return;
+    }
+
+    if (!/^\d+$/.test(localNumber)) {
+      setPhoneError("Only digits allowed");
+      return;
+    }
+
+    // India
+    if (country.countryCode === "in") {
+      if (localNumber.length !== 10) {
+        setPhoneError("Indian phone must be 10 digits");
+        return;
+      }
+    } 
+    // Other countries
+    else {
+      if (localNumber.length < 7 || localNumber.length > 12) {
+        setPhoneError("Invalid phone number");
+        return;
+      }
+    }
+
+    setPhoneError("");
+  };
+
+  // ================= SUBMIT =================
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // VALIDATION CHECK
+    if (nameError) {
+      setMessage("Fix name error");
+      setMessageType("error");
+      autoHide();
+      return;
+    }
+
+    if (phoneError || !form.phone) {
+      setMessage("Enter valid phone number");
+      setMessageType("error");
+      autoHide();
+      return;
+    }
 
     await fetch(API, {
       method: isEdit ? "PUT" : "POST",
@@ -70,6 +151,8 @@ const Customers = () => {
       status: "ACTIVE",
     });
     setIsEdit(false);
+    setPhoneError("");
+    setNameError("");
   };
 
   // EDIT
@@ -103,10 +186,8 @@ const Customers = () => {
     <div className="customer-page">
       <TopNavbar />
 
-      {/* MESSAGE */}
       {message && <div className={`message-box ${messageType}`}>{message}</div>}
 
-      {/* ADD BUTTON */}
       <button
         className="add-customer-top"
         onClick={() => {
@@ -117,7 +198,6 @@ const Customers = () => {
         <FaPlus /> Add Customer
       </button>
 
-      {/* CARD */}
       <div className="customer-list-card">
         <div className="card-header">
           <h3>👥 CUSTOMER LIST</h3>
@@ -152,27 +232,27 @@ const Customers = () => {
             <tbody>
               {filtered.map((c) => (
                 <tr key={c.id}>
-                  <td data-label="Name">{c.name}</td>
-                  <td data-label="Address">{c.address}</td>
-                  <td data-label="Phone">{c.phone}</td>
-                  <td data-label="Status">
+                  <td>{c.name}</td>
+                  <td>{c.address}</td>
+                  <td>{c.phone}</td>
+                  <td>
                     <span className="status-active">{c.status}</span>
                   </td>
-                  <td data-label="Actions">
-                    <button
-                      className="edit-btn"
-                      onClick={() => editCustomer(c)}
-                    >
-                      ✏️
-                    </button>
+                 <td>
+  <button
+    className="edit-btn"
+    onClick={() => editCustomer(c)}
+  >
+    <FaEdit />
+  </button>
 
-                    <button
-                      className="delete-btn"
-                      onClick={() => deleteCustomer(c.id)}
-                    >
-                      <FaTrash />
-                    </button>
-                  </td>
+  <button
+    className="delete-btn"
+    onClick={() => deleteCustomer(c.id)}
+  >
+    <FaTrash />
+  </button>
+</td>
                 </tr>
               ))}
             </tbody>
@@ -190,13 +270,15 @@ const Customers = () => {
             </div>
 
             <form onSubmit={handleSubmit} className="modal-body">
-              <label>Name</label>
+              
+              <label>Name *</label>
               <input
                 name="name"
                 value={form.name}
-                onChange={handleChange}
+                onChange={handleNameChange}
                 required
               />
+              {nameError && <small className="error">{nameError}</small>}
 
               <label>Address</label>
               <input
@@ -205,12 +287,14 @@ const Customers = () => {
                 onChange={handleChange}
               />
 
-              <label>Phone</label>
-              <input
-                name="phone"
+              <label>Phone *</label>
+              <PhoneInput
+                country="in"
                 value={form.phone}
-                onChange={handleChange}
+                onChange={handlePhoneChange}
+                inputStyle={{ width: "100%" }}
               />
+              {phoneError && <small className="error">{phoneError}</small>}
 
               <label>Status</label>
               <select

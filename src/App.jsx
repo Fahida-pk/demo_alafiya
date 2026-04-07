@@ -12,16 +12,18 @@ import Payment from "./pages/payment/payment";
 import Customers from "./pages/Customers/Customers";
 import CompanySettings from "./pages/CompanySettings/CompanySettings";
 import DriverReport from "./pages/DriverReport/DriverReport";
-
+import Brands  from "./pages/brand/Brands";
+import Items  from "./pages/item/Items";
+import Locations  from "./pages/Locations/Locations";
+import Status  from "./pages/STATUS/STATUS";
+import Suppliers  from "./pages/SUPPLIERS/SUPPLIERS";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* NO SIDEBAR */}
         <Route path="/" element={<Login />} />
 
-        {/* WITH SIDEBAR */}
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/drivers" element={<Drivers />} />
@@ -33,9 +35,14 @@ function App() {
           <Route path="/driver-report" element={<DriverReport />} />
           <Route path="/company-settings" element={<CompanySettings />} />
           <Route path="/users" element={<Users />} />
-
-          {/* ✅ ADD THIS */}
           <Route path="/customers" element={<Customers />} />
+
+          {/* ✅ BRAND ROUTE */}
+          <Route path="/brands" element={<Brands />} />
+          <Route path="/items" element={<Items />} />
+          <Route path="/locations" element={<Locations />} />
+          <Route path="/status" element={<Status />} />
+          <Route path="/suppliers" element={<Suppliers />} />
 
         </Route>
 

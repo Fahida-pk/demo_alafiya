@@ -4,7 +4,8 @@ import { MdSwapHoriz } from "react-icons/md";
 import { FaUserShield, FaUsers } from "react-icons/fa";
 import { FaChartBar, FaChartPie, FaFileInvoice } from "react-icons/fa";
 import { FaBuilding } from "react-icons/fa";
-
+import { FaBoxOpen } from "react-icons/fa";
+import { FaTags } from "react-icons/fa";
 import {
   FaClipboardCheck,
   FaMapMarkedAlt,
@@ -83,6 +84,27 @@ const Sidebar = () => {
     <Link to="/customers" onClick={() => setMobileOpen(false)}>
       <FaUsers />
       <span>Customer</span>
+    </Link>
+    <Link to="/brands" onClick={() => setMobileOpen(false)}>
+  <FaTags />
+  <span>Brands</span>
+</Link>
+<Link to="/items" onClick={() => setMobileOpen(false)}>
+  <FaBoxOpen />
+  <span>Items</span>
+</Link>
+<Link to="/locations" onClick={() => setMobileOpen(false)}>
+  <FaMapMarkedAlt />
+  <span>Locations</span>
+</Link>
+   <Link to="/status" onClick={() => setMobileOpen(false)}>
+      <FaClipboardCheck />
+      <span>Status</span>
+    </Link>
+
+    <Link to="/suppliers" onClick={() => setMobileOpen(false)}>
+      <FaUserTie />
+      <span>Suppliers</span>
     </Link>
           </div>
         )}
