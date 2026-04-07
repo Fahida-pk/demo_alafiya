@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TopNavbar from "../dashboard/TopNavbar";
 import { FaTrash, FaPlus, FaEdit } from "react-icons/fa";
-import "../Customers/Customer.css";
+import "./Brands.css";
 const API = "https://zyntaweb.com/demoalafiya/api/brands.php";
 
 const Brands = () => {
@@ -121,13 +121,13 @@ const Brands = () => {
   );
 
   return (
-    <div className="customer-page">
+<div className="brand-page">
       <TopNavbar />
 
       {message && <div className={`message-box ${messageType}`}>{message}</div>}
 
       <button
-        className="add-customer-top"
+        className="add-brand-top"
         onClick={() => {
           resetForm();
           setShowModal(true);
@@ -136,8 +136,8 @@ const Brands = () => {
         <FaPlus /> Add Brand
       </button>
 
-      <div className="customer-list-card">
-        <div className="card-header">
+<div className="brand-list-card">
+          <div className="card-header">
           <h3>🏷️ BRAND LIST</h3>
 
           <div className="search-wrapper">
@@ -163,29 +163,23 @@ const Brands = () => {
                 <th>Actions</th>
               </tr>
             </thead>
+<tbody>
+  {filtered.map((b) => (
+    <tr key={b.id}>
+      <td data-label="Brand Name">{b.name}</td>
 
-            <tbody>
-              {filtered.map((b) => (
-                <tr key={b.id}>
-                  <td>{b.name}</td>
-                  <td>
-                    <button
-                      className="edit-btn"
-                      onClick={() => editBrand(b)}
-                    >
-                      <FaEdit />
-                    </button>
+      <td data-label="Actions">
+        <button className="brand-edit-btn" onClick={() => editBrand(b)}>
+          <FaEdit />
+        </button>
 
-                    <button
-                      className="delete-btn"
-                      onClick={() => deleteBrand(b.id)}
-                    >
-                      <FaTrash />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+        <button className="brand-delete-btn" onClick={() => deleteBrand(b.id)}>
+          <FaTrash />
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
           </table>
         )}
       </div>

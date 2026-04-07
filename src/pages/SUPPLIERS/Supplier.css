@@ -1,0 +1,255 @@
+/* ===== PAGE ===== */
+.supplier-page {
+  padding: 16px;
+  background: #f4f7fb;
+  min-height: 100vh;
+}
+
+/* ===== ADD BUTTON ===== */
+.add-supplier-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(to left, #4e73df, #6f42c1);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+}
+
+/* ===== CARD ===== */
+.supplier-list-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  overflow-x: auto;
+}
+/* ===== MODAL ===== */
+.supplier-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.supplier-modal-body button[type="submit"] {
+  margin-top: 10px;
+  padding: 12px;
+   background: linear-gradient(to right, #2563eb, #6f42c1);
+
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* BOX */
+.supplier-modal-box {
+  background: #fff;
+  width: 500px;
+  max-width: 95%;
+  border-radius: 12px;
+  padding: 20px;
+  animation: supplierPop 0.25s ease;
+}
+
+/* ANIMATION */
+@keyframes supplierPop {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* HEADER */
+.supplier-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+.supplier-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  z-index: 9999;
+
+  min-width: 320px;
+  max-width: 90%;
+  padding: 16px 20px;
+
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+@keyframes popup {
+  from {
+    transform: translate(-50%, -60%) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+.supplier-modal-header h3 {
+  font-size: 18px;
+  white-space: nowrap;   /* 🔥 THIS LINE FIX */
+}
+
+.supplier-modal-header button {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* FORM */
+.supplier-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* LABEL */
+.supplier-modal-body label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* INPUT */
+.supplier-modal-body input,
+.supplier-modal-body select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #dcdfe6;
+}
+
+/* PHONE FIX */
+.react-tel-input {
+  width: 100% !important;
+}
+
+.react-tel-input .form-control {
+  width: 100% !important;
+  border-radius: 6px !important;
+}
+
+/* BUTTON */
+.supplier-modal-body button {
+  margin-top: 10px;
+  padding: 12px;
+   background: linear-gradient(to right, #2563eb, #6f42c1);
+
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* ===== TABLE ===== */
+.supplier-list-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.supplier-list-card th,
+.supplier-list-card td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.supplier-list-card th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+/* ===== STATUS ===== */
+.supplier-status-active {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.supplier-edit-btn {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.supplier-delete-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+
+
+.supplier-message.success {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+/* ===== MODAL ===== */
+.supplier-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.supplier-modal-box {
+  background: #fff;
+  width: 400px;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.supplier-modal-box input,
+.supplier-modal-box select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.supplier-modal-box button {
+ background: #fff;
+  width: 500px;
+  max-width: 95%;
+  border-radius: 12px;
+  padding: 20px;
+}

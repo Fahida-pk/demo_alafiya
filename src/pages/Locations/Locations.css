@@ -1,29 +1,32 @@
 /* ===== PAGE ===== */
-.customer-page {
+.location-page {
   padding: 16px;
   background: #f4f7fb;
   min-height: 100vh;
 }
 
 /* ===== ADD BUTTON ===== */
-.add-customer-top {
+.add-location-top {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 16px;
+
   padding: 12px 18px;
   border-radius: 14px;
   border: none;
+
   font-size: 15px;
   font-weight: 600;
   color: #fff;
   cursor: pointer;
+
   background: linear-gradient(to left, #4e73df, #6f42c1);
   box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
 }
 
 /* ===== CARD ===== */
-.customer-list-card {
+.location-list-card {
   background: #fff;
   padding: 20px;
   border-radius: 12px;
@@ -37,12 +40,17 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 14px;
-  gap: 12px;
 }
 
+.card-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ===== SEARCH ===== */
 .search-wrapper {
-  display: flex;
-  gap: 8px;
+  width: 100%;
+  max-width: 250px;
 }
 
 .search-input {
@@ -50,7 +58,7 @@
   padding: 0 12px;
   border: 1px solid #dcdfe6;
   border-radius: 8px;
-  width: 240px;
+  width: 100%;
 }
 
 /* ===== TABLE ===== */
@@ -63,42 +71,59 @@ th, td {
   padding: 12px;
   border-bottom: 1px solid #e5e7eb;
   text-align: left;
-  white-space: nowrap;
 }
 
 th {
   background: #f9fafb;
+  font-weight: 600;
 }
 
-/* ===== STATUS ===== */
-.status-active {
-  background: #dcfce7;
-  color: #15803d;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-}
-
-/* ===== BUTTONS ===== */
-.edit-btn {
+/* ===== ACTIONS ===== */
+.location-edit-btn {
   background: #22c55e;
   color: #fff;
   border: none;
   padding: 6px 10px;
   border-radius: 6px;
+  cursor: pointer;
 }
 
-.delete-btn {
+.location-delete-btn {
   background: #ef4444;
   color: #fff;
   border: none;
   padding: 6px 10px;
   border-radius: 6px;
   margin-left: 6px;
+  cursor: pointer;
+}
+
+/* ===== NO DATA ===== */
+.no-data {
+  padding: 60px 0;
+  text-align: center;
+  color: #6b7280;
+}
+
+/* ===== MESSAGE ===== */
+.location-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  z-index: 9999;
+}
+
+.location-message.success {
+  background: #ecfdf5;
+  color: #065f46;
 }
 
 /* ===== MODAL ===== */
-.modal-overlay {
+.location-modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.45);
@@ -107,45 +132,49 @@ th {
   align-items: center;
 }
 
-.modal-box {
+.location-modal-box {
   background: #fff;
-  width: 500px;
+  width: 400px;
   max-width: 95%;
   border-radius: 12px;
   padding: 20px;
 }
 
-.modal-body {
+.location-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.location-modal-body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-top: 12px;
 }
 
-.modal-body input,
-.modal-body select {
+.location-modal-body input {
   padding: 10px;
-  border: 1px solid #dcdfe6;
   border-radius: 6px;
+  border: 1px solid #dcdfe6;
 }
 
-.save-btn {
-  padding: 12px;
-  background: linear-gradient(to right, #2563eb, #6f42c1);
+.location-modal-body .save-btn {
+  padding: 10px;
+  background: #2563eb;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-/* ================= MOBILE CARD VIEW ================= */
-@media (max-width: 576px) {
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
 
   .card-header {
     flex-direction: column;
     align-items: stretch;
-  }
-
-  .search-input {
-    width: 100%;
+    gap: 10px;
   }
 
   thead {
@@ -162,15 +191,12 @@ th {
     margin-bottom: 14px;
     padding: 14px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   }
 
   tbody td {
     display: flex;
     justify-content: space-between;
     padding: 8px 0;
-    border: none;
-    font-size: 14px;
   }
 
   tbody td::before {
@@ -179,14 +205,12 @@ th {
     color: #555;
   }
 
-  tbody td[data-label="Actions"] {
+  td[data-label="Actions"] {
     justify-content: flex-end;
     gap: 10px;
   }
 
-  .modal-box {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
+  .search-wrapper {
+    max-width: 100%;
   }
 }

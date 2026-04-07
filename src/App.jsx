@@ -15,7 +15,6 @@ import DriverReport from "./pages/DriverReport/DriverReport";
 import Brands  from "./pages/brand/Brands";
 import Items  from "./pages/item/Items";
 import Locations  from "./pages/Locations/Locations";
-import Status  from "./pages/STATUS/STATUS";
 import Suppliers  from "./pages/SUPPLIERS/SUPPLIERS";
 function App() {
   return (
@@ -41,7 +40,7 @@ function App() {
           <Route path="/brands" element={<Brands />} />
           <Route path="/items" element={<Items />} />
           <Route path="/locations" element={<Locations />} />
-          <Route path="/status" element={<Status />} />
+          
           <Route path="/suppliers" element={<Suppliers />} />
 
         </Route>

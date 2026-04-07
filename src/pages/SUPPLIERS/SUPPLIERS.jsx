@@ -3,7 +3,7 @@ import TopNavbar from "../dashboard/TopNavbar";
 import { FaTrash, FaPlus, FaEdit } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import "../Customers/Customer.css";
+import "./Supplier.css";
 
 const API = "https://zyntaweb.com/demoalafiya/api/suppliers.php";
 const STATUS_API = "https://zyntaweb.com/demoalafiya/api/status.php";
@@ -20,21 +20,22 @@ const Suppliers = () => {
     status_id: "",
   });
 
+  const [search, setSearch] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState("");
 
-  // LOAD DATA
+  // ================= LOAD =================
   const loadData = async () => {
     const res = await fetch(API);
     const data = await res.json();
-    setSuppliers(data);
+    setSuppliers(Array.isArray(data) ? data : []);
   };
 
   const loadStatus = async () => {
     const res = await fetch(STATUS_API);
     const data = await res.json();
-    setStatusList(data);
+    setStatusList(Array.isArray(data) ? data : []);
   };
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const Suppliers = () => {
     loadStatus();
   }, []);
 
-  // CHANGE
+  // ================= CHANGE =================
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -51,7 +52,14 @@ const Suppliers = () => {
     setForm({ ...form, phone: "+" + value });
   };
 
-  // SUBMIT
+  // ================= SEARCH FILTER 🔥 =================
+  const filtered = suppliers.filter((s) =>
+    `${s.name} ${s.phone} ${s.address}`
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
+
+  // ================= SUBMIT =================
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -80,14 +88,14 @@ const Suppliers = () => {
     setIsEdit(false);
   };
 
-  // EDIT
+  // ================= EDIT =================
   const editItem = (s) => {
     setForm(s);
     setIsEdit(true);
     setShowModal(true);
   };
 
-  // DELETE
+  // ================= DELETE =================
   const deleteItem = async (id) => {
     if (!window.confirm("Delete?")) return;
 
@@ -96,18 +104,39 @@ const Suppliers = () => {
   };
 
   return (
-    <div className="customer-page">
+    <div className="supplier-page">
       <TopNavbar />
 
-      {message && <div className="message-box success">{message}</div>}
+      {message && <div className="supplier-message success">{message}</div>}
 
-      <button className="add-customer-top" onClick={() => setShowModal(true)}>
+      {/* ADD BUTTON */}
+      <button
+        className="add-supplier-top"
+        onClick={() => {
+          resetForm();
+          setShowModal(true);
+        }}
+      >
         <FaPlus /> Add Supplier
       </button>
 
-      <div className="customer-list-card">
-        <h3>🏢 SUPPLIER LIST</h3>
+      {/* CARD */}
+      <div className="supplier-list-card">
+        {/* HEADER + SEARCH */}
+        <div className="card-header">
+          <h3>🏢 SUPPLIER LIST</h3>
 
+          <div className="search-wrapper">
+            <input
+              className="search-input"
+              placeholder="Search supplier"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* TABLE */}
         <table>
           <thead>
             <tr>
@@ -120,19 +149,34 @@ const Suppliers = () => {
           </thead>
 
           <tbody>
-            {suppliers.map((s) => (
+            {filtered.map((s) => (
               <tr key={s.id}>
-                <td>{s.name}</td>
-                <td>{s.address}</td>
-                <td>{s.phone}</td>
-                <td>
-                  <span className="status-active">{s.status}</span>
+                <td data-label="Name">{s.name}</td>
+                <td data-label="Address">{s.address}</td>
+                <td data-label="Phone">{s.phone}</td>
+
+                <td data-label="Status">
+                  <span
+                    className={`supplier-status ${s.status
+                      .toLowerCase()
+                      .replace(" ", "-")}`}
+                  >
+                    {s.status}
+                  </span>
                 </td>
-                <td>
-                  <button onClick={() => editItem(s)}>
+
+                <td data-label="Actions">
+                  <button
+                    className="supplier-edit-btn"
+                    onClick={() => editItem(s)}
+                  >
                     <FaEdit />
                   </button>
-                  <button onClick={() => deleteItem(s.id)}>
+
+                  <button
+                    className="supplier-delete-btn"
+                    onClick={() => deleteItem(s.id)}
+                  >
                     <FaTrash />
                   </button>
                 </td>
@@ -144,11 +188,14 @@ const Suppliers = () => {
 
       {/* MODAL */}
       {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-box">
-            <h3>{isEdit ? "Edit" : "Add"} Supplier</h3>
+        <div className="supplier-modal-overlay">
+          <div className="supplier-modal-box">
+            <div className="supplier-modal-header">
+              <h3>{isEdit ? "Update Supplier" : "Add Supplier"}</h3>
+              <button onClick={() => setShowModal(false)}>✕</button>
+            </div>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="supplier-modal-body">
               <label>Name</label>
               <input
                 name="name"
@@ -186,7 +233,7 @@ const Suppliers = () => {
                 ))}
               </select>
 
-              <button>Save</button>
+              <button type="submit">Save</button>
             </form>
           </div>
         </div>

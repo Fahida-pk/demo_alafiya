@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TopNavbar from "../dashboard/TopNavbar";
 import { FaTrash, FaPlus, FaEdit } from "react-icons/fa";
-import "../Customers/Customer.css";
+import "./Locations.css"; // ✅ separate css
 
 const API = "https://zyntaweb.com/demoalafiya/api/locations.php";
 
@@ -13,26 +13,55 @@ const Locations = () => {
   const [showModal, setShowModal] = useState(false);
 
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [nameError, setNameError] = useState("");
 
   // LOAD
   const loadData = async () => {
     const res = await fetch(API);
     const data = await res.json();
-    setLocations(data);
+    setLocations(Array.isArray(data) ? data : []);
   };
 
   useEffect(() => {
     loadData();
   }, []);
 
-  // CHANGE
-  const handleChange = (e) => {
-    setForm({ ...form, name: e.target.value });
+  // VALIDATION (same as brand 🔥)
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+
+    setForm({ ...form, name: value });
+
+    if (!value.trim()) {
+      setNameError("Location name is required");
+      return;
+    }
+
+    const duplicate = locations.find(
+      (l) =>
+        l.name.toLowerCase().trim() === value.toLowerCase().trim() &&
+        l.id !== form.id
+    );
+
+    if (duplicate) {
+      setNameError("Location already exists");
+      return;
+    }
+
+    setNameError("");
   };
 
   // SUBMIT
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (nameError || !form.name) {
+      setMessage("Fix name error");
+      setMessageType("error");
+      autoHide();
+      return;
+    }
 
     await fetch(API, {
       method: isEdit ? "PUT" : "POST",
@@ -40,101 +69,145 @@ const Locations = () => {
       body: JSON.stringify(form),
     });
 
-    setMessage(isEdit ? "Updated ✅" : "Added 🎉");
-    setTimeout(() => setMessage(""), 3000);
+    setMessage(isEdit ? "Location updated ✅" : "Location added 🎉");
+    setMessageType("success");
+    autoHide();
 
     loadData();
     setShowModal(false);
+    resetForm();
+  };
+
+  const autoHide = () => {
+    setTimeout(() => setMessage(""), 3000);
+  };
+
+  const resetForm = () => {
     setForm({ id: "", name: "" });
     setIsEdit(false);
+    setNameError("");
   };
 
   // EDIT
-  const editItem = (item) => {
-    setForm(item);
+  const editItem = (l) => {
+    setForm(l);
     setIsEdit(true);
     setShowModal(true);
   };
 
   // DELETE
   const deleteItem = async (id) => {
-    if (!window.confirm("Delete?")) return;
+    if (!window.confirm("Delete this location?")) return;
 
     await fetch(`${API}?id=${id}`, { method: "DELETE" });
+
+    setMessage("Location deleted ❌");
+    setMessageType("success");
+    autoHide();
 
     loadData();
   };
 
+  // SEARCH
   const filtered = locations.filter((l) =>
-    l.name.toLowerCase().includes(search.toLowerCase())
+    l.name?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div className="customer-page">
+    <div className="location-page">
       <TopNavbar />
 
-      {message && <div className="message-box success">{message}</div>}
+      {message && <div className={`location-message ${messageType}`}>{message}</div>}
 
+      {/* ADD BUTTON */}
       <button
-        className="add-customer-top"
-        onClick={() => setShowModal(true)}
+        className="add-location-top"
+        onClick={() => {
+          resetForm();
+          setShowModal(true);
+        }}
       >
         <FaPlus /> Add Location
       </button>
 
-      <div className="customer-list-card">
+      {/* CARD */}
+      <div className="location-list-card">
         <div className="card-header">
           <h3>📍 LOCATION LIST</h3>
 
-          <input
-            className="search-input"
-            placeholder="Search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          <div className="search-wrapper">
+            <input
+              className="search-input"
+              placeholder="Search location"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
         </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {filtered.map((l) => (
-              <tr key={l.id}>
-                <td>{l.name}</td>
-                <td>
-                  <button onClick={() => editItem(l)}>
-                    <FaEdit />
-                  </button>
-                  <button onClick={() => deleteItem(l.id)}>
-                    <FaTrash />
-                  </button>
-                </td>
+        {filtered.length === 0 ? (
+          <div className="no-data">
+            <div className="no-data-icon">📍</div>
+            <p>No locations found.</p>
+          </div>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Location Name</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {filtered.map((l) => (
+                <tr key={l.id}>
+                  <td data-label="Location Name">{l.name}</td>
+
+                  <td data-label="Actions">
+                    <button
+                      className="location-edit-btn"
+                      onClick={() => editItem(l)}
+                    >
+                      <FaEdit />
+                    </button>
+
+                    <button
+                      className="location-delete-btn"
+                      onClick={() => deleteItem(l.id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
 
       {/* MODAL */}
       {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-box">
-            <h3>{isEdit ? "Edit" : "Add"} Location</h3>
+        <div className="location-modal-overlay">
+          <div className="location-modal-box">
+            <div className="location-modal-header">
+              <h3>{isEdit ? "Update Location" : "Add Location"}</h3>
+              <button onClick={() => setShowModal(false)}>✕</button>
+            </div>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="location-modal-body">
+              <label>Location Name *</label>
               <input
+                name="name"
                 value={form.name}
-                onChange={handleChange}
-                placeholder="Location name"
+                onChange={handleNameChange}
                 required
               />
+              {nameError && <small className="error">{nameError}</small>}
 
-              <button>Save</button>
+              <button className="save-btn">
+                {isEdit ? "UPDATE" : "SAVE"}
+              </button>
             </form>
           </div>
         </div>

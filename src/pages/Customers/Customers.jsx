@@ -228,34 +228,27 @@ const Customers = () => {
                 <th>Actions</th>
               </tr>
             </thead>
+<tbody>
+  {filtered.map((c) => (
+    <tr key={c.id}>
+      <td data-label="Name">{c.name}</td>
+      <td data-label="Address">{c.address}</td>
+      <td data-label="Phone">{c.phone}</td>
+      <td data-label="Status">
+        <span className="status-active">{c.status}</span>
+      </td>
+      <td data-label="Actions">
+        <button className="edit-btn" onClick={() => editCustomer(c)}>
+          <FaEdit />
+        </button>
 
-            <tbody>
-              {filtered.map((c) => (
-                <tr key={c.id}>
-                  <td>{c.name}</td>
-                  <td>{c.address}</td>
-                  <td>{c.phone}</td>
-                  <td>
-                    <span className="status-active">{c.status}</span>
-                  </td>
-                 <td>
-  <button
-    className="edit-btn"
-    onClick={() => editCustomer(c)}
-  >
-    <FaEdit />
-  </button>
-
-  <button
-    className="delete-btn"
-    onClick={() => deleteCustomer(c.id)}
-  >
-    <FaTrash />
-  </button>
-</td>
-                </tr>
-              ))}
-            </tbody>
+        <button className="delete-btn" onClick={() => deleteCustomer(c.id)}>
+          <FaTrash />
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
           </table>
         )}
       </div>

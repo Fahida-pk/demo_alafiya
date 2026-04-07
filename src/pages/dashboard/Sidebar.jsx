@@ -85,27 +85,26 @@ const Sidebar = () => {
       <FaUsers />
       <span>Customer</span>
     </Link>
+    <Link to="/suppliers" onClick={() => setMobileOpen(false)}>
+      <FaUserTie />
+      <span>Suppliers</span>
+    </Link>
     <Link to="/brands" onClick={() => setMobileOpen(false)}>
   <FaTags />
   <span>Brands</span>
-</Link>
-<Link to="/items" onClick={() => setMobileOpen(false)}>
-  <FaBoxOpen />
-  <span>Items</span>
 </Link>
 <Link to="/locations" onClick={() => setMobileOpen(false)}>
   <FaMapMarkedAlt />
   <span>Locations</span>
 </Link>
-   <Link to="/status" onClick={() => setMobileOpen(false)}>
-      <FaClipboardCheck />
-      <span>Status</span>
-    </Link>
+<Link to="/items" onClick={() => setMobileOpen(false)}>
+  <FaBoxOpen />
 
-    <Link to="/suppliers" onClick={() => setMobileOpen(false)}>
-      <FaUserTie />
-      <span>Suppliers</span>
-    </Link>
+  <span>Items</span>
+</Link>
+
+  
+    
           </div>
         )}
  
