@@ -1,0 +1,339 @@
+/* ================= PAGE ================= */
+
+.floating-trip-page {
+  padding: 8px;
+  background: #f4f7fb;
+  min-height: 100vh;
+}
+.floating-table td[data-label="Actions"] {
+  display: flex;
+}
+
+/* ================= CARD ================= */
+.floating-trip-list-card {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 100%;
+    overflow: visible;
+
+}
+
+/* ================= HEADER ================= */
+.floating-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.floating-card-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ================= MESSAGE ================= */
+.message-box {
+  margin-bottom: 14px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.message-box.success {
+  background: #dcfce7;
+  color: #15803d;
+}
+.message-box.error {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* ================= ADD BUTTON ================= */
+.add-floating-trip-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  background: linear-gradient(to left, #4e73df, #6f42c1);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+}
+.floating-table th {
+  padding: 10px 8px;
+}
+
+.floating-table td {
+  padding: 10px 8px;   /* ❌ 20px → ✅ 10px */
+}
+
+/* ================= TABLE ================= */
+/* TABLE WRAPPER */
+/* TABLE WRAPPER */
+/* TABLE WRAPPER */
+
+/* SCROLL WRAPPER */
+.floating-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.floating-table {
+  border-collapse: collapse;
+  width: max-content;
+  min-width: 100%;
+}
+
+.floating-table th,
+.floating-table td {
+  white-space: nowrap;
+}
+/* prevent wrapping */
+
+
+.floating-table th {
+  border-bottom: 2px solid #e5e7eb;
+  text-align: left;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #374151;
+}
+
+.floating-table td {
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+  vertical-align: top;
+}
+
+/* Hover */
+.floating-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* ================= ALIGNMENTS ================= */
+
+/* Numeric values right aligned */
+.floating-table td[data-label="Start KM"],
+.floating-table td[data-label="End KM"],
+.floating-table td[data-label="Distance"],
+.floating-table td[data-label="Mileage"],
+.floating-table td[data-label="Food"] {
+  text-align: right;
+  font-weight: 500;
+}
+
+/* Time columns */
+.floating-table td[data-label="Start time"],
+.floating-table td[data-label="End time"],
+.floating-table td[data-label="Total Time"] {
+  font-family: monospace;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Area wrap */
+.floating-table td[data-label="Area"] {
+  max-width: 220px;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+/* ================= STATUS ================= */
+.floating-status-active {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* ================= ACTION COLUMN ================= */
+.floating-table td[data-label="Actions"] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ACTION BUTTONS */
+.floating-edit-btn,
+.floating-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  width: 34px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.floating-edit-btn {
+  background: #22c55e;
+  color: #fff;
+}
+
+.floating-delete-btn {
+  background: #ef4444;
+  color: #fff;
+}
+
+/* ================= MODAL ================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.floating-modal-box {
+  background: #fff;
+  width: 500px;
+  max-width: 95%;
+  max-height: 90vh;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-body {
+  padding: 16px;
+  overflow-y: auto;
+}
+.calculated-box {
+  background: #f2f4f8;
+  font-weight: 600;
+  color: #333;
+  cursor: not-allowed;
+}
+.formula-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: #888;
+  margin-left: 6px;
+}
+
+.save-floating-btn {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(to left, #4e73df, #6f42c1);
+}
+
+@media (max-width: 576px) {
+
+  /* hide table head */
+  .floating-table thead {
+    display: none;
+  }
+.pagination {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.pagination button {
+  padding: 10px 18px;
+  font-size: 15px;
+  min-width: 100px;
+  min-height: 42px;
+  border-radius: 8px;
+}
+
+  /* table → card */
+  .floating-table,
+  .floating-table tbody,
+  .floating-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .floating-table tbody tr {
+    background: #fff;
+    margin-bottom: 16px;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+
+  /* default row layout */
+  .floating-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: none;
+    font-size: 14px;
+    text-align: right;
+  }
+
+  .floating-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #6b7280;
+    text-align: left;
+  }
+
+  /* left text fields */
+  .floating-table td[data-label="Doc"],
+  .floating-table td[data-label="Date"],
+  .floating-table td[data-label="Driver"],
+  .floating-table td[data-label="Vehicle"] {
+    text-align: left;
+  }
+
+  /* ===== AREA (FINAL FIX) ===== */
+  .floating-table td[data-label="Area"] {
+    align-items: flex-start;     /* allow wrap */
+    gap: 12px;
+  }
+
+  .floating-table td[data-label="Area"]::before {
+    flex-shrink: 0;              /* label fixed */
+  }
+
+  .floating-table td[data-label="Area"] .area-value {
+    text-align: right;
+    white-space: normal;         /* wrap text */
+  
+    line-height: 1;
+    max-width: 100%;              /* 🔥 key line */
+  }
+
+  /* status */
+  .floating-table td[data-label="Status"] {
+    justify-content: flex-start;
+  }
+
+  /* actions */
+  .floating-table td[data-label="Actions"] {
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+}

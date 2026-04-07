@@ -1,0 +1,207 @@
+/* ================= RESET ================= */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+background: linear-gradient(
+    120deg,
+    #a2d5ff,
+    #ffffff,
+    #d0d8de,
+    #a2d5ff
+  );  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+}
+.card-icon1
+{
+  color: #fff;
+    font-size: 34px;
+    padding-right: 10px;
+
+}
+/* ================= LAYOUT ================= */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ================= TOPBAR ================= */
+.topbar {
+  height: 60px;
+  margin: 15px 20px;
+  padding: 0 24px;
+border-radius: 25px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: linear-gradient(
+  180deg,
+  #8e63e0 0%,
+  #7a5cd6 50%,
+  #654fc4 100%
+);
+
+  color: #fff;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.topbar-right {
+  font-size: 18px;
+}
+
+.topbar-right b {
+  font-weight: 600;
+}
+
+/* ================= CONTENT ================= */
+.dashboard-content {
+  flex: 1;
+  padding: 25px 0;
+}
+
+.dashboard-inner {
+  max-width: 1200px;
+  margin: 0 20px;
+}
+
+.page-title {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #1f2d3d;
+}
+
+/* ================= CARDS ================= */
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: linear-gradient(
+    135deg,
+    #6a85ff,
+    #9c6bff,
+    #4fd1ff
+  );
+
+  background-size: 300% 300%;   /* Important for animation */
+  animation: gradientMove 8s ease infinite;
+
+  padding: 24px;
+  width: 380px;
+  height: 200px;
+  border-radius: 45px 30px 15px 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Gradient Move Animation */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.card-icon {
+  font-size: 34px;
+}
+
+.card-title {
+  font-size: 28px;
+  font-weight: 500;
+  color:white;
+    font-family: "Cormorant Garamond",serif;
+
+}
+
+.card-count {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+}
+
+/* ================= MOBILE VIEW ================= */
+@media (max-width: 768px) {
+
+  .topbar {
+    height: 84px;
+    margin: 15px;
+    padding: 0 16px;
+  }
+
+  .topbar-left {
+    font-size: 15px;
+    gap: 8px;
+  }
+
+  .topbar-right {
+    font-size: 15px;
+  }
+
+  .dashboard-inner {
+    margin: 0 12px;
+  }
+
+  .cards {
+    flex-direction: column;
+  }
+
+  .card {
+    background: linear-gradient(
+  135deg,
+  #6a85ff,
+  #9c6bff,
+  #4fd1ff
+);
+
+
+    width: 100%;
+    min-height: auto;
+  }
+
+  .card-title {
+    font-size: 28px;
+  }
+
+  .card-icon {
+    font-size: 28px;
+  }
+
+  .card-count {
+    font-size: 24px;
+  }
+}

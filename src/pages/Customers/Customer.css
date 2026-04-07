@@ -1,0 +1,136 @@
+/* PAGE */
+.customer-page {
+  padding: 16px;
+  background: #f4f7fb;
+  min-height: 100vh;
+}
+
+/* ADD BUTTON */
+.add-customer-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  background: linear-gradient(to left, #4e73df, #6f42c1);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+}
+
+/* CARD */
+.customer-list-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  overflow-x: auto;
+}
+
+/* HEADER */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+
+/* SEARCH */
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-input {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #dcdfe6;
+  border-radius: 8px;
+  width: 240px;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+th {
+  background: #f9fafb;
+}
+
+/* STATUS */
+.status-active {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+/* BUTTONS */
+.edit-btn {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-left: 6px;
+}
+
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: #fff;
+  width: 500px;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-body input,
+.modal-body select {
+  padding: 10px;
+  border: 1px solid #dcdfe6;
+  border-radius: 6px;
+}
+
+.save-btn {
+  padding: 12px;
+  background: linear-gradient(to right, #2563eb, #6f42c1);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+}

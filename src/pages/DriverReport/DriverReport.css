@@ -1,0 +1,583 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+/* PAGE */
+.ledger-page-wrapper {
+  padding: 20px;
+  background: #f4f7fb;
+  min-height: 100vh;
+}
+
+/* CARD */
+.driver-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.ledger-card-container {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+  box-sizing: border-box;
+}
+/* TITLE */
+.ledger-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* FILTER */
+.ledger-filter-section {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.ledger-input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #dcdfe6;
+  font-size: 14px;
+}
+
+.ledger-generate-btn,
+.ledger-print-btn {
+  padding: 8px 14px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: large;
+  color: #fff;
+}
+
+.ledger-generate-btn {
+  background: linear-gradient(to right, #4e73df, #6f42c1);
+  color: #fff;
+}
+
+.ledger-print-btn {
+  background: linear-gradient(to left, #4e73df, #6f42c1);
+  color: #fff;
+}
+
+/* FROM-TO DISPLAY */
+.filter-summary {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #eef2ff;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e3a8a;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.filter-driver {
+  font-weight: 600;
+}
+
+.filter-date {
+  font-size: 13px;
+}
+
+/* SUMMARY */
+.ledger-summary-box {
+  margin-bottom: 20px;
+  background: #f9fafb;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.ledger-summary-box p {
+  margin: 6px 0;
+  font-weight: 500;
+}
+/* FILTER GROUP WITH LABEL */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+}
+
+.filter-group label {
+  margin-bottom: 4px;
+}
+
+/* ================= RIGHT SIDE SUMMARY ================= */
+
+.summary-right-box {
+  width: 350px;
+  margin-left: auto;
+  margin-top: 20px;
+  border-top: 2px solid #000;
+  padding-top: 10px;
+  page-break-inside: avoid;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-weight: 500;
+}
+
+.summary-row.balance {
+  font-weight: 700;
+  font-size: 16px;
+  border-top: 1px solid #ccc;
+  padding-top: 8px;
+}
+
+
+.driver-select-display {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.driver-dropdown-box {
+  position: absolute;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-top: 6px;
+  z-index: 1000;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+
+.driver-search-input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  outline: none;
+  font-size: 14px;
+}
+
+
+.driver-options {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.driver-option {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.driver-option:hover {
+  background: #f3f4f6;
+}
+
+.gradient-icon {
+  
+  display: inline-block;
+}
+.gradient-icon svg {
+  fill: currentColor;
+}
+.gradient-icon {
+  color:  #85a5be;;
+}
+
+
+.driver-no-results {
+  padding: 10px;
+  text-align: center;
+  color: #888;
+}
+
+/* ALIGN FILTERS */
+.ledger-filter-section {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.ledger-input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #dcdfe6;
+  font-size: 14px;
+}
+
+/* TABLE */
+.ledger-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;   /* IMPORTANT */
+}
+.ledger-table th:nth-child(1),
+  .ledger-table td:nth-child(1) {
+    width:15%;
+  }
+
+  /* Bill No */
+  .ledger-table th:nth-child(2),
+  .ledger-table td:nth-child(2) {
+    width: 15%;
+  }
+
+  /* Trip Sheet */
+  .ledger-table th:nth-child(3),
+  .ledger-table td:nth-child(3) {
+    width: 15%;
+  }
+
+  /* Type / Area */
+  
+
+  /* Trip Allowance */
+  .ledger-table th:nth-child(5),
+  .ledger-table td:nth-child(5) {
+    width: 15%;
+  }
+
+  /* Time Allowance */
+  .ledger-table th:nth-child(6),
+  .ledger-table td:nth-child(6) {
+    width: 15%;
+  }
+
+  /* Food Allowance */
+  .ledger-table th:nth-child(7),
+  .ledger-table td:nth-child(7) {
+    width: 15%;
+  }
+
+  /* Total Amount */
+  .ledger-table th:nth-child(8),
+  .ledger-table td:nth-child(8) {
+    width: 15%;
+  }
+
+/* Increase Type / Area column width */
+.ledger-table th:nth-child(4),
+.ledger-table td:nth-child(4) {
+  width: 400px;
+}
+
+.ledger-table th,
+.ledger-table td {
+  padding: 10px;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+.company-settings-box {
+  background: #f1f5f9;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.company-form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.company-form-group input,
+.company-form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dcdfe6;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+.company-form-group textarea:focus {
+  border: 1px solid #2563eb;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+textarea,
+input {
+  outline: none;
+}
+
+.ledger-table th {
+  background: #f3f4f6;
+  font-weight: 600;
+}
+/* ================= PRINT ONLY REPORT ================= */
+.print-company-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.print-company-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.print-company-header p {
+  margin: 2px 0;
+  font-size: 14px;
+}
+/* Hide in screen */
+.print-only {
+  display: none;
+}
+@media print {
+
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+
+}
+/* Show only in print */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .ledger-filter-section {
+    display: none !important;
+  }
+
+  .add-driver-top {
+    display: none !important;
+  }
+
+  .ledger-title {
+    display: none !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+
+  .ledger-filter-section {
+    display: none;
+  }
+
+  .ledger-title {
+    display: none;
+  }
+}
+
+/* ================= PERFECT PRINT LANDSCAPE ================= */
+@media print {
+
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+
+  html, body {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  .print-section,
+  .print-section * {
+    visibility: visible;
+  }
+
+  .print-section {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ledger-card-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  .ledger-table {
+    width: 100% !important;
+    font-size: 13px;
+  }
+
+  .ledger-table th,
+  .ledger-table td {
+    padding: 6px;
+  }
+
+  .no-print,
+  .ledger-filter-section,
+  .ledger-title {
+    display: none !important;
+  }
+
+}
+
+@media (min-width: 992px) {
+
+  .ledger-table {
+    table-layout: fixed;
+  }
+
+  .ledger-table th:nth-child(4),
+  .ledger-table td:nth-child(4) {
+    width: 35%;
+  }
+
+}
+
+/* ================= MOBILE PERFECT FIX ================= */
+
+@media (max-width: 768px) {
+
+  .ledger-page-wrapper {
+    padding: 10px;
+  }
+
+  .ledger-card-container {
+    padding: 15px;
+  }
+
+  .ledger-filter-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .driver-select-wrapper,
+  .filter-group,
+  .ledger-input,
+  input[type="date"],
+  .ledger-generate-btn,
+  .ledger-print-btn {
+    width: 100%;
+  }
+
+  .ledger-generate-btn,
+  .ledger-print-btn {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+ @media (max-width: 768px) {
+
+  .ledger-table {
+    table-layout: auto !important;
+    width: 100%;
+  }
+
+  /* Remove desktop width forcing */
+  .ledger-table th,
+  .ledger-table td {
+    width: auto !important;
+    white-space: normal !important;
+  }
+
+  /* Allow area wrapping */
+  .ledger-table td:nth-child(4) {
+    white-space: normal !important;
+  }
+
+  .summary-right-box {
+    width: 100%;
+    margin-left: 0;
+  }
+
+}
+}
+/* ================= FINAL CLEAN PRINT ================= */
+
+@media print {
+
+  @page {
+    size: A4 landscape;
+    margin: 8mm;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  /* Hide non-print content */
+  .no-print,
+  .ledger-filter-section,
+  .ledger-title {
+    display: none !important;
+  }
+
+  /* Keep layout same as screen */
+  .ledger-card-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* IMPORTANT: Reset mobile table behavior */
+  .ledger-table {
+    display: table !important;
+    width: 100% !important;
+    table-layout: auto !important;
+    white-space: normal !important;
+  }
+
+  .ledger-table th,
+  .ledger-table td {
+    padding: 6px !important;
+    font-size: 12px;
+  }
+
+  /* Keep summary right */
+  .summary-right-box {
+    width: 300px !important;
+    float: right !important;
+    margin-top: 20px !important;
+  }
+
+
+}
+
+
+
+
+
+
