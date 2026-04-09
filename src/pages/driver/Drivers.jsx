@@ -171,18 +171,44 @@ const handleNameChange = (e) => {
     setShowModal(true);
   };
 
-  /* DELETE */
-  const deleteDriver = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this driver?")) return;
+ const deleteDriver = async (id) => {
+  if (!window.confirm("Are you sure you want to delete this driver?")) return;
 
-    await fetch(`${API}?id=${id}`, { method: "DELETE" });
+  try {
+    const res = await fetch(`${API}?id=${id}`, {
+      method: "DELETE",
+    });
 
+    const data = await res.json();
+
+    // 🔥 DEBUG (IMPORTANT)
+    console.log("DELETE RESPONSE:", data);
+
+    // 🔥 ERROR HANDLE
+    if (data.status === "error") {
+      setMessage(data.message); // "Driver already used"
+      setMessageType("error");
+      autoHide();
+      return;
+    }
+
+    // ✅ SUCCESS
     setMessage("Driver deleted successfully ❌");
     setMessageType("success");
     autoHide();
 
     loadDrivers();
-  };
+
+  } catch (err) {
+    console.error("DELETE ERROR:", err);
+
+    setMessage("Something went wrong");
+    setMessageType("error");
+    autoHide();
+  }
+};
+
+
 
   /* SEARCH */
   const filteredDrivers = drivers.filter(

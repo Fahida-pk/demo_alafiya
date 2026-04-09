@@ -96,17 +96,30 @@ const Locations = () => {
   };
 
   // DELETE
-  const deleteItem = async (id) => {
-    if (!window.confirm("Delete this location?")) return;
+const deleteItem = async (id) => {
+  if (!window.confirm("Delete this location?")) return;
 
-    await fetch(`${API}?id=${id}`, { method: "DELETE" });
+  const res = await fetch(`${API}?id=${id}`, {
+    method: "DELETE",
+  });
 
-    setMessage("Location deleted ❌");
-    setMessageType("success");
+  const data = await res.json();
+
+  // 🔥 ERROR HANDLE
+  if (data.status === "error") {
+    setMessage(data.message);   // "already used"
+    setMessageType("error");
     autoHide();
+    return;
+  }
 
-    loadData();
-  };
+  // ✅ SUCCESS
+  setMessage("Location deleted ❌");
+  setMessageType("success");
+  autoHide();
+
+  loadData();
+};
 
   // SEARCH
   const filtered = locations.filter((l) =>

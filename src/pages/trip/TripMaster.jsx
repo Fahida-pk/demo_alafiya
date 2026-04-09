@@ -132,17 +132,36 @@ const TripMaster = () => {
 
   /* DELETE (Driver.jsx pole) */
   const deleteTrip = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this trip?")) return;
+  if (!window.confirm("Are you sure you want to delete this trip?")) return;
 
-    await fetch(`${API}?id=${id}`, { method: "DELETE" });
+  try {
+    const res = await fetch(`${API}?id=${id}`, {
+      method: "DELETE",
+    });
 
+    const data = await res.json();
+
+    // ❌ ERROR HANDLE
+    if (data.status === "error") {
+      setMessage(data.message);
+      setMessageType("error");
+      autoHide();
+      return;
+    }
+
+    // ✅ SUCCESS
     setMessage("Trip deleted successfully ❌");
     setMessageType("success");
     autoHide();
 
     loadTrips();
-  };
 
+  } catch (err) {
+    setMessage("Something went wrong");
+    setMessageType("error");
+    autoHide();
+  }
+};
   /* SEARCH */
   const filteredTrips = trips.filter((t) =>
     t.route_name?.toLowerCase().includes(search.toLowerCase())
