@@ -4,9 +4,11 @@ import { FaTrash, FaPlus, FaEdit } from "react-icons/fa";
 import "../Customers/Customer.css";
 
 const API = "https://zyntaweb.com/demoalafiya/api/items.php";
+const LOCATION_API = "https://zyntaweb.com/demoalafiya/api/locations.php";
 
 const Items = () => {
   const [items, setItems] = useState([]);
+  const [locations, setLocations] = useState([]); // 🔥 NEW
   const [search, setSearch] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -22,15 +24,23 @@ const Items = () => {
     location_id: "",
   });
 
-  // ================= LOAD =================
+  // ================= LOAD ITEMS =================
   const loadItems = async () => {
     const res = await fetch(API);
     const data = await res.json();
     setItems(Array.isArray(data) ? data : []);
   };
 
+  // ================= LOAD LOCATIONS =================
+  const loadLocations = async () => {
+    const res = await fetch(LOCATION_API);
+    const data = await res.json();
+    setLocations(Array.isArray(data) ? data : []);
+  };
+
   useEffect(() => {
     loadItems();
+    loadLocations(); // 🔥 IMPORTANT
   }, []);
 
   // ================= INPUT CHANGE =================
@@ -50,17 +60,15 @@ const Items = () => {
 
     setMessage(isEdit ? "Item updated ✅" : "Item added 🎉");
     setMessageType("success");
-    autoHide();
+
+    setTimeout(() => setMessage(""), 3000);
 
     loadItems();
     setShowModal(false);
     resetForm();
   };
 
-  const autoHide = () => {
-    setTimeout(() => setMessage(""), 3000);
-  };
-
+  // ================= RESET =================
   const resetForm = () => {
     setForm({
       id: "",
@@ -74,7 +82,10 @@ const Items = () => {
 
   // ================= EDIT =================
   const editItem = (item) => {
-    setForm(item);
+    setForm({
+      ...item,
+      location_id: item.location_id || "",
+    });
     setIsEdit(true);
     setShowModal(true);
   };
@@ -87,7 +98,8 @@ const Items = () => {
 
     setMessage("Item deleted ❌");
     setMessageType("success");
-    autoHide();
+
+    setTimeout(() => setMessage(""), 3000);
 
     loadItems();
   };
@@ -150,7 +162,9 @@ const Items = () => {
                   <td>{i.item_code}</td>
                   <td>{i.name}</td>
                   <td>{i.unit}</td>
-                  <td>{i.location_id}</td>
+
+                  {/* ✅ SHOW NAME INSTEAD OF ID */}
+                  <td>{i.location_name || "-"}</td>
 
                   <td>
                     <button className="edit-btn" onClick={() => editItem(i)}>
@@ -171,7 +185,7 @@ const Items = () => {
         )}
       </div>
 
-      {/* MODAL */}
+      {/* ================= MODAL ================= */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-box">
@@ -205,13 +219,22 @@ const Items = () => {
                 required
               />
 
-              <label>Location ID *</label>
-              <input
+              {/* 🔥 DROPDOWN */}
+              <label>Location *</label>
+              <select
                 name="location_id"
                 value={form.location_id}
                 onChange={handleChange}
                 required
-              />
+              >
+                <option value="">Select Location</option>
+
+                {locations.map((loc) => (
+                  <option key={loc.id} value={loc.id}>
+                    {loc.name}
+                  </option>
+                ))}
+              </select>
 
               <button className="save-btn">
                 {isEdit ? "UPDATE" : "SAVE"}
