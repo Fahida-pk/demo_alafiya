@@ -149,7 +149,7 @@ const Items = () => {
             <thead>
               <tr>
                 <th>Code</th>
-                <th>Name</th>
+                <th>Item Name</th>
                 <th>Unit</th>
                 <th>Location</th>
                 <th>Actions</th>
@@ -157,30 +157,32 @@ const Items = () => {
             </thead>
 
             <tbody>
-              {filtered.map((i) => (
-                <tr key={i.id}>
-                  <td>{i.item_code}</td>
-                  <td>{i.name}</td>
-                  <td>{i.unit}</td>
+  {filtered.map((i) => (
+    <tr key={i.id}>
+      <td data-label="Code">{i.item_code}</td>
 
-                  {/* ✅ SHOW NAME INSTEAD OF ID */}
-                  <td>{i.location_name || "-"}</td>
+      <td data-label="Name">{i.name}</td>
 
-                  <td>
-                    <button className="edit-btn" onClick={() => editItem(i)}>
-                      <FaEdit />
-                    </button>
+      <td data-label="Unit">{i.unit}</td>
 
-                    <button
-                      className="delete-btn"
-                      onClick={() => deleteItem(i.id)}
-                    >
-                      <FaTrash />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+      {/* ✅ SHOW NAME */}
+      <td data-label="Location">{i.location_name || "-"}</td>
+
+      <td data-label="Actions">
+        <button className="edit-btn" onClick={() => editItem(i)}>
+          <FaEdit />
+        </button>
+
+        <button
+          className="delete-btn"
+          onClick={() => deleteItem(i.id)}
+        >
+          <FaTrash />
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
           </table>
         )}
       </div>
