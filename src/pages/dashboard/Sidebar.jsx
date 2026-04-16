@@ -5,6 +5,11 @@ import { FaUserShield, FaUsers } from "react-icons/fa";
 import { FaChartBar, FaChartPie, FaFileInvoice } from "react-icons/fa";
 import { FaBuilding } from "react-icons/fa";
 import { FaBoxOpen } from "react-icons/fa";
+import {
+  FaShoppingCart,
+  FaFileAlt,
+  FaListUl
+} from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
 import {
   FaClipboardCheck,
@@ -23,6 +28,7 @@ import "./Sidebar.css";
 const Sidebar = () => {
   const [openMenu, setOpenMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openSubMenu, setOpenSubMenu] = useState(null);
   const navigate = useNavigate();
   const role = localStorage.getItem("role");
 
@@ -136,7 +142,33 @@ const Sidebar = () => {
       <FaFileInvoice />
       <span>Trip Settlement</span>
     </Link>
+{/* ORDER */}
+<div
+  className="menu-item"
+  onClick={() =>
+    setOpenSubMenu(openSubMenu === "order" ? null : "order")
+  }
+>
+  <FaShoppingCart />
+  <span>Order</span>
+  <FaChevronDown className={openSubMenu === "order" ? "rotate" : ""} />
+</div>
 
+{openSubMenu === "order" && (
+  <div className="submenu">
+
+    <Link to="/order-header" onClick={() => setMobileOpen(false)}>
+      <FaFileAlt />
+      <span>Order Header</span>
+    </Link>
+
+    <Link to="/order-details" onClick={() => setMobileOpen(false)}>
+      <FaListUl />
+      <span>Order Details</span>
+    </Link>
+
+  </div>
+)}
           </div>
         )}
 

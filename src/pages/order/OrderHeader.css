@@ -1,0 +1,217 @@
+/* ===== PAGE ===== */
+.order-page {
+  padding: 16px;
+  background: #f4f7fb;
+  min-height: 100vh;
+}
+
+/* ===== ADD BUTTON ===== */
+.add-order-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: none;
+
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+
+  background: linear-gradient(to left, #4e73df, #6f42c1);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+}
+
+/* ===== CARD ===== */
+.order-list-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  overflow-x: auto;
+}
+
+/* ===== HEADER ===== */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.card-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ===== SEARCH ===== */
+.search-wrapper {
+  width: 100%;
+  max-width: 250px;
+}
+
+.search-input {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #dcdfe6;
+  border-radius: 8px;
+  width: 100%;
+}
+
+/* ===== TABLE ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+/* ===== ACTIONS ===== */
+.order-edit-btn {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.order-delete-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+/* ===== NO DATA ===== */
+.no-data {
+  padding: 60px 0;
+  text-align: center;
+  color: #6b7280;
+}
+
+/* ===== MESSAGE ===== */
+.message-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  z-index: 9999;
+}
+
+.message-box.success {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+/* ===== MODAL ===== */
+.order-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-modal-box {
+  background: #fff;
+  width: 400px;
+  max-width: 95%;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.order-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.order-modal-body input,
+.order-modal-body select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #dcdfe6;
+}
+
+.order-modal-body .save-btn {
+  padding: 10px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+
+  .card-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  thead {
+    display: none;
+  }
+
+  table, tbody, tr, td {
+    display: block;
+    width: 100%;
+  }
+
+  tbody tr {
+    background: #fff;
+    margin-bottom: 14px;
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+  }
+
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+  }
+
+  td[data-label="Actions"] {
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .search-wrapper {
+    max-width: 100%;
+  }
+}
