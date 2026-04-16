@@ -68,7 +68,31 @@
 }
 
 /* ================= SUBMENU ================= */
+/* Fix submenu alignment */
+.submenu .menu-item,
+.submenu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+}
 
+/* Nested submenu spacing */
+.submenu {
+  padding-left: 10px;
+}
+
+/* Icon alignment */
+.menu-item svg,
+.submenu a svg {
+  min-width: 18px;
+}
+
+/* Smooth arrow rotation */
+.rotate {
+  transform: rotate(180deg);
+  transition: 0.3s;
+}
 .submenu {
   margin-left: 40px; /* balanced indent */
   margin-top: 8px;

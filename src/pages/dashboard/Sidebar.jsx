@@ -7,6 +7,7 @@ import { FaBuilding } from "react-icons/fa";
 import { FaBoxOpen } from "react-icons/fa";
 import {
   FaShoppingCart,
+  
   FaFileAlt,
   FaListUl
 } from "react-icons/fa";
@@ -142,33 +143,14 @@ const Sidebar = () => {
       <FaFileInvoice />
       <span>Trip Settlement</span>
     </Link>
-{/* ORDER */}
-<div
+<Link
+  to="/order-form"
   className="menu-item"
-  onClick={() =>
-    setOpenSubMenu(openSubMenu === "order" ? null : "order")
-  }
+  onClick={() => setMobileOpen(false)}
 >
   <FaShoppingCart />
   <span>Order</span>
-  <FaChevronDown className={openSubMenu === "order" ? "rotate" : ""} />
-</div>
-
-{openSubMenu === "order" && (
-  <div className="submenu">
-
-    <Link to="/order-header" onClick={() => setMobileOpen(false)}>
-      <FaFileAlt />
-      <span>Order Header</span>
-    </Link>
-
-    <Link to="/order-details" onClick={() => setMobileOpen(false)}>
-      <FaListUl />
-      <span>Order Details</span>
-    </Link>
-
-  </div>
-)}
+</Link>
           </div>
         )}
 

@@ -14,8 +14,7 @@ import CompanySettings from "./pages/CompanySettings/CompanySettings";
 import DriverReport from "./pages/DriverReport/DriverReport";
 import Brands  from "./pages/brand/Brands";
 import Items  from "./pages/item/Items";
-import OrderHeader from "./pages/order/OrderHeader";
-import OrderDetails from "./pages/order/OrderDetails";
+import OrderForm from "./pages/order/OrderForm";
 import Locations  from "./pages/Locations/Locations";
 import Suppliers  from "./pages/SUPPLIERS/SUPPLIERS";
 function App() {
@@ -37,8 +36,7 @@ function App() {
           <Route path="/company-settings" element={<CompanySettings />} />
           <Route path="/users" element={<Users />} />
           <Route path="/customers" element={<Customers />} />
-<Route path="/order-header" element={<OrderHeader />} />
-<Route path="/order-details" element={<OrderDetails />} />
+<Route path="/order-form" element={<OrderForm />} />
           {/* ✅ BRAND ROUTE */}
           <Route path="/brands" element={<Brands />} />
           <Route path="/items" element={<Items />} />
