@@ -168,7 +168,60 @@ return (
         <h2>📦 Order Items</h2>
         <button className="add-btn" onClick={addRow}>+ Add Item</button>
       </div>
+{/* ✅ MOBILE VIEW */}
+<div className="mobile-items">
+  {details.map((d, i) => (
+    <div className="item-card" key={i}>
 
+      <label>Item</label>
+      <select onChange={e=>handleDetailChange(i,"item_id",e.target.value)}>
+        <option>Item</option>
+        {items.map(it=>(
+          <option key={it.id} value={it.id}>{it.name}</option>
+        ))}
+      </select>
+
+      <label>Qty</label>
+      <input onChange={e=>handleDetailChange(i,"qty",e.target.value)} />
+
+      <label>Batch</label>
+      <input onChange={e=>handleDetailChange(i,"batch",e.target.value)} />
+
+      <label>Expiry</label>
+      <input type="date" onChange={e=>handleDetailChange(i,"expiry",e.target.value)} />
+
+      <label>Location</label>
+      <select onChange={e=>handleDetailChange(i,"location_id",e.target.value)}>
+        <option>Location</option>
+        {locations.map(l=>(
+          <option key={l.id} value={l.id}>{l.name}</option>
+        ))}
+      </select>
+
+      <label>Brand</label>
+      <select onChange={e=>handleDetailChange(i,"brand_id",e.target.value)}>
+        <option>Brand</option>
+        {brands.map(b=>(
+          <option key={b.id} value={b.id}>{b.name}</option>
+        ))}
+      </select>
+
+      <label>Remark</label>
+      <input onChange={e=>handleDetailChange(i,"remark",e.target.value)} />
+
+      <button
+        className="delete-btn"
+        onClick={()=>{
+          const newData = details.filter((_, index)=>index!==i);
+          setDetails(newData);
+        }}
+      >
+        Delete
+      </button>
+
+    </div>
+  ))}
+</div>
       <div className="table-wrapper">
         <table className="sales-table">
           <thead>
