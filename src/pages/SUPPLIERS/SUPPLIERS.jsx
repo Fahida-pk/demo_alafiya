@@ -6,18 +6,15 @@ import "react-phone-input-2/lib/style.css";
 import "./Supplier.css";
 
 const API = "https://zyntaweb.com/demoalafiya/api/suppliers.php";
-const STATUS_API = "https://zyntaweb.com/demoalafiya/api/status.php";
 
 const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([]);
-  const [statusList, setStatusList] = useState([]);
 
   const [form, setForm] = useState({
     id: "",
     name: "",
     address: "",
     phone: "",
-    status_id: "",
   });
 
   const [search, setSearch] = useState("");
@@ -32,15 +29,10 @@ const Suppliers = () => {
     setSuppliers(Array.isArray(data) ? data : []);
   };
 
-  const loadStatus = async () => {
-    const res = await fetch(STATUS_API);
-    const data = await res.json();
-    setStatusList(Array.isArray(data) ? data : []);
-  };
+ 
 
   useEffect(() => {
     loadData();
-    loadStatus();
   }, []);
 
   // ================= CHANGE =================
@@ -219,19 +211,15 @@ const Suppliers = () => {
               />
 
               <label>Status</label>
-              <select
-                name="status_id"
-                value={form.status_id}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select Status</option>
-                {statusList.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.status}
-                  </option>
-                ))}
-              </select>
+             <select
+  name="status"
+  value={form.status}
+  onChange={handleChange}
+  required
+>
+  <option value="ACTIVE">ACTIVE</option>
+  <option value="INACTIVE">INACTIVE</option>
+</select>
 
               <button type="submit">Save</button>
             </form>
