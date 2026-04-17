@@ -15,6 +15,8 @@ import DriverReport from "./pages/DriverReport/DriverReport";
 import Brands  from "./pages/brand/Brands";
 import Items  from "./pages/item/Items";
 import OrderForm from "./pages/order/OrderForm";
+import OrderList from "./pages/order/OrderList";
+
 import Locations  from "./pages/Locations/Locations";
 import Suppliers  from "./pages/SUPPLIERS/SUPPLIERS";
 function App() {
@@ -41,7 +43,8 @@ function App() {
           <Route path="/brands" element={<Brands />} />
           <Route path="/items" element={<Items />} />
           <Route path="/locations" element={<Locations />} />
-          
+          <Route path="/order-list" element={<OrderList />} />
+
           <Route path="/suppliers" element={<Suppliers />} />
 
         </Route>
