@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { FiFilter } from "react-icons/fi";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import "./OrderList.css";
 
 const API = "https://zyntaweb.com/demoalafiya/api/order_header.php";
@@ -8,7 +10,8 @@ const OrderList = () => {
   const [orders, setOrders] = useState([]);
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(false);
-
+const [currentPage, setCurrentPage] = useState(1);
+const [rowsPerPage, setRowsPerPage] = useState(10);
   const [filterOrder, setFilterOrder] = useState("");
   const [filterCustomer, setFilterCustomer] = useState("");
   const [filterDate, setFilterDate] = useState("");
@@ -40,7 +43,11 @@ const OrderList = () => {
       )
     );
   });
+const indexOfLast = currentPage * rowsPerPage;
+const indexOfFirst = indexOfLast - rowsPerPage;
+const currentOrders = filteredOrders.slice(indexOfFirst, indexOfLast);
 
+const totalPages = Math.ceil(filteredOrders.length / rowsPerPage);
   const handleClear = () => {
     setFilterOrder("");
     setFilterCustomer("");
@@ -48,96 +55,115 @@ const OrderList = () => {
   };
 
   return (
-    <div className="list-container">
+  <div className="erp-container">
 
-      <div className="card">
+    <div className="erp-card">
 
-        {/* 🔍 TOP BAR */}
-        <div className="top-bar">
+      {/* ✅ HEADER */}
+      <div className="erp-header">
+        <h2 className="erp-title">Orders</h2>
 
-          <div className="left-group">
-            <input
-              className="search-box"
-              placeholder="Search order..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <button className="search-btn">Search</button>
-          </div>
+        <button
+          className="erp-add-top"
+          onClick={() => navigate("/order-form")}
+        >
+          +
+        </button>
+      </div>
 
-          <div className="right-group">
-            <button
-              className="filter-btn"
-              onClick={() => setShowFilters(!showFilters)}
-            >
-              Filters
-            </button>
+      {/* 🔍 TOP BAR */}
+      <div className="erp-topbar">
 
-            <button
-              className="add-btn"
-              onClick={() => navigate("/order-form")}
-            >
-              +
-            </button>
-          </div>
+  {/* LEFT SIDE */}
+  <div className="erp-left">
+    <input
+      className="erp-search"
+      placeholder="Search by order..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+    />
+    <button className="erp-search-btn">Search</button>
+  </div>
 
-        </div>
+  {/* RIGHT SIDE */}
+  <div className="erp-right">
 
-        {/* 🎯 FILTER PANEL */}
-        {showFilters && (
-          <div className="filter-panel">
+    {/* PER PAGE */}
+    <select
+      className="erp-select"
+      value={rowsPerPage}
+      onChange={(e) => {
+        setCurrentPage(1);
+        setRowsPerPage(Number(e.target.value));
+      }}
+    >
+      <option value={10}>10 per page</option>
+      <option value={25}>25 per page</option>
+      <option value={50}>50 per page</option>
+      <option value={100}>100 per page</option>
+    </select>
 
-            <div className="filter-grid">
+    {/* FILTER */}
+    <button
+      className="erp-filter-btn"
+      onClick={() => setShowFilters(!showFilters)}
+    >
+      <FiFilter />
+      Filters
+    </button>
 
-              <div className="filter-item">
-                <label>Order No</label>
-                <input
-                  value={filterOrder}
-                  onChange={(e) => setFilterOrder(e.target.value)}
-                  placeholder="Enter order number"
-                />
-              </div>
+  </div>
 
-              <div className="filter-item">
-                <label>Customer</label>
-                <select
-                  value={filterCustomer}
-                  onChange={(e) => setFilterCustomer(e.target.value)}
-                >
-                  <option value="">All Customers</option>
-                  {customers.map((c, i) => (
-                    <option key={i} value={c}>{c}</option>
-                  ))}
-                </select>
-              </div>
+</div>
 
-              <div className="filter-item">
-                <label>Date</label>
-                <input
-                  type="date"
-                  value={filterDate}
-                  onChange={(e) => setFilterDate(e.target.value)}
-                />
-              </div>
+      {/* FILTER */}
+      {showFilters && (
+        <div className="erp-filter-box">
+          <div className="erp-filter-grid">
 
-              <div className="filter-actions">
-                <button className="apply-btn">Apply</button>
+            <div>
+              <label>Order No</label>
+              <input
+                value={filterOrder}
+                onChange={(e) => setFilterOrder(e.target.value)}
+              />
+            </div>
 
-                <button
-                  className="clear-btn"
-                  onClick={handleClear}
-                >
-                  Clear
-                </button>
-              </div>
+            <div>
+              <label>Customer</label>
+              <select
+                value={filterCustomer}
+                onChange={(e) => setFilterCustomer(e.target.value)}
+              >
+                <option value="">All</option>
+                {customers.map((c, i) => (
+                  <option key={i}>{c}</option>
+                ))}
+              </select>
+            </div>
 
+            <div>
+              <label>Date</label>
+              <input
+                type="date"
+                value={filterDate}
+                onChange={(e) => setFilterDate(e.target.value)}
+              />
+            </div>
+
+            <div className="erp-filter-actions">
+              <button className="erp-apply">Apply</button>
+              <button className="erp-clear" onClick={handleClear}>Clear</button>
             </div>
 
           </div>
-        )}
+        </div>
+      )}
 
-        {/* 📊 TABLE */}
-        <table className="list-table">
+      {/* TABLE */}
+      <div className="erp-table-wrapper">
+
+        <table className="erp-table">
           <thead>
             <tr>
               <th>Order No</th>
@@ -149,45 +175,70 @@ const OrderList = () => {
           </thead>
 
           <tbody>
-            {filteredOrders.length > 0 ? (
-              filteredOrders.map(o => (
-                <tr key={o.id}>
-                  <td className="link">{o.number}</td>
-                  <td>{o.date}</td>
-                  <td>{o.customer_name}</td>
-                  <td>{o.remarks}</td>
+            {currentOrders.map(o => (
+              <tr key={o.id}>
+                <td className="erp-link">{o.number}</td>
+                <td>{o.date}</td>
+                <td>{o.customer_name}</td>
+                <td>{o.remarks}</td>
+<td className="erp-actions">
+  <button className="erp-edit">
+    <FaEdit />
+  </button>
 
-                  <td className="actions">
-                    <button
-                      className="edit-btn"
-                      onClick={() => navigate(`/order-form/${o.id}`)}
-                    >
-                      ✏️
-                    </button>
-
-                    <button
-                      className="delete-btn"
-                      onClick={() => alert("Delete " + o.id)}
-                    >
-                      🗑
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5" style={{ textAlign: "center" }}>
-                  No data found
-                </td>
+  <button className="erp-delete">
+    <FaTrash />
+  </button>
+</td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
 
       </div>
 
+      {/* ✅ FOOTER */}
+      <div className="erp-footer">
+
+        <div className="erp-info">
+          Showing {indexOfFirst + 1} to{" "}
+          {Math.min(indexOfLast, filteredOrders.length)} of{" "}
+          {filteredOrders.length} results
+        </div>
+
+        <div className="erp-pagination">
+
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(currentPage - 1)}
+          >
+            Previous
+          </button>
+
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              className={currentPage === i + 1 ? "active" : ""}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage(currentPage + 1)}
+          >
+            Next
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
-  );
+  </div>
+);
 };
 
 export default OrderList;

@@ -3,16 +3,16 @@ html, body {
   overflow: hidden;
 }
 
-.sales-container {
+/* CONTAINER */
+.order-ui-container {
   height: 100vh;
   overflow-y: auto;
-}
-.sales-container {
   padding: 20px;
   background: #f5f7fb;
 }
 
-.sales-card {
+/* CARD */
+.order-ui-card {
   background: #fff;
   border-radius: 10px;
   padding: 20px;
@@ -20,47 +20,48 @@ html, body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.sales-header {
+/* HEADER */
+.order-ui-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
 }
 
-.sales-header h2 {
+.order-ui-header h2 {
   font-size: 18px;
   font-weight: 600;
 }
 
-.form-grid {
+/* FORM GRID */
+.order-ui-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 15px;
 }
 
-.form-group {
+/* FORM GROUP */
+.order-ui-group {
   display: flex;
   flex-direction: column;
 }
 
-.form-group label {
+.order-ui-group label {
   font-size: 13px;
   margin-bottom: 5px;
   color: #555;
 }
 
-input, select {
+/* INPUT */
+.order-ui-container input,
+.order-ui-container select {
   padding: 8px;
   border-radius: 6px;
   border: 1px solid #ddd;
 }
 
-.radio-group {
-  display: flex;
-  gap: 15px;
-}
-
-.add-btn {
+/* BUTTON */
+.order-ui-add-btn {
   background: #22c55e;
   color: white;
   border: none;
@@ -69,28 +70,45 @@ input, select {
   cursor: pointer;
 }
 
-.table-wrapper {
+/* TABLE */
+.order-ui-table-wrapper {
   overflow-x: auto;
 }
 
-.sales-table {
+.order-ui-table {
   width: 100%;
   border-collapse: collapse;
 }
-/* TABLE FIX */
-.sales-table input,
-.sales-table select {
+
+.order-ui-table th {
+  text-align: left;
+  font-size: 13px;
+  color: #777;
+  padding: 10px;
+}
+
+.order-ui-table td {
+  padding: 10px;
+}
+
+.order-ui-table tr {
+  border-bottom: 1px solid #eee;
+}
+
+/* TABLE INPUT FIX */
+.order-ui-table input,
+.order-ui-table select {
   width: 100%;
   height: 36px;
 }
 
-/* REMARK BOX */
-.remark-input {
+/* REMARK */
+.order-ui-remark {
   width: 100%;
 }
 
-/* ACTION CENTER */
-.delete-btn {
+/* DELETE */
+.order-ui-delete-btn {
   background: none;
   border: none;
   color: red;
@@ -100,35 +118,8 @@ input, select {
   justify-content: center;
 }
 
-/* GRID FIX */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-}
-.sales-table th {
-  text-align: left;
-  font-size: 13px;
-  color: #777;
-  padding: 10px;
-}
-
-.sales-table td {
-  padding: 10px;
-}
-
-.sales-table tr {
-  border-bottom: 1px solid #eee;
-}
-
-.delete-btn {
-  background: none;
-  border: none;
-  color: red;
-  cursor: pointer;
-}
-
-.save-btn {
+/* SAVE */
+.order-ui-save-btn {
   margin-top: 15px;
   background: #22c55e;
   color: white;
@@ -137,13 +128,15 @@ input, select {
   border-radius: 6px;
   cursor: pointer;
 }
-.mobile-items {
+
+/* MOBILE */
+.order-ui-mobile {
   display: none;
   flex-direction: column;
   gap: 15px;
 }
 
-.item-card {
+.order-ui-item-card {
   background: #fff;
   padding: 15px;
   border-radius: 10px;
@@ -153,79 +146,63 @@ input, select {
   gap: 8px;
 }
 
-.item-card label {
+.order-ui-item-card label {
   font-size: 12px;
   color: #666;
 }
 
-.item-card input,
-.item-card select {
+.order-ui-item-card input,
+.order-ui-item-card select {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 6px;
 }
 
-.delete-btn {
+.order-ui-item-card .order-ui-delete-btn {
   background: red;
   color: white;
-  border: none;
   padding: 8px;
   border-radius: 6px;
 }
+
 /* ================= MOBILE VIEW ================= */
 @media (max-width: 768px) {
 
-  /* CONTAINER */
-  .sales-container {
+  .order-ui-container {
     padding: 10px;
-    height: 100vh;
-    overflow-y: auto;
   }
 
-  /* CARD */
-  .sales-card {
+  .order-ui-card {
     padding: 15px;
-    width: 100%;
   }
 
-  /* ✅ HEADER FIX */
-  .sales-header {
-    display: flex;
+  .order-ui-header {
     flex-direction: column;
-    align-items: stretch;   /* 🔥 KEY FIX */
+    align-items: stretch;
     gap: 10px;
   }
 
-  /* GRID */
-  .form-grid {
+  .order-ui-grid {
     grid-template-columns: 1fr;
     gap: 10px;
   }
 
-  /* INPUT */
-  input, select {
+  .order-ui-container input,
+  .order-ui-container select {
     width: 100%;
   }
 
-  /* ✅ BUTTON FIX */
-  .add-btn,
-  .save-btn {
+  .order-ui-add-btn,
+  .order-ui-save-btn {
     width: 100%;
-    justify-content: center;
-    text-align: center;
     padding: 12px;
   }
 
-  /* TABLE HIDE */
-  .sales-table {
+  .order-ui-table {
     display: none;
   }
 
-  /* MOBILE ITEMS */
-  .mobile-items {
+  .order-ui-mobile {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
   }
-
 }

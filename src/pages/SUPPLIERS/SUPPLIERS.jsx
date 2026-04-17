@@ -10,12 +10,13 @@ const API = "https://zyntaweb.com/demoalafiya/api/suppliers.php";
 const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([]);
 
-  const [form, setForm] = useState({
-    id: "",
-    name: "",
-    address: "",
-    phone: "",
-  });
+ const [form, setForm] = useState({
+  id: "",
+  name: "",
+  address: "",
+  phone: "",
+  status: "ACTIVE", // ✅ MUST
+});
 
   const [search, setSearch] = useState("");
   const [isEdit, setIsEdit] = useState(false);
@@ -70,15 +71,16 @@ const Suppliers = () => {
   };
 
   const resetForm = () => {
-    setForm({
-      id: "",
-      name: "",
-      address: "",
-      phone: "",
-      status_id: "",
-    });
-    setIsEdit(false);
-  };
+  setForm({
+    id: "",
+    name: "",
+    address: "",
+    phone: "",
+    status: "ACTIVE", // ✅
+  });
+  setIsEdit(false);
+};
+    
 
   // ================= EDIT =================
   const editItem = (s) => {
@@ -148,13 +150,15 @@ const Suppliers = () => {
                 <td data-label="Phone">{s.phone}</td>
 
                 <td data-label="Status">
-                  <span
-                    className={`supplier-status ${s.status
-                      .toLowerCase()
-                      .replace(" ", "-")}`}
-                  >
-                    {s.status}
-                  </span>
+                 <span
+  className={`supplier-status ${
+    s.status
+      ? s.status.toLowerCase().replace(" ", "-")
+      : "inactive"
+  }`}
+>
+  {s.status || "INACTIVE"}
+</span>
                 </td>
 
                 <td data-label="Actions">
@@ -211,11 +215,11 @@ const Suppliers = () => {
               />
 
               <label>Status</label>
-             <select
+          <select
   name="status"
-  value={form.status}
+  value={form.status || "ACTIVE"}
   onChange={handleChange}
-  required
+required
 >
   <option value="ACTIVE">ACTIVE</option>
   <option value="INACTIVE">INACTIVE</option>

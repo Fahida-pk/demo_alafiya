@@ -4,7 +4,7 @@ import { FaEdit, FaTrash, FaSearch, FaPlus } from "react-icons/fa";
 import TopNavbar from "../dashboard/TopNavbar";
 import "./TripMaster.css";
 
-const API = "https://zyntaweb.com/demoalafiya/api/trip.php";
+const API = "https://zyntaweb.com/alafiya/api/trip.php";
 
 const TripMaster = () => {
   const [trips, setTrips] = useState([]);
@@ -132,36 +132,17 @@ const TripMaster = () => {
 
   /* DELETE (Driver.jsx pole) */
   const deleteTrip = async (id) => {
-  if (!window.confirm("Are you sure you want to delete this trip?")) return;
+    if (!window.confirm("Are you sure you want to delete this trip?")) return;
 
-  try {
-    const res = await fetch(`${API}?id=${id}`, {
-      method: "DELETE",
-    });
+    await fetch(`${API}?id=${id}`, { method: "DELETE" });
 
-    const data = await res.json();
-
-    // ❌ ERROR HANDLE
-    if (data.status === "error") {
-      setMessage(data.message);
-      setMessageType("error");
-      autoHide();
-      return;
-    }
-
-    // ✅ SUCCESS
     setMessage("Trip deleted successfully ❌");
     setMessageType("success");
     autoHide();
 
     loadTrips();
+  };
 
-  } catch (err) {
-    setMessage("Something went wrong");
-    setMessageType("error");
-    autoHide();
-  }
-};
   /* SEARCH */
   const filteredTrips = trips.filter((t) =>
     t.route_name?.toLowerCase().includes(search.toLowerCase())
@@ -226,6 +207,8 @@ const TripMaster = () => {
           </div>
         ) : (
           <>
+          <div className="table-scroll">
+
             <table>
               <thead>
                 <tr>
@@ -263,7 +246,7 @@ const TripMaster = () => {
                 ))}
               </tbody>
             </table>
-
+</div>
             {totalPages > 1 && (
               <div className="pagination">
                 <button
