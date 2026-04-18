@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import TopNavbar from "../dashboard/TopNavbar";
+import { useNavigate } from "react-router-dom";
+import { FiArrowLeft } from "react-icons/fi";
+
 import "./OrderForm.css";
 
 const ORDER_API = "https://zyntaweb.com/demoalafiya/api/order_header.php";
@@ -11,7 +13,7 @@ const LOCATION_API = "https://zyntaweb.com/demoalafiya/api/locations.php";
 const BRAND_API = "https://zyntaweb.com/demoalafiya/api/brands.php";
 
 const OrderForm = () => {
-
+const navigate = useNavigate();
   const [orderNumber, setOrderNumber] = useState("");
   const [customers, setCustomers] = useState([]);
   const [items, setItems] = useState([]);
@@ -39,7 +41,10 @@ const OrderForm = () => {
   useEffect(() => {
 fetch(CUSTOMER_API)
   .then(r=>r.json())
-  .then(data=>setCustomers(data.data || []));
+  .then(data=>{
+    console.log("CUSTOMERS:", data); // 🔥 debug
+    setCustomers(Array.isArray(data) ? data : data.data || []);
+  });
 fetch(ITEM_API)
   .then(r => r.json())
   .then(data => {
@@ -80,8 +85,11 @@ fetch(ORDER_API + "?type=next_number")
     setDetails(newDetails);
   };
 
-  const handleSave = async () => {
+ const handleSave = async () => {
 
+  try {
+
+    // 1️⃣ Save header
     const res = await fetch(ORDER_API, {
       method: "POST",
       headers: {"Content-Type":"application/json"},
@@ -89,6 +97,8 @@ fetch(ORDER_API + "?type=next_number")
     });
 
     const headerRes = await res.json();
+    console.log("HEADER:", headerRes);
+
     const orderId = headerRes.id;
 
     if (!orderId) {
@@ -96,35 +106,47 @@ fetch(ORDER_API + "?type=next_number")
       return;
     }
 
-    setOrderNumber(headerRes.number);
-
+    // 2️⃣ Save details
     for (let d of details) {
+
       if (!d.item_id || !d.qty) continue;
 
-      await fetch(DETAILS_API, {
+      const res2 = await fetch(DETAILS_API, {
         method: "POST",
         headers: {"Content-Type":"application/json"},
         body: JSON.stringify({
           ...d,
-          order_id: orderId,
-          status_id: 1
+          order_id: orderId
         })
       });
+
+      const data2 = await res2.json();
+      console.log("DETAIL INSERT:", data2);
     }
 
-    alert("Order Saved ✅ " + headerRes.number);
-  };
+    alert("Order Saved ✅");
 
+  } catch (err) {
+    console.error(err);
+    alert("Error saving ❌");
+  }
+};
   return (
+    
     <div className="order-ui-container">
-      <TopNavbar />
 
       {/* HEADER */}
       <div className="order-ui-card">
         <div className="order-ui-header">
           <h2>📋 Order Header</h2>
-        </div>
 
+          <button
+            className="order-ui-back-btn"
+            onClick={() => navigate(-1)}
+          >
+            ← Back
+          </button>
+        </div>
         <div className="order-ui-grid">
 
           <div className="order-ui-group">
@@ -148,12 +170,18 @@ fetch(ORDER_API + "?type=next_number")
 
           <div className="order-ui-group">
             <label>Customer *</label>
-            <select onChange={e=>setHeader({...header, customer_id:e.target.value})}>
-              <option>Select Customer</option>
-              {customers.map(c=>(
-                <option key={c.id} value={c.id}>{c.name}</option>
-              ))}
-            </select>
+            <select
+  value={header.customer_id}
+  onChange={e=>setHeader({...header, customer_id:e.target.value})}
+>
+  <option value="">Select Customer</option>
+
+  {customers.map(c => (
+    <option key={c.id} value={c.id}>
+      {c.name}
+    </option>
+  ))}
+</select>
           </div>
 
           <div className="order-ui-group">

@@ -152,10 +152,7 @@
 }
 
 /* ===== ACTIONS ===== */
-.erp-actions {
-  display: flex;
-  gap: 8px;
-}
+
 
 .erp-edit {
   background: #22c55e;
@@ -194,7 +191,15 @@
 .erp-table thead {
   display: table-header-group !important;
 }
-
+.erp-edit,
+.erp-delete {
+  padding: 6px 12px;   /* 👈 little more width */
+}
+.erp-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
 .erp-table tbody {
   display: table-row-group !important;
 }
@@ -259,5 +264,48 @@
     max-height: 60vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+  }
+}
+@media (max-width: 768px) {
+  .erp-topbar {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .erp-left, .erp-right {
+    width: 100%;
+    display: flex;
+  }
+  .erp-left {
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+  .erp-right {
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 0;
+  }
+  /* Make search input and button take available space */
+  .erp-search {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .erp-search-btn {
+    white-space: nowrap;
+  }
+}
+@media (max-width: 768px) {
+  .erp-header {
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+  }
+  .erp-actions {
+    gap: 16px; /* More space between edit and delete */
+  }
+  .erp-filter-btn,
+  .erp-table-container select {
+    min-width: 110px; /* Wider filter and show buttons */
+    font-size: 15px;
   }
 }

@@ -7,7 +7,27 @@
   padding: 20px;
   background: #f5f7fb;
 }
+/* TOP BAR */
+.order-ui-topbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
 
+/* BACK BUTTON */
+.order-ui-back-btn {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.order-ui-back-btn:hover {
+  background: #f1f5f9;
+}
 /* CARD */
 .order-ui-card {
   background: #fff;
@@ -20,9 +40,8 @@
 /* HEADER */
 .order-ui-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* 🔥 THIS makes left + right */
   align-items: center;
-  margin-bottom: 15px;
 }
 
 .order-ui-header h2 {
@@ -202,4 +221,13 @@
   .order-ui-mobile {
     display: flex;
   }
+}
+@media (max-width: 768px) {
+
+  .order-ui-header {
+    flex-direction: row;        /* ✅ row aakkanam */
+    justify-content: space-between;
+    align-items: center;
+  }
+
 }

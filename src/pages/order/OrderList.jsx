@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiFilter } from "react-icons/fi";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import TopNavbar from "../dashboard/TopNavbar";
+
 import "./OrderList.css";
 
 const API = "https://zyntaweb.com/demoalafiya/api/order_header.php";
+const CUSTOMER_API = "https://zyntaweb.com/demoalafiya/api/customer.php";
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
@@ -56,6 +59,7 @@ const totalPages = Math.ceil(filteredOrders.length / rowsPerPage);
 
   return (
   <div className="erp-container">
+      <TopNavbar />
 
     <div className="erp-card">
 
@@ -189,10 +193,12 @@ const totalPages = Math.ceil(filteredOrders.length / rowsPerPage);
               <td>{o.date}</td>
               <td>{o.customer_name}</td>
               <td>{o.remarks}</td>
-              <td className="erp-actions">
-                <button className="erp-edit"><FaEdit /></button>
-                <button className="erp-delete"><FaTrash /></button>
-              </td>
+              <td>
+  <div className="erp-actions">
+    <button className="erp-edit"><FaEdit /></button>
+    <button className="erp-delete"><FaTrash /></button>
+  </div>
+</td>
             </tr>
           ))
         )}
