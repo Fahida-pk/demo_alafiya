@@ -148,7 +148,13 @@
 .react-tel-input {
   width: 100% !important;
 }
-
+.supplier-modal-box button {
+ background: #fff;
+  width: 500px;
+  max-width: 95%;
+  border-radius: 12px;
+  padding: 20px;
+}
 .react-tel-input .form-control {
   width: 100% !important;
   border-radius: 6px !important;
@@ -252,4 +258,132 @@
   max-width: 95%;
   border-radius: 12px;
   padding: 20px;
+}
+/* ================= MOBILE SUPPLIER CARD VIEW =================== */
+@media (max-width: 576px) {
+
+  /* NAVBAR */
+  .top-navbar {
+    margin-left: 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+  }
+
+  /* PAGE */
+  .supplier-page {
+    padding: 12px;
+    padding-top: 70px;
+    background: #f4f7fb;
+  }
+
+  /* HEADER */
+  .card-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  /* CARD */
+  .supplier-list-card {
+    background: none;
+    box-shadow: none;
+    padding: 0 4px;
+    overflow-x: unset;
+  }
+
+  /* TABLE → CARD */
+  .supplier-list-card table,
+  .supplier-list-card tbody,
+  .supplier-list-card tr,
+  .supplier-list-card td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    border: none;
+  }
+
+  .supplier-list-card thead {
+    display: none;
+  }
+
+  .supplier-list-card tbody tr {
+    background: #fff;
+    margin-bottom: 14px;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+
+  .supplier-list-card tbody td {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 14px;
+    align-items: center;
+    word-break: break-word;
+  }
+
+  .supplier-list-card tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+    min-width: 120px;
+  }
+
+  /* ACTION BUTTONS */
+  .supplier-list-card tbody td[data-label="Actions"] {
+    justify-content: flex-end;
+    gap: 8px;
+    padding-top: 10px;
+  }
+
+  .supplier-edit-btn,
+  .supplier-delete-btn {
+    min-width: 38px;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    display: none;
+  }
+}
+/* ===== FORCE FULL WIDTH FIX ===== */
+@media (max-width: 576px) {
+
+  /* REMOVE SIDEBAR SPACE */
+  .dashboard,
+  .main-area {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* FIX NAVBAR */
+  .top-navbar {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* FORCE FULL WIDTH PAGE */
+  .supplier-page {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* CARD FULL WIDTH */
+  .supplier-list-card {
+    width: 100%;
+  }
+
 }

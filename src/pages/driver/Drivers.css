@@ -421,3 +421,71 @@ width: 150px;
     display: none;
   }
 }
+/* ================= MOBILE DRIVER CARD VIEW =================== */
+@media (max-width: 576px) {
+
+  .driver-list-card {
+    background: none;
+    box-shadow: none;
+    padding: 0 4px;
+    overflow-x: unset;
+  }
+
+  .driver-list-card table,
+  .driver-list-card tbody,
+  .driver-list-card tr,
+  .driver-list-card td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    border: none;
+  }
+
+  .driver-list-card thead {
+    display: none;
+  }
+
+  .driver-list-card tbody tr {
+    background: #fff;
+    margin-bottom: 14px;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .driver-list-card tbody td {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    border: none;
+    font-size: 14px;
+    align-items: center;
+    word-break: break-word;
+  }
+
+  .driver-list-card tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+
+  .driver-list-card tbody td[data-label="Actions"] {
+    justify-content: flex-end;
+    gap: 14px;
+    padding-top: 10px;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    min-width: 38px;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+  }
+}
