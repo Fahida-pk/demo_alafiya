@@ -56,7 +56,30 @@ const totalPages = Math.ceil(filteredOrders.length / rowsPerPage);
     setFilterCustomer("");
     setFilterDate("");
   };
+const handleDelete = (id) => {
+  if (!window.confirm("Delete this order?")) return;
 
+  fetch(`${API}?id=${id}`, {
+    method: "DELETE",
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+
+      if (data.status === "deleted") {
+        alert("Deleted successfully ✅");
+      } else {
+        alert("Delete failed ❌");
+      }
+
+      // UI update
+      setOrders(prev => prev.filter(o => o.id !== id));
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Server error ❌");
+    });
+};
   return (
   <div className="erp-container">
       <TopNavbar />
@@ -194,10 +217,23 @@ const totalPages = Math.ceil(filteredOrders.length / rowsPerPage);
               <td>{o.customer_name}</td>
               <td>{o.remarks}</td>
               <td>
-  <div className="erp-actions">
-    <button className="erp-edit"><FaEdit /></button>
-    <button className="erp-delete"><FaTrash /></button>
-  </div>
+<div className="erp-actions">
+
+  <button 
+    className="erp-edit"
+    onClick={() => navigate(`/order-form/${o.id}`)}
+  >
+    <FaEdit />
+  </button>
+
+  <button 
+    className="erp-delete"
+    onClick={() => handleDelete(o.id)}
+  >
+    <FaTrash />
+  </button>
+
+</div>
 </td>
             </tr>
           ))

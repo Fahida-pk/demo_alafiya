@@ -63,20 +63,29 @@ const totalPages = Math.ceil(filtered.length / suppliersPerPage);
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  await fetch(API, {
+  const res = await fetch(API, {
     method: isEdit ? "PUT" : "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(form),
   });
 
-    setMessage(isEdit ? "Updated ✅" : "Added 🎉");
-    setTimeout(() => setMessage(""), 3000);
+  const data = await res.json(); // 🔥 MUST
 
-    loadData();
+  console.log("SAVE RESPONSE:", data); // debug
+
+  if (data.status === "success") {
+setMessage(isEdit ? "Updated ✅" : "Added 🎉");
+
+// 🔥 ADD THIS
+setTimeout(() => {
+  setMessage("");
+}, 2000);    loadData();
     setShowModal(false);
     resetForm();
-  };
-
+  } else {
+    alert(data.message || "Error saving");
+  }
+};
   const resetForm = () => {
   setForm({
     id: "",
@@ -110,7 +119,13 @@ const handleSubmit = async (e) => {
     alert(data.message); // 🔥 "already used" message
   } else {
     setMessage("Deleted ✅");
-    loadData();
+
+// 🔥 AUTO HIDE
+setTimeout(() => {
+  setMessage("");
+}, 2000);
+
+loadData();
   }
 };
 

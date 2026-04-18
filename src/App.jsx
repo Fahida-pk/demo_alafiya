@@ -43,7 +43,7 @@ function App() {
 <Route path="/items" element={<Items />} />
 <Route path="/suppliers" element={<Suppliers />} />
 <Route path="/brands" element={<Brand />} />
-
+<Route path="/order-form/:id" element={<OrderForm />} />
 <Route path="/orders" element={<OrderList />} />
 <Route path="/order-form" element={<OrderForm />} />
         </Route>
