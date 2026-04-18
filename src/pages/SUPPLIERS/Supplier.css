@@ -355,25 +355,17 @@
   }
 
   /* SIDEBAR */
-  .sidebar {
-    display: none;
+.sidebar {
+    display: block; /* important */
   }
 }
 /* ===== FORCE FULL WIDTH FIX ===== */
 @media (max-width: 576px) {
 
-  /* REMOVE SIDEBAR SPACE */
-  .dashboard,
-  .main-area {
-    margin-left: 0 !important;
-    width: 100% !important;
-  }
+  
 
   /* FIX NAVBAR */
-  .top-navbar {
-    margin-left: 0 !important;
-    width: 100% !important;
-  }
+ 
 
   /* FORCE FULL WIDTH PAGE */
   .supplier-page {
