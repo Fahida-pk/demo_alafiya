@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
+import { useParams } from "react-router-dom";
 
 import "./OrderForm.css";
 
@@ -11,8 +12,9 @@ const CUSTOMER_API = "https://zyntaweb.com/demoalafiya/api/customer.php";
 const ITEM_API = "https://zyntaweb.com/demoalafiya/api/items.php";
 const LOCATION_API = "https://zyntaweb.com/demoalafiya/api/locations.php";
 const BRAND_API = "https://zyntaweb.com/demoalafiya/api/brands.php";
-
 const OrderForm = () => {
+  const { id } = useParams();
+
 const navigate = useNavigate();
   const [orderNumber, setOrderNumber] = useState("");
   const [customers, setCustomers] = useState([]);
@@ -37,41 +39,56 @@ const navigate = useNavigate();
       remark: ""
     }
   ]);
+useEffect(() => {
 
-  useEffect(() => {
-fetch(CUSTOMER_API)
-  .then(r=>r.json())
-  .then(data=>{
-    console.log("CUSTOMERS:", data); // 🔥 debug
-    setCustomers(Array.isArray(data) ? data : data.data || []);
+  fetch(CUSTOMER_API)
+    .then(r=>r.json())
+    .then(data=>{
+      setCustomers(Array.isArray(data) ? data : data.data || []);
+    });
+
+  fetch(ITEM_API)
+    .then(r => r.json())
+    .then(data => setItems(Array.isArray(data) ? data : data.data || []));
+
+  fetch(LOCATION_API)
+    .then(r => r.json())
+    .then(data => setLocations(Array.isArray(data) ? data : data.data || []));
+
+  fetch(BRAND_API)
+    .then(r => r.json())
+    .then(data => setBrands(Array.isArray(data) ? data : data.data || []));
+
+}, []);
+
+useEffect(() => {
+
+  if (id) {
+    // ✏️ EDIT
+    fetch(`${ORDER_API}?id=${id}`)
+      .then(res => res.json())
+      .then(data => {
+  console.log("EDIT:", data);
+
+  // 🔥 MAIN FIX
+  const order = Array.isArray(data) ? data[0] : data;
+
+  setOrderNumber(order.number);
+
+  setHeader({
+    date: order.date,
+    customer_id: order.customer_id,
+    remarks: order.remarks
   });
-fetch(ITEM_API)
-  .then(r => r.json())
-  .then(data => {
-    console.log("ITEM API:", data); // debug
-
-    setItems(Array.isArray(data) ? data : data.data || []);
-  });
-fetch(LOCATION_API)
-  .then(r => r.json())
-  .then(data => {
-    console.log("LOCATION API:", data); // debug
-
-    setLocations(Array.isArray(data) ? data : data.data || []);
-  });
-fetch(BRAND_API)
-  .then(r => r.json())
-  .then(data => {
-    console.log("BRAND API:", data); // debug
-
-    setBrands(Array.isArray(data) ? data : data.data || []);
-  });
-
-fetch(ORDER_API + "?type=next_number")
+});
+  } else {
+    // ➕ ADD
+    fetch(ORDER_API + "?type=next_number")
       .then(res => res.json())
       .then(data => setOrderNumber(data.number));
-  }, []);
+  }
 
+}, [id]);
   const addRow = () => {
     setDetails([...details, {
       item_id: "", qty: "", batch: "", expiry: "",
