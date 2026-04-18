@@ -161,41 +161,38 @@ const totalPages = Math.ceil(filteredOrders.length / rowsPerPage);
       )}
 
       {/* TABLE */}
-      <div className="erp-table-wrapper">
+     <div className="erp-table-container">
+  <table className="erp-table">
+    <thead>
+      <tr>
+        <th>Order No</th>
+        <th>Date</th>
+        <th>Customer</th>
+        <th>Remarks</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+  </table>
 
-        <table className="erp-table">
-          <thead>
-            <tr>
-              <th>Order No</th>
-              <th>Date</th>
-              <th>Customer</th>
-              <th>Remarks</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {currentOrders.map(o => (
-              <tr key={o.id}>
-                <td className="erp-link">{o.number}</td>
-                <td>{o.date}</td>
-                <td>{o.customer_name}</td>
-                <td>{o.remarks}</td>
-<td className="erp-actions">
-  <button className="erp-edit">
-    <FaEdit />
-  </button>
-
-  <button className="erp-delete">
-    <FaTrash />
-  </button>
-</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-      </div>
+  <div className="erp-table-body">
+    <table className="erp-table">
+      <tbody>
+        {currentOrders.map(o => (
+          <tr key={o.id}>
+            <td>{o.number}</td>
+            <td>{o.date}</td>
+            <td>{o.customer_name}</td>
+            <td>{o.remarks}</td>
+            <td className="erp-actions">
+              <button className="erp-edit"><FaEdit /></button>
+              <button className="erp-delete"><FaTrash /></button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
 
       {/* ✅ FOOTER */}
       <div className="erp-footer">

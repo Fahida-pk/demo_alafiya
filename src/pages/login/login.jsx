@@ -15,8 +15,7 @@ const Login = () => {
 
     try {
       const res = await fetch(
-        "https://zyntaweb.com/demoalafiya/api/login.php",
-        {
+"https://zyntaweb.com/demoalafiya/api/login.php",        {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password }),

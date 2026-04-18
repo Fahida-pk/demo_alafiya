@@ -408,14 +408,7 @@ input {
     background: #fff;
   }
 
-  body * {
-    visibility: hidden;
-  }
-
-  .print-section,
-  .print-section * {
-    visibility: visible;
-  }
+  
 
   .print-section {
     position: relative;
@@ -575,8 +568,52 @@ input {
 
 
 }
+@media print {
 
+  /* EXISTING code undakum... athinu shesham add cheyyu */
 
+  /* 🔥 MAIN FIX FOR CUT ISSUE */
+  html, body {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .print-section {
+    page-break-inside: auto;
+  }
+
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+  }
+
+  .summary-right-box {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-top: 20px;
+  }
+
+}
+@media print {
+
+  .table-wrapper {
+    page-break-inside: avoid;
+  }
+
+  .summary-right-box {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .print-section {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+}
 
 
 

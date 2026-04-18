@@ -112,47 +112,42 @@ const Vehicles = () => {
   const deleteVehicle = async (id) => {
   if (!window.confirm("Delete this vehicle?")) return;
 
-  try {
-    const res = await fetch(`${API}?id=${id}`, {
-      method: "DELETE",
-    });
+  const res = await fetch(`${API}?id=${id}`, {
+    method: "DELETE",
+  });
 
-    // 🔥 TEXT FIRST (safe)
-    const text = await res.text();
-    console.log("RAW RESPONSE:", text);
+  const data = await res.json(); // 🔥 IMPORTANT
 
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch {
-      throw new Error("Invalid JSON from server");
-    }
+  // ❌ ERROR case (already used)
+  if (data.status === "error") {
+    setMessage(data.message);   // backend message
+    setMessageType("error");
+    autoHide();
+    return;
+  }
 
-    console.log("PARSED:", data);
+  // ✅ SUCCESS
+  setMessage(data.message || "Vehicle deleted successfully ✅");
+  setMessageType("success");
+  autoHide();
 
-    // ❌ ERROR HANDLE
-    if (data.status === "error") {
-      setMessage(data.message);
-      setMessageType("error");
-      autoHide();
+  loadVehicles();
+};
+  /* ADD VEHICLE TYPE */
+  const saveVehicleType = () => {
+    if (!newType.trim()) return;
+
+    const type = newType.toUpperCase();
+    if (vehicleTypes.includes(type)) {
+      alert("Vehicle type already exists");
       return;
     }
 
-    // ✅ SUCCESS
-    setMessage("Vehicle deleted successfully ❌");
-    setMessageType("success");
-    autoHide();
+    setVehicleTypes([...vehicleTypes, type]);
+    setNewType("");
+    setShowTypeModal(false);
+  };
 
-    loadVehicles();
-
-  } catch (err) {
-    console.error(err);
-
-    setMessage("Server error / invalid response");
-    setMessageType("error");
-    autoHide();
-  }
-};
   /* SEARCH */
   const filteredVehicles = vehicles.filter(
     (v) =>

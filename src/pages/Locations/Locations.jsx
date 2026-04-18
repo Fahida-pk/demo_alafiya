@@ -15,7 +15,8 @@ const Locations = () => {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
   const [nameError, setNameError] = useState("");
-
+const [currentPage, setCurrentPage] = useState(1);
+const recordsPerPage = 5;
   // LOAD
   const loadData = async () => {
     const res = await fetch(API);
@@ -125,7 +126,10 @@ const deleteItem = async (id) => {
   const filtered = locations.filter((l) =>
     l.name?.toLowerCase().includes(search.toLowerCase())
   );
+const totalPages = Math.ceil(filtered.length / recordsPerPage);
 
+const start = (currentPage - 1) * recordsPerPage;
+const paginatedLocations = filtered.slice(start, start + recordsPerPage);
   return (
     <div className="location-page">
       <TopNavbar />
@@ -173,7 +177,7 @@ const deleteItem = async (id) => {
             </thead>
 
             <tbody>
-              {filtered.map((l) => (
+              {paginatedLocations.map((l) => (
                 <tr key={l.id}>
                   <td data-label="Location Name">{l.name}</td>
 
@@ -196,9 +200,29 @@ const deleteItem = async (id) => {
               ))}
             </tbody>
           </table>
+          
         )}
+        
       </div>
+{totalPages > 1 && (
+  <div className="pagination">
+    <button
+      disabled={currentPage === 1}
+      onClick={() => setCurrentPage((p) => p - 1)}
+    >
+      ◀ Previous
+    </button>
 
+    <span>{currentPage} / {totalPages}</span>
+
+    <button
+      disabled={currentPage === totalPages}
+      onClick={() => setCurrentPage((p) => p + 1)}
+    >
+      Next ▶
+    </button>
+  </div>
+)}
       {/* MODAL */}
       {showModal && (
         <div className="location-modal-overlay">

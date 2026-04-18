@@ -1,12 +1,12 @@
-/* ===== PAGE ===== */
-.customer-page {
+/* ===== PAGE ===== */ 
+.customers-page {
   padding: 16px;
   background: #f4f7fb;
   min-height: 100vh;
 }
 
 /* ===== ADD BUTTON ===== */
-.add-customer-top {
+.add-customers-top {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -23,7 +23,7 @@
 }
 
 /* ===== CARD ===== */
-.customer-list-card {
+.customers-list-card {
   background: #fff;
   padding: 20px;
   border-radius: 12px;
@@ -32,20 +32,14 @@
 }
 
 /* ===== HEADER ===== */
-.card-header {
+.customers-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 14px;
-  gap: 12px;
 }
 
-.search-wrapper {
-  display: flex;
-  gap: 8px;
-}
-
-.search-input {
+.customers-search-input {
   height: 42px;
   padding: 0 12px;
   border: 1px solid #dcdfe6;
@@ -54,24 +48,25 @@
 }
 
 /* ===== TABLE ===== */
-table {
+.customers-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th, td {
+.customers-table th,
+.customers-table td {
   padding: 12px;
   border-bottom: 1px solid #e5e7eb;
   text-align: left;
   white-space: nowrap;
 }
 
-th {
+.customers-table th {
   background: #f9fafb;
 }
 
 /* ===== STATUS ===== */
-.status-active {
+.customers-status-active {
   background: #dcfce7;
   color: #15803d;
   padding: 4px 12px;
@@ -80,7 +75,7 @@ th {
 }
 
 /* ===== BUTTONS ===== */
-.edit-btn {
+.customers-edit-btn {
   background: #22c55e;
   color: #fff;
   border: none;
@@ -88,7 +83,7 @@ th {
   border-radius: 6px;
 }
 
-.delete-btn {
+.customers-delete-btn {
   background: #ef4444;
   color: #fff;
   border: none;
@@ -98,7 +93,7 @@ th {
 }
 
 /* ===== MODAL ===== */
-.modal-overlay {
+.customers-modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.45);
@@ -107,7 +102,7 @@ th {
   align-items: center;
 }
 
-.modal-box {
+.customers-modal-box {
   background: #fff;
   width: 500px;
   max-width: 95%;
@@ -115,20 +110,20 @@ th {
   padding: 20px;
 }
 
-.modal-body {
+.customers-modal-body {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.modal-body input,
-.modal-body select {
+.customers-modal-body input,
+.customers-modal-body select {
   padding: 10px;
   border: 1px solid #dcdfe6;
   border-radius: 6px;
 }
 
-.save-btn {
+.customers-save-btn {
   padding: 12px;
   background: linear-gradient(to right, #2563eb, #6f42c1);
   color: #fff;
@@ -136,55 +131,50 @@ th {
   border-radius: 8px;
 }
 
-/* ================= MOBILE CARD VIEW ================= */
+/* ===== MOBILE ===== */
 @media (max-width: 576px) {
 
-  .card-header {
+  .customers-card-header {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .search-input {
+  .customers-search-input {
     width: 100%;
   }
 
-  thead {
+  .customers-table thead {
     display: none;
   }
 
-  table, tbody, tr, td {
+  .customers-table,
+  .customers-table tbody,
+  .customers-table tr,
+  .customers-table td {
     display: block;
     width: 100%;
   }
 
-  tbody tr {
+  .customers-table tbody tr {
     background: #fff;
     margin-bottom: 14px;
     padding: 14px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   }
 
-  tbody td {
+  .customers-table tbody td {
     display: flex;
     justify-content: space-between;
     padding: 8px 0;
     border: none;
-    font-size: 14px;
   }
 
-  tbody td::before {
+  .customers-table tbody td::before {
     content: attr(data-label);
     font-weight: 600;
-    color: #555;
   }
 
-  tbody td[data-label="Actions"] {
-    justify-content: flex-end;
-    gap: 10px;
-  }
-
-  .modal-box {
+  .customers-modal-box {
     width: 100%;
     height: 100%;
     border-radius: 0;

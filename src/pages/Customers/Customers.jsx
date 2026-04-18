@@ -4,7 +4,8 @@ import { FaTrash, FaPlus, FaEdit } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "./Customer.css";
-// ✅ FIXED API
+
+// API
 const API = "https://zyntaweb.com/demoalafiya/api/customer.php";
 
 const Customers = () => {
@@ -16,10 +17,10 @@ const Customers = () => {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
 
-  // ✅ NEW STATES
   const [nameError, setNameError] = useState("");
   const [phoneError, setPhoneError] = useState("");
-
+const [currentPage, setCurrentPage] = useState(1);
+const customersPerPage = 5;
   const [form, setForm] = useState({
     id: "",
     name: "",
@@ -39,10 +40,9 @@ const Customers = () => {
     loadCustomers();
   }, []);
 
-  // ================= NAME VALIDATION =================
+  // NAME VALIDATION
   const handleNameChange = (e) => {
     const { name, value } = e.target;
-
     setForm({ ...form, [name]: value });
 
     if (!value.trim()) {
@@ -64,12 +64,12 @@ const Customers = () => {
     setNameError("");
   };
 
-  // ================= NORMAL CHANGE =================
+  // NORMAL CHANGE
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ================= PHONE VALIDATION =================
+  // PHONE VALIDATION
   const handlePhoneChange = (value, country) => {
     const fullNumber = "+" + value;
     setForm({ ...form, phone: fullNumber });
@@ -86,15 +86,12 @@ const Customers = () => {
       return;
     }
 
-    // India
     if (country.countryCode === "in") {
       if (localNumber.length !== 10) {
         setPhoneError("Indian phone must be 10 digits");
         return;
       }
-    } 
-    // Other countries
-    else {
+    } else {
       if (localNumber.length < 7 || localNumber.length > 12) {
         setPhoneError("Invalid phone number");
         return;
@@ -104,11 +101,10 @@ const Customers = () => {
     setPhoneError("");
   };
 
-  // ================= SUBMIT =================
+  // SUBMIT
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // VALIDATION CHECK
     if (nameError) {
       setMessage("Fix name error");
       setMessageType("error");
@@ -164,32 +160,60 @@ const Customers = () => {
 
   // DELETE
   const deleteCustomer = async (id) => {
-    if (!window.confirm("Delete this customer?")) return;
+  if (!window.confirm("Delete this customer?")) return;
 
-    await fetch(`${API}?id=${id}`, { method: "DELETE" });
+  try {
+    const res = await fetch(`${API}?id=${id}`, {
+      method: "DELETE",
+    });
 
-    setMessage("Customer deleted ❌");
+    const data = await res.json();
+
+    console.log("DELETE RESPONSE:", data); // 🔥 debug
+
+    if (data.status === "error") {
+      setMessage(data.message);   // 🔥 FK message show
+      setMessageType("error");
+      autoHide();
+      return;
+    }
+
+    setMessage(data.message || "Customer deleted ❌");
     setMessageType("success");
     autoHide();
 
     loadCustomers();
-  };
 
+  } catch (err) {
+    console.error(err);
+    setMessage("customer already in use,cannot delete");
+    setMessageType("error");
+    autoHide();
+  }
+};
   // SEARCH
   const filtered = customers.filter(
     (c) =>
       c.name?.toLowerCase().includes(search.toLowerCase()) ||
       c.phone?.includes(search)
   );
+const totalPages = Math.max(
+  1,
+  Math.ceil(filtered.length / customersPerPage)
+);
 
+const indexOfLast = currentPage * customersPerPage;
+const indexOfFirst = indexOfLast - customersPerPage;
+
+const currentCustomers = filtered.slice(indexOfFirst, indexOfLast);
   return (
-    <div className="customer-page">
+    <div className="customers-page">
       <TopNavbar />
 
       {message && <div className={`message-box ${messageType}`}>{message}</div>}
 
       <button
-        className="add-customer-top"
+        className="add-customers-top"
         onClick={() => {
           resetForm();
           setShowModal(true);
@@ -198,17 +222,19 @@ const Customers = () => {
         <FaPlus /> Add Customer
       </button>
 
-      <div className="customer-list-card">
-        <div className="card-header">
+      <div className="customers-list-card">
+        <div className="customers-card-header">
           <h3>👥 CUSTOMER LIST</h3>
 
-          <div className="search-wrapper">
+          <div className="customers-search-wrapper">
             <input
-              className="search-input"
+              className="customers-search-input"
               placeholder="Search by name or phone"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+onChange={(e) => {
+  setSearch(e.target.value);
+  setCurrentPage(1); // 🔥 reset page
+}}            />
           </div>
         </div>
 
@@ -218,7 +244,7 @@ const Customers = () => {
             <p>No customers found.</p>
           </div>
         ) : (
-          <table>
+          <table className="customers-table">
             <thead>
               <tr>
                 <th>Name</th>
@@ -228,42 +254,72 @@ const Customers = () => {
                 <th>Actions</th>
               </tr>
             </thead>
-<tbody>
-  {filtered.map((c) => (
-    <tr key={c.id}>
-      <td data-label="Name">{c.name}</td>
-      <td data-label="Address">{c.address}</td>
-      <td data-label="Phone">{c.phone}</td>
-      <td data-label="Status">
-        <span className="status-active">{c.status}</span>
-      </td>
-      <td data-label="Actions">
-        <button className="edit-btn" onClick={() => editCustomer(c)}>
-          <FaEdit />
-        </button>
 
-        <button className="delete-btn" onClick={() => deleteCustomer(c.id)}>
-          <FaTrash />
-        </button>
-      </td>
-    </tr>
-  ))}
-</tbody>
+            <tbody>
+              {currentCustomers.map((c) => (
+                <tr key={c.id}>
+                  <td data-label="Name">{c.name}</td>
+                  <td data-label="Address">{c.address}</td>
+                  <td data-label="Phone">{c.phone}</td>
+                  <td data-label="Status">
+                    <span className="customers-status-active">
+                      {c.status}
+                    </span>
+                  </td>
+                  <td data-label="Actions">
+                    <button
+                      className="customers-edit-btn"
+                      onClick={() => editCustomer(c)}
+                    >
+                      <FaEdit />
+                    </button>
+
+                    <button
+                      className="customers-delete-btn"
+                      onClick={() => deleteCustomer(c.id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
+          
         )}
+<div className="pagination">
+  <button
+    onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+    disabled={currentPage === 1}
+  >
+    ⬅ Prev
+  </button>
+
+  <span>
+    Page {currentPage} / {totalPages}
+  </span>
+
+  <button
+    onClick={() =>
+      setCurrentPage((p) => Math.min(p + 1, totalPages))
+    }
+    disabled={currentPage === totalPages}
+  >
+    Next ➡
+  </button>
+</div>
       </div>
 
       {/* MODAL */}
       {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-box">
+        <div className="customers-modal-overlay">
+          <div className="customers-modal-box">
             <div className="modal-header">
               <h3>{isEdit ? "Update Customer" : "Add Customer"}</h3>
               <button onClick={() => setShowModal(false)}>✕</button>
             </div>
 
-            <form onSubmit={handleSubmit} className="modal-body">
-              
+            <form onSubmit={handleSubmit} className="customers-modal-body">
               <label>Name *</label>
               <input
                 name="name"
@@ -299,7 +355,7 @@ const Customers = () => {
                 <option value="INACTIVE">INACTIVE</option>
               </select>
 
-              <button className="save-btn">
+              <button className="customers-save-btn">
                 {isEdit ? "UPDATE" : "SAVE"}
               </button>
             </form>

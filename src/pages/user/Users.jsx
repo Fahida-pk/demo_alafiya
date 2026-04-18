@@ -4,7 +4,6 @@ import { FaTrash, FaPlus } from "react-icons/fa";
 import "./Users.css";
 
 const API = "https://zyntaweb.com/demoalafiya/api/users.php";
-
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");

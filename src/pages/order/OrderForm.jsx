@@ -37,12 +37,32 @@ const OrderForm = () => {
   ]);
 
   useEffect(() => {
-    fetch(CUSTOMER_API).then(r=>r.json()).then(setCustomers);
-    fetch(ITEM_API).then(r=>r.json()).then(setItems);
-    fetch(LOCATION_API).then(r=>r.json()).then(setLocations);
-    fetch(BRAND_API).then(r=>r.json()).then(setBrands);
+fetch(CUSTOMER_API)
+  .then(r=>r.json())
+  .then(data=>setCustomers(data.data || []));
+fetch(ITEM_API)
+  .then(r => r.json())
+  .then(data => {
+    console.log("ITEM API:", data); // debug
 
-    fetch(ORDER_API + "?type=next_number")
+    setItems(Array.isArray(data) ? data : data.data || []);
+  });
+fetch(LOCATION_API)
+  .then(r => r.json())
+  .then(data => {
+    console.log("LOCATION API:", data); // debug
+
+    setLocations(Array.isArray(data) ? data : data.data || []);
+  });
+fetch(BRAND_API)
+  .then(r => r.json())
+  .then(data => {
+    console.log("BRAND API:", data); // debug
+
+    setBrands(Array.isArray(data) ? data : data.data || []);
+  });
+
+fetch(ORDER_API + "?type=next_number")
       .then(res => res.json())
       .then(data => setOrderNumber(data.number));
   }, []);

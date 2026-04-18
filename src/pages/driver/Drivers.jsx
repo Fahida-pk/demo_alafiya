@@ -7,7 +7,6 @@ import "react-phone-input-2/lib/style.css";
 import "./Drivers.css";
 
 const API = "https://zyntaweb.com/demoalafiya/api/drivers.php";
-
 const Drivers = () => {
   const [drivers, setDrivers] = useState([]);
   const [search, setSearch] = useState("");
@@ -171,44 +170,31 @@ const handleNameChange = (e) => {
     setShowModal(true);
   };
 
- const deleteDriver = async (id) => {
+  /* DELETE */
+  const deleteDriver = async (id) => {
   if (!window.confirm("Are you sure you want to delete this driver?")) return;
 
-  try {
-    const res = await fetch(`${API}?id=${id}`, {
-      method: "DELETE",
-    });
+  const res = await fetch(`${API}?id=${id}`, {
+    method: "DELETE",
+  });
 
-    const data = await res.json();
+  const data = await res.json(); // 🔥 IMPORTANT
 
-    // 🔥 DEBUG (IMPORTANT)
-    console.log("DELETE RESPONSE:", data);
-
-    // 🔥 ERROR HANDLE
-    if (data.status === "error") {
-      setMessage(data.message); // "Driver already used"
-      setMessageType("error");
-      autoHide();
-      return;
-    }
-
-    // ✅ SUCCESS
-    setMessage("Driver deleted successfully ❌");
-    setMessageType("success");
-    autoHide();
-
-    loadDrivers();
-
-  } catch (err) {
-    console.error("DELETE ERROR:", err);
-
-    setMessage("Something went wrong");
+  // ❌ ERROR (already used)
+  if (data.status === "error") {
+    setMessage(data.message);        // backend message
     setMessageType("error");
     autoHide();
+    return;
   }
+
+  // ✅ SUCCESS
+  setMessage(data.message || "Driver deleted successfully ✅");
+  setMessageType("success");
+  autoHide();
+
+  loadDrivers();
 };
-
-
 
   /* SEARCH */
   const filteredDrivers = drivers.filter(

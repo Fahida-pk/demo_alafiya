@@ -22,7 +22,8 @@ const Suppliers = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState("");
-
+const [currentPage, setCurrentPage] = useState(1);
+const suppliersPerPage = 5; // nee change cheyyam (5,10,20)
   // ================= LOAD =================
   const loadData = async () => {
     const res = await fetch(API);
@@ -51,16 +52,22 @@ const Suppliers = () => {
       .toLowerCase()
       .includes(search.toLowerCase())
   );
+const indexOfLast = currentPage * suppliersPerPage;
+const indexOfFirst = indexOfLast - suppliersPerPage;
 
-  // ================= SUBMIT =================
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const currentSuppliers = filtered.slice(indexOfFirst, indexOfLast);
 
-    await fetch(API, {
-      method: isEdit ? "PUT" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+const totalPages = Math.ceil(filtered.length / suppliersPerPage);
+
+// ================= SUBMIT =================
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  await fetch(API, {
+    method: isEdit ? "PUT" : "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(form),
+  });
 
     setMessage(isEdit ? "Updated ✅" : "Added 🎉");
     setTimeout(() => setMessage(""), 3000);
@@ -91,11 +98,21 @@ const Suppliers = () => {
 
   // ================= DELETE =================
   const deleteItem = async (id) => {
-    if (!window.confirm("Delete?")) return;
+  if (!window.confirm("Delete?")) return;
 
-    await fetch(`${API}?id=${id}`, { method: "DELETE" });
+  const res = await fetch(`${API}?id=${id}`, {
+    method: "DELETE",
+  });
+
+  const data = await res.json();
+
+  if (data.status === "error") {
+    alert(data.message); // 🔥 "already used" message
+  } else {
+    setMessage("Deleted ✅");
     loadData();
-  };
+  }
+};
 
   return (
     <div className="supplier-page">
@@ -142,44 +159,79 @@ const Suppliers = () => {
             </tr>
           </thead>
 
-          <tbody>
-            {filtered.map((s) => (
-              <tr key={s.id}>
-                <td data-label="Name">{s.name}</td>
-                <td data-label="Address">{s.address}</td>
-                <td data-label="Phone">{s.phone}</td>
+      <tbody>
+  {filtered.length === 0 ? (
+    <tr>
+      <td colSpan="5" style={{ textAlign: "center" }}>
+        No suppliers found ❌
+      </td>
+    </tr>
+  ) : (
+   currentSuppliers.map((s) => (
+      <tr key={s.id}>
+        <td data-label="Name">{s.name}</td>
+        <td data-label="Address">{s.address}</td>
+        <td data-label="Phone">{s.phone}</td>
 
-                <td data-label="Status">
-                 <span
-  className={`supplier-status ${
-    s.status
-      ? s.status.toLowerCase().replace(" ", "-")
-      : "inactive"
-  }`}
->
-  {s.status || "INACTIVE"}
-</span>
-                </td>
+        <td data-label="Status">
+          <span
+            className={`supplier-status ${
+              s.status
+                ? s.status.toLowerCase().replace(" ", "-")
+                : "inactive"
+            }`}
+          >
+            {s.status || "INACTIVE"}
+          </span>
+        </td>
 
-                <td data-label="Actions">
-                  <button
-                    className="supplier-edit-btn"
-                    onClick={() => editItem(s)}
-                  >
-                    <FaEdit />
-                  </button>
+        <td data-label="Actions">
+          <button
+            className="supplier-edit-btn"
+            onClick={() => editItem(s)}
+          >
+            <FaEdit />
+          </button>
 
-                  <button
-                    className="supplier-delete-btn"
-                    onClick={() => deleteItem(s.id)}
-                  >
-                    <FaTrash />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          <button
+            className="supplier-delete-btn"
+            onClick={() => deleteItem(s.id)}
+          >
+            <FaTrash />
+          </button>
+        </td>
+      </tr>
+    ))
+  )}
+</tbody>
         </table>
+        <div className="pagination">
+
+  <button
+    disabled={currentPage === 1}
+    onClick={() => setCurrentPage(currentPage - 1)}
+  >
+    Previous
+  </button>
+
+  {[...Array(totalPages)].map((_, i) => (
+    <button
+      key={i}
+      className={currentPage === i + 1 ? "active" : ""}
+      onClick={() => setCurrentPage(i + 1)}
+    >
+      {i + 1}
+    </button>
+  ))}
+
+  <button
+    disabled={currentPage === totalPages}
+    onClick={() => setCurrentPage(currentPage + 1)}
+  >
+    Next
+  </button>
+
+</div>
       </div>
 
       {/* MODAL */}

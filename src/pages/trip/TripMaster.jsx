@@ -4,8 +4,7 @@ import { FaEdit, FaTrash, FaSearch, FaPlus } from "react-icons/fa";
 import TopNavbar from "../dashboard/TopNavbar";
 import "./TripMaster.css";
 
-const API = "https://zyntaweb.com/alafiya/api/trip.php";
-
+const API = "https://zyntaweb.com/demoalafiya/api/trip.php";
 const TripMaster = () => {
   const [trips, setTrips] = useState([]);
   const [search, setSearch] = useState("");
@@ -131,17 +130,30 @@ const TripMaster = () => {
   };
 
   /* DELETE (Driver.jsx pole) */
-  const deleteTrip = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this trip?")) return;
+ const deleteTrip = async (id) => {
+  if (!window.confirm("Are you sure you want to delete this trip?")) return;
 
-    await fetch(`${API}?id=${id}`, { method: "DELETE" });
+  const res = await fetch(`${API}?id=${id}`, {
+    method: "DELETE",
+  });
 
-    setMessage("Trip deleted successfully ❌");
-    setMessageType("success");
+  const data = await res.json(); // 🔥 IMPORTANT
+
+  // ❌ ERROR (already used)
+  if (data.status === "error") {
+    setMessage(data.message);     // backend message
+    setMessageType("error");
     autoHide();
+    return;
+  }
 
-    loadTrips();
-  };
+  // ✅ SUCCESS
+  setMessage(data.message || "Trip deleted successfully ✅");
+  setMessageType("success");
+  autoHide();
+
+  loadTrips();
+};
 
   /* SEARCH */
   const filteredTrips = trips.filter((t) =>
@@ -207,8 +219,6 @@ const TripMaster = () => {
           </div>
         ) : (
           <>
-          <div className="table-scroll">
-
             <table>
               <thead>
                 <tr>
@@ -246,7 +256,7 @@ const TripMaster = () => {
                 ))}
               </tbody>
             </table>
-</div>
+
             {totalPages > 1 && (
               <div className="pagination">
                 <button

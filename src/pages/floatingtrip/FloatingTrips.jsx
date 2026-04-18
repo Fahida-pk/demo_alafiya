@@ -9,10 +9,9 @@ import {
 } from "react-icons/fa";
 import "./FloatingTrip.css";
 
-const API = "https://zyntaweb.com/alafiya/api/floating_trips.php";
-const DRIVER_API = "https://zyntaweb.com/alafiya/api/drivers.php";
-const VEHICLE_API = "https://zyntaweb.com/alafiya/api/vehicles.php";
-
+const API = "https://zyntaweb.com/demoalafiya/api/floating_trips.php";
+const DRIVER_API = "https://zyntaweb.com/demoalafiya/api/drivers.php";
+const VEHICLE_API = "https://zyntaweb.com/demoalafiya/api/vehicles.php";
 const FloatingTrips = () => {
   const [trips, setTrips] = useState([]);
   const [drivers, setDrivers] = useState([]);

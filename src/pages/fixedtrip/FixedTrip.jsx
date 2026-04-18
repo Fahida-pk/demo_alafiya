@@ -11,7 +11,6 @@ const API = "https://zyntaweb.com/demoalafiya/api/fixed_trips.php";
 const ROUTE_API = "https://zyntaweb.com/demoalafiya/api/trip.php";
 const DRIVER_API = "https://zyntaweb.com/demoalafiya/api/drivers.php";
 const VEHICLE_API = "https://zyntaweb.com/demoalafiya/api/vehicles.php";
-
 const FixedTrips = () => {
   const navigate = useNavigate();
 

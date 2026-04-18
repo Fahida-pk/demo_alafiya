@@ -1,0 +1,351 @@
+/* ===== PAGE ===== */ 
+.item-page {
+  padding: 16px;
+  background: #f4f7fb;
+  min-height: 100vh;
+}
+
+/* ===== ADD BUTTON ===== */
+.add-item-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(to left, #4e73df, #6f42c1);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+}
+
+/* ===== CARD ===== */
+.item-list-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  overflow-x: auto;
+}
+
+/* ===== HEADER ===== */
+.item-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+
+.item-search-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.item-search-input {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #dcdfe6;
+  border-radius: 8px;
+  width: 240px;
+}
+
+/* ===== TABLE ===== */
+.item-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.item-table th,
+.item-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.item-table th {
+  background: #f9fafb;
+}
+
+/* ===== STATUS ===== */
+.item-status-active {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+/* OVERLAY */
+.item-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* MODAL BOX */
+.item-drawer {
+  background: #fff;
+  width: 450px;
+  max-width: 95%;
+  border-radius: 12px;
+  padding: 20px;
+  animation: popup 0.25s ease;
+}
+
+/* HEADER */
+.item-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.item-empty {
+  text-align: center;
+  padding: 40px 0;
+  color: #6b7280;
+  font-size: 16px;
+  font-weight: 500;
+}
+.item-drawer-header h3 {
+  margin: 0;
+}
+
+.item-drawer-header button {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* BODY */
+.item-drawer-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item-drawer-body input,
+.item-drawer-body select {
+  padding: 10px;
+  border: 1px solid #dcdfe6;
+  border-radius: 6px;
+}
+
+/* ANIMATION */
+@keyframes popup {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* ===== BUTTONS ===== */
+.item-edit-btn {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+/* ===== MODAL OVERLAY ===== */
+.item-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* ===== MODAL BOX ===== */
+.item-modal-box {
+  background: #fff;
+  width: 500px;
+  max-width: 95%;
+  border-radius: 14px;
+  padding: 22px;
+}
+
+/* ===== HEADER ===== */
+.item-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.item-modal-header h3 {
+  margin: 0;
+}
+
+.item-modal-header button {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* ===== BODY ===== */
+.item-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+/* ===== LABEL ===== */
+.item-modal-body label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ===== INPUT ===== */
+.item-modal-body input,
+.item-modal-body select {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #dcdfe6;
+  font-size: 14px;
+}
+.item-no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* adjust if needed */
+}
+
+.item-empty {
+  text-align: center;
+  color: #6b7280;
+  font-size: 16px;
+  font-weight: 500;
+}
+/* ===== BUTTON ===== */
+.item-save-btn {
+  margin-top: 10px;
+  padding: 14px;
+  background: linear-gradient(to right, #4e73df, #6f42c1);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.item-delete-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-left: 6px;
+}
+
+/* ===== MODAL ===== */
+.item-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-modal-box {
+  background: #fff;
+  width: 500px;
+  max-width: 95%;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.item-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item-modal-body input,
+.item-modal-body select {
+  padding: 10px;
+  border: 1px solid #dcdfe6;
+  border-radius: 6px;
+}
+
+.item-save-btn {
+  padding: 12px;
+  background: linear-gradient(to right, #2563eb, #6f42c1);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 576px) {
+
+  .item-card-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .item-search-input {
+    width: 100%;
+  }
+
+  .item-table thead {
+    display: none;
+  }
+
+  .item-table,
+  .item-table tbody,
+  .item-table tr,
+  .item-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .item-table tbody tr {
+    background: #fff;
+    margin-bottom: 14px;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+
+  .item-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border: none;
+    font-size: 14px;
+  }
+
+  .item-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+  }
+
+  .item-table tbody td[data-label="Actions"] {
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .item-modal-box {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}

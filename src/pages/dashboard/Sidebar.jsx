@@ -4,14 +4,9 @@ import { MdSwapHoriz } from "react-icons/md";
 import { FaUserShield, FaUsers } from "react-icons/fa";
 import { FaChartBar, FaChartPie, FaFileInvoice } from "react-icons/fa";
 import { FaBuilding } from "react-icons/fa";
-import { FaBoxOpen } from "react-icons/fa";
-import {
-  FaShoppingCart,
-  
-  FaFileAlt,
-  FaListUl
-} from "react-icons/fa";
-import { FaTags } from "react-icons/fa";
+import { FaMapMarkerAlt  } from "react-icons/fa";
+import { FaTags } from "react-icons/fa";      // Brands
+import { FaTruckLoading } from "react-icons/fa"; // Suppliers
 import {
   FaClipboardCheck,
   FaMapMarkedAlt,
@@ -29,7 +24,6 @@ import "./Sidebar.css";
 const Sidebar = () => {
   const [openMenu, setOpenMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [openSubMenu, setOpenSubMenu] = useState(null);
   const navigate = useNavigate();
   const role = localStorage.getItem("role");
 
@@ -87,34 +81,31 @@ const Sidebar = () => {
               <FaRoute />
               <span>Route</span>
             </Link>
-            {/* ✅ ADD THIS */}
+           {/* ✅ NEW CUSTOMER */}
     <Link to="/customers" onClick={() => setMobileOpen(false)}>
       <FaUsers />
       <span>Customer</span>
     </Link>
-    <Link to="/suppliers" onClick={() => setMobileOpen(false)}>
-      <FaUserTie />
-      <span>Suppliers</span>
+    <Link to="/items" onClick={() => setMobileOpen(false)}>
+      <FaClipboardCheck />
+      <span>Item</span>
+    </Link>
+    <Link to="/locations">
+  <FaMapMarkerAlt  />
+  <span>Location</span>
+</Link>
+<Link to="/suppliers" onClick={() => setMobileOpen(false)}>
+      <FaTruckLoading />
+      <span>Supplier</span>
     </Link>
     <Link to="/brands" onClick={() => setMobileOpen(false)}>
-  <FaTags />
-  <span>Brands</span>
-</Link>
-<Link to="/locations" onClick={() => setMobileOpen(false)}>
-  <FaMapMarkedAlt />
-  <span>Locations</span>
-</Link>
-<Link to="/items" onClick={() => setMobileOpen(false)}>
-  <FaBoxOpen />
-
-  <span>Items</span>
-</Link>
-
-  
-    
+      <FaTags />
+      <span>Brand</span>
+    </Link>
           </div>
+    
         )}
- 
+
         {/* ================= TRANSACTION ================= */}
         <div
           className="menu-item"
@@ -143,13 +134,9 @@ const Sidebar = () => {
       <FaFileInvoice />
       <span>Trip Settlement</span>
     </Link>
-<Link
-  to="/order-list"
-  className="menu-item"
-  onClick={() => setMobileOpen(false)}
->
-  <FaShoppingCart />
-  <span>Order</span>
+<Link to="/orders" onClick={() => setMobileOpen(false)}>
+  <FaClipboardCheck />
+  <span>Orders</span>
 </Link>
           </div>
         )}

@@ -122,23 +122,7 @@
   background: #f4f7fb;
   min-height: 100vh;
 }
-.fixed-trip-page .card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.fixed-trip-page table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-}
-
-.fixed-trip-page th,
-.fixed-trip-page td {
-  padding: 12px;
-  border-bottom: 1px solid #e5e7eb;
-}
 /* ================= CARD ================= */
 .fixed-trip-list-card {
   background: #ffffff;

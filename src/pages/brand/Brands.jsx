@@ -12,7 +12,8 @@ const Brands = () => {
 
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
-
+const [currentPage, setCurrentPage] = useState(1);
+const brandsPerPage = 5; 
   const [nameError, setNameError] = useState("");
 
   const [form, setForm] = useState({
@@ -104,22 +105,36 @@ const Brands = () => {
 
   // ================= DELETE =================
   const deleteBrand = async (id) => {
-    if (!window.confirm("Delete this brand?")) return;
+  if (!window.confirm("Delete this brand?")) return;
 
-    await fetch(`${API}?id=${id}`, { method: "DELETE" });
+  const res = await fetch(`${API}?id=${id}`, {
+    method: "DELETE",
+  });
 
-    setMessage("Brand deleted ❌");
+  const data = await res.json();
+
+  if (data.status === "error") {
+    setMessage(data.message);   // ❌ FK error
+    setMessageType("error");
+  } else {
+    setMessage(data.message);   // ✅ success
     setMessageType("success");
-    autoHide();
+  }
 
-    loadBrands();
-  };
+  autoHide();
+  loadBrands();
+};
 
   // ================= SEARCH =================
   const filtered = brands.filter((b) =>
     b.name?.toLowerCase().includes(search.toLowerCase())
   );
+const totalPages = Math.ceil(filtered.length / brandsPerPage);
 
+const indexOfLast = currentPage * brandsPerPage;
+const indexOfFirst = indexOfLast - brandsPerPage;
+
+const currentBrands = filtered.slice(indexOfFirst, indexOfLast);
   return (
 <div className="brand-page">
       <TopNavbar />
@@ -164,7 +179,7 @@ const Brands = () => {
               </tr>
             </thead>
 <tbody>
-  {filtered.map((b) => (
+  {currentBrands.map((b) => (
     <tr key={b.id}>
       <td data-label="Brand Name">{b.name}</td>
 
@@ -181,9 +196,29 @@ const Brands = () => {
   ))}
 </tbody>
           </table>
-        )}
-      </div>
+ )}
+      
+<div className="pagination">
+  <button
+    disabled={currentPage === 1}
+    onClick={() => setCurrentPage((prev) => prev - 1)}
+  >
+     Previous
+  </button>
 
+  <span>
+    Page {currentPage} of {totalPages}
+  </span>
+
+  <button
+    disabled={currentPage === totalPages}
+    onClick={() => setCurrentPage((prev) => prev + 1)}
+  >
+    Next
+  </button>
+</div>
+ 
+      </div>
       {/* MODAL */}
       {showModal && (
         <div className="modal-overlay">

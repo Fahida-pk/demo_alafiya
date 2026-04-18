@@ -1,9 +1,8 @@
-/* CONTAINER */
+/* ===== CONTAINER ===== */
 .erp-container {
   padding: 20px;
 }
 
-/* CARD */
 .erp-card {
   background: #fff;
   border-radius: 10px;
@@ -11,7 +10,29 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* TOP BAR */
+/* ===== HEADER ===== */
+.erp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.erp-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.erp-add-top {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ===== TOPBAR ===== */
 .erp-topbar {
   display: flex;
   justify-content: space-between;
@@ -32,14 +53,12 @@
 
 .erp-search-btn {
   background: #22c55e;
-  border: none;
   color: #fff;
+  border: none;
   padding: 8px 15px;
   border-radius: 6px;
-  cursor: pointer;
 }
 
-/* RIGHT */
 .erp-right {
   display: flex;
   gap: 10px;
@@ -50,19 +69,9 @@
   border: 1px solid #ddd;
   background: #fff;
   border-radius: 6px;
-  cursor: pointer;
 }
 
-.erp-add-btn {
-  background: #22c55e;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 18px;
-}
-
-/* FILTER */
+/* ===== FILTER ===== */
 .erp-filter-box {
   background: #f9fafb;
   padding: 15px;
@@ -78,21 +87,14 @@
 
 .erp-filter-grid input,
 .erp-filter-grid select {
-  width: 100%;
   padding: 7px;
   border: 1px solid #ddd;
   border-radius: 6px;
 }
 
-.erp-filter-actions {
-  display: flex;
-  gap: 10px;
-  align-items: end;
-}
-
 .erp-apply {
   background: #22c55e;
-  color: white;
+  color: #fff;
   border: none;
   padding: 7px 12px;
   border-radius: 6px;
@@ -100,114 +102,55 @@
 
 .erp-clear {
   background: #ef4444;
-  color: white;
+  color: #fff;
   border: none;
   padding: 7px 12px;
   border-radius: 6px;
 }
 
-/* TABLE */
+/* ===== TABLE ===== */
+.erp-table-container {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* header table */
 .erp-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .erp-table th {
-  text-align: left;
-  padding: 10px;
   background: #f3f4f6;
-}
-
-.erp-table td {
   padding: 10px;
-  border-top: 1px solid #eee;
-}
-/* HEADER */
-.erp-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.erp-title {
-  font-size: 20px;
+  text-align: left;
   font-weight: 600;
-  color: #111827;
 }
 
-.erp-add-top {
-  background: #22c55e;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 18px;
-  cursor: pointer;
-}
-/* ACTIONS */
-.erp-actions {
-  display: flex;
-  gap: 8px;
-}
-.erp-table-wrapper {
-  max-height: 60vh;   /* 🔥 dynamic height */
+/* body scroll */
+.erp-table-body {
+  max-height: 250px;
   overflow-y: auto;
 }
 
-/* FOOTER */
-.erp-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
+/* rows */
+.erp-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
 }
 
-.erp-info {
-  font-size: 14px;
-  color: #555;
+/* scrollbar */
+.erp-table-body::-webkit-scrollbar {
+  width: 6px;
 }
-.erp-table-wrapper {
-  border-radius: 8px;
-}
-.erp-pagination {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 15px;
+.erp-table-body::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
 }
 
-.erp-pagination button {
-  padding: 6px 12px;
-  border: 1px solid #ddd;
-  background: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.erp-pagination button.active {
-  background: #22c55e;
-  color: #fff;
-  border: none;
-}
-
-.erp-pagination button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-/* Sticky header */
-.erp-table thead th {
-  position: sticky;
-  top: 0;
-  background: #f3f4f6;
-  z-index: 2;
-}
-
-.erp-filter-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
+/* ===== ACTIONS ===== */
 .erp-actions {
   display: flex;
   gap: 8px;
@@ -219,7 +162,6 @@
   border: none;
   padding: 6px 10px;
   border-radius: 6px;
-  cursor: pointer;
 }
 
 .erp-delete {
@@ -228,5 +170,93 @@
   border: none;
   padding: 6px 10px;
   border-radius: 6px;
-  cursor: pointer;
+}
+.erp-table {
+  min-width: 600px; /* 👈 adjust based on columns */
+}
+/* ===== FOOTER ===== */
+.erp-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+/* ✅ FORCE TABLE STRUCTURE ALWAYS */
+.erp-table {
+  display: table !important;
+}
+.erp-table-body {
+  height: 60vh;   /* 🔥 BIG height */
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+.erp-table thead {
+  display: table-header-group !important;
+}
+
+.erp-table tbody {
+  display: table-row-group !important;
+}
+
+.erp-table tr {
+  display: table-row !important;
+}
+
+.erp-table td,
+.erp-table th {
+  display: table-cell !important;
+}
+.erp-pagination {
+  display: flex;
+  gap: 6px;
+}
+
+.erp-pagination button {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+.erp-pagination .active {
+  background: #22c55e;
+  color: #fff;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+
+  .erp-table thead {
+    display: none;
+  }
+
+  .erp-table,
+  .erp-table tbody,
+  .erp-table tr,
+  .erp-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .erp-table tr {
+    background: #fff;
+    margin-bottom: 12px;
+    padding: 12px;
+  }
+
+  .erp-table td {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .erp-table td::before {
+    content: attr(data-label);
+  }
+  .erp-table-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.erp-table-body::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
 }
