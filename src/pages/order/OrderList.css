@@ -221,37 +221,7 @@
   background: #22c55e;
   color: #fff;
 }
-
-/* ===== MOBILE ===== */
-@media (max-width: 768px) {
-
-  .erp-table thead {
-    display: none;
-  }
-
-  .erp-table,
-  .erp-table tbody,
-  .erp-table tr,
-  .erp-table td {
-    display: block;
-    width: 100%;
-  }
-
-  .erp-table tr {
-    background: #fff;
-    margin-bottom: 12px;
-    padding: 12px;
-  }
-
-  .erp-table td {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .erp-table td::before {
-    content: attr(data-label);
-  }
-  .erp-table-body::-webkit-scrollbar {
+.erp-table-body::-webkit-scrollbar {
   width: 8px;
 }
 
@@ -259,4 +229,26 @@
   background: #bbb;
   border-radius: 10px;
 }
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+
+  /* ✅ keep table structure */
+  .erp-table {
+    min-width: 700px;  /* 🔥 important */
+  }
+
+  /* ✅ scroll inside table */
+  .erp-table-body {
+    height: 60vh;
+    overflow-y: auto;
+    overflow-x: auto; /* 🔥 horizontal scroll */
+  }
+
+  /* optional better spacing */
+  .erp-table th,
+  .erp-table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+
 }
