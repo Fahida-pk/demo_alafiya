@@ -59,21 +59,17 @@ const totalPages = Math.ceil(filteredOrders.length / rowsPerPage);
 const handleDelete = (id) => {
   if (!window.confirm("Delete this order?")) return;
 
-  fetch(`${API}?id=${id}`, {
-    method: "DELETE",
-  })
+  fetch(`${API}?delete_id=${id}`)   // ✅ FIXED
     .then(res => res.json())
     .then(data => {
-      console.log(data);
-
       if (data.status === "deleted") {
         alert("Deleted successfully ✅");
+
+        // UI UPDATE
+        setOrders(prev => prev.filter(o => o.id != id));
       } else {
         alert("Delete failed ❌");
       }
-
-      // UI update
-      setOrders(prev => prev.filter(o => o.id !== id));
     })
     .catch(err => {
       console.error(err);

@@ -61,33 +61,37 @@ useEffect(() => {
 
 }, []);
 
+// ✅ LOAD EDIT DATA (HEADER + DETAILS)
 useEffect(() => {
-
   if (id) {
-    // ✏️ EDIT
+    // HEADER
     fetch(`${ORDER_API}?id=${id}`)
       .then(res => res.json())
       .then(data => {
-  console.log("EDIT:", data);
+        const order = Array.isArray(data) ? data[0] : data;
 
-  // 🔥 MAIN FIX
-  const order = Array.isArray(data) ? data[0] : data;
+        setOrderNumber(order.number);
 
-  setOrderNumber(order.number);
+        setHeader({
+          date: order.date || "",
+          customer_id: order.customer_id || "",
+          remarks: order.remarks || ""
+        });
+      });
 
-  setHeader({
-    date: order.date,
-    customer_id: order.customer_id,
-    remarks: order.remarks
-  });
-});
+    // ✅ DETAILS (FIX)
+    fetch(`${DETAILS_API}?order_id=${id}`)
+      .then(res => res.json())
+      .then(data => {
+        setDetails(Array.isArray(data) ? data : data.data || []);
+      });
+
   } else {
-    // ➕ ADD
+    // ADD MODE
     fetch(ORDER_API + "?type=next_number")
       .then(res => res.json())
       .then(data => setOrderNumber(data.number));
   }
-
 }, [id]);
   const addRow = () => {
     setDetails([...details, {
@@ -103,18 +107,14 @@ useEffect(() => {
   };
 
  const handleSave = async () => {
-
   try {
-
-    // 1️⃣ Save header
     const res = await fetch(ORDER_API, {
       method: "POST",
-      headers: {"Content-Type":"application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(header)
     });
 
     const headerRes = await res.json();
-    console.log("HEADER:", headerRes);
 
     const orderId = headerRes.id;
 
@@ -123,33 +123,53 @@ useEffect(() => {
       return;
     }
 
-    // 2️⃣ Save details
+    // DETAILS SAVE
     for (let d of details) {
-
       if (!d.item_id || !d.qty) continue;
 
-      const res2 = await fetch(DETAILS_API, {
+      await fetch(DETAILS_API, {
         method: "POST",
-        headers: {"Content-Type":"application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...d,
           order_id: orderId
         })
       });
-
-      const data2 = await res2.json();
-      console.log("DETAIL INSERT:", data2);
     }
 
     alert("Order Saved ✅");
+
+    // ✅ CLEAR FORM
+    setHeader({
+      date: "",
+      customer_id: "",
+      remarks: ""
+    });
+
+    setDetails([
+      {
+        item_id: "",
+        qty: "",
+        batch: "",
+        expiry: "",
+        location_id: "",
+        brand_id: "",
+        remark: ""
+      }
+    ]);
+
+    // ✅ NEW ORDER NUMBER
+    fetch(ORDER_API + "?type=next_number")
+      .then(res => res.json())
+      .then(data => setOrderNumber(data.number));
 
   } catch (err) {
     console.error(err);
     alert("Error saving ❌");
   }
 };
+
   return (
-    
     <div className="order-ui-container">
 
       {/* HEADER */}
@@ -180,16 +200,18 @@ useEffect(() => {
 
           <div className="order-ui-group">
             <label>Date *</label>
-            <input type="date"
-              onChange={e=>setHeader({...header, date:e.target.value})}
-            />
+            <input
+  type="date"
+  value={header.date}
+  onChange={e => setHeader({ ...header, date: e.target.value })}
+/>
           </div>
 
           <div className="order-ui-group">
             <label>Customer *</label>
-            <select
+         <select
   value={header.customer_id}
-  onChange={e=>setHeader({...header, customer_id:e.target.value})}
+  onChange={e => setHeader({ ...header, customer_id: e.target.value })}
 >
   <option value="">Select Customer</option>
 
@@ -204,9 +226,9 @@ useEffect(() => {
           <div className="order-ui-group">
             <label>Remarks</label>
             <input
-              placeholder="Enter remarks"
-              onChange={e=>setHeader({...header, remarks:e.target.value})}
-            />
+  value={header.remarks}
+  onChange={e => setHeader({ ...header, remarks: e.target.value })}
+/>
           </div>
 
         </div>
@@ -222,57 +244,77 @@ useEffect(() => {
 
         {/* MOBILE */}
         <div className="order-ui-mobile">
-          {details.map((d, i) => (
-            <div className="order-ui-item-card" key={i}>
+  {details.map((d, i) => (
+    <div className="order-ui-item-card" key={i}>
 
-              <label>Item</label>
-              <select onChange={e=>handleDetailChange(i,"item_id",e.target.value)}>
-                <option>Item</option>
-                {items.map(it=>(
-                  <option key={it.id} value={it.id}>{it.name}</option>
-                ))}
-              </select>
+      <label>Item</label>
+      <select
+        value={d.item_id || ""}
+        onChange={e => handleDetailChange(i, "item_id", e.target.value)}
+      >
+        <option value="">Item</option>
+        {items.map(it => (
+          <option key={it.id} value={it.id}>{it.name}</option>
+        ))}
+      </select>
 
-              <label>Qty</label>
-              <input onChange={e=>handleDetailChange(i,"qty",e.target.value)} />
+      <label>Qty</label>
+      <input
+        value={d.qty || ""}
+        onChange={e => handleDetailChange(i, "qty", e.target.value)}
+      />
 
-              <label>Batch</label>
-              <input onChange={e=>handleDetailChange(i,"batch",e.target.value)} />
+      <label>Batch</label>
+      <input
+        value={d.batch || ""}
+        onChange={e => handleDetailChange(i, "batch", e.target.value)}
+      />
 
-              <label>Expiry</label>
-              <input type="date"
-                onChange={e=>handleDetailChange(i,"expiry",e.target.value)}
-              />
+      <label>Expiry</label>
+      <input
+        type="date"
+        value={d.expiry || ""}
+        onChange={e => handleDetailChange(i, "expiry", e.target.value)}
+      />
 
-              <label>Location</label>
-              <select onChange={e=>handleDetailChange(i,"location_id",e.target.value)}>
-                <option>Location</option>
-                {locations.map(l=>(
-                  <option key={l.id} value={l.id}>{l.name}</option>
-                ))}
-              </select>
+      <label>Location</label>
+      <select
+        value={d.location_id || ""}
+        onChange={e => handleDetailChange(i, "location_id", e.target.value)}
+      >
+        <option value="">Location</option>
+        {locations.map(l => (
+          <option key={l.id} value={l.id}>{l.name}</option>
+        ))}
+      </select>
 
-              <label>Brand</label>
-              <select onChange={e=>handleDetailChange(i,"brand_id",e.target.value)}>
-                <option>Brand</option>
-                {brands.map(b=>(
-                  <option key={b.id} value={b.id}>{b.name}</option>
-                ))}
-              </select>
+      <label>Brand</label>
+      <select
+        value={d.brand_id || ""}
+        onChange={e => handleDetailChange(i, "brand_id", e.target.value)}
+      >
+        <option value="">Brand</option>
+        {brands.map(b => (
+          <option key={b.id} value={b.id}>{b.name}</option>
+        ))}
+      </select>
 
-              <label>Remark</label>
-              <input onChange={e=>handleDetailChange(i,"remark",e.target.value)} />
+      <label>Remark</label>
+      <input
+        value={d.remark || ""}
+        onChange={e => handleDetailChange(i, "remark", e.target.value)}
+      />
 
-              <button
-                className="order-ui-delete-btn"
-                onClick={()=>setDetails(details.filter((_,index)=>index!==i))}
-              >
-                Delete
-              </button>
+      <button
+        className="order-ui-delete-btn"
+        onClick={() => setDetails(details.filter((_, index) => index !== i))}
+      >
+        Delete
+      </button>
 
-            </div>
-          ))}
-        </div>
+    </div>
+  ))}
+</div>
 
         {/* TABLE */}
         <div className="order-ui-table-wrapper">
@@ -291,58 +333,84 @@ useEffect(() => {
             </thead>
 
             <tbody>
-              {details.map((d,i)=>(
-                <tr key={i}>
-                  <td>
-                    <select onChange={e=>handleDetailChange(i,"item_id",e.target.value)}>
-                      <option>Item</option>
-                      {items.map(it=>(
-                        <option key={it.id} value={it.id}>{it.name}</option>
-                      ))}
-                    </select>
-                  </td>
+  {details.map((d, i) => (
+    <tr key={i}>
+      <td>
+        <select
+          value={d.item_id || ""}
+          onChange={e => handleDetailChange(i, "item_id", e.target.value)}
+        >
+          <option value="">Item</option>
+          {items.map(it => (
+            <option key={it.id} value={it.id}>{it.name}</option>
+          ))}
+        </select>
+      </td>
 
-                  <td><input onChange={e=>handleDetailChange(i,"qty",e.target.value)} /></td>
-                  <td><input onChange={e=>handleDetailChange(i,"batch",e.target.value)} /></td>
-                  <td><input type="date" onChange={e=>handleDetailChange(i,"expiry",e.target.value)} /></td>
+      <td>
+        <input
+          value={d.qty || ""}
+          onChange={e => handleDetailChange(i, "qty", e.target.value)}
+        />
+      </td>
 
-                  <td>
-                    <select onChange={e=>handleDetailChange(i,"location_id",e.target.value)}>
-                      <option>Location</option>
-                      {locations.map(l=>(
-                        <option key={l.id} value={l.id}>{l.name}</option>
-                      ))}
-                    </select>
-                  </td>
+      <td>
+        <input
+          value={d.batch || ""}
+          onChange={e => handleDetailChange(i, "batch", e.target.value)}
+        />
+      </td>
 
-                  <td>
-                    <select onChange={e=>handleDetailChange(i,"brand_id",e.target.value)}>
-                      <option>Brand</option>
-                      {brands.map(b=>(
-                        <option key={b.id} value={b.id}>{b.name}</option>
-                      ))}
-                    </select>
-                  </td>
+      <td>
+        <input
+          type="date"
+          value={d.expiry || ""}
+          onChange={e => handleDetailChange(i, "expiry", e.target.value)}
+        />
+      </td>
 
-                  <td>
-                    <input
-                      className="order-ui-remark"
-                      onChange={e=>handleDetailChange(i,"remark",e.target.value)}
-                    />
-                  </td>
+      <td>
+        <select
+          value={d.location_id || ""}
+          onChange={e => handleDetailChange(i, "location_id", e.target.value)}
+        >
+          <option value="">Location</option>
+          {locations.map(l => (
+            <option key={l.id} value={l.id}>{l.name}</option>
+          ))}
+        </select>
+      </td>
 
-                  <td>
-                    <button
-                      className="order-ui-delete-btn"
-                      onClick={()=>setDetails(details.filter((_,index)=>index!==i))}
-                    >
-                      🗑
-                    </button>
-                  </td>
+      <td>
+        <select
+          value={d.brand_id || ""}
+          onChange={e => handleDetailChange(i, "brand_id", e.target.value)}
+        >
+          <option value="">Brand</option>
+          {brands.map(b => (
+            <option key={b.id} value={b.id}>{b.name}</option>
+          ))}
+        </select>
+      </td>
 
-                </tr>
-              ))}
-            </tbody>
+      <td>
+        <input
+          value={d.remark || ""}
+          onChange={e => handleDetailChange(i, "remark", e.target.value)}
+        />
+      </td>
+
+      <td>
+        <button
+          className="order-ui-delete-btn"
+          onClick={() => setDetails(details.filter((_, index) => index !== i))}
+        >
+          🗑
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
           </table>
         </div>
 
