@@ -134,10 +134,14 @@ const Sidebar = () => {
       <FaFileInvoice />
       <span>Trip Settlement</span>
     </Link>
-<Link to="/orders" onClick={() => setMobileOpen(false)}>
-  <FaClipboardCheck />
-  <span>Orders</span>
-</Link>
+    <Link to="/grn-list" onClick={() => setMobileOpen(false)}>
+      <FaClipboardCheck />
+      <span>GRN</span>
+    </Link>
+    <Link to="/orders" onClick={() => setMobileOpen(false)}>
+      <FaClipboardCheck />
+      <span>Orders</span>
+    </Link>
           </div>
         )}
 

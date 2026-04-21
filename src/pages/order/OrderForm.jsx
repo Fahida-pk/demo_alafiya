@@ -110,22 +110,34 @@ useEffect(() => {
 
  const handleSave = async () => {
   try {
+
+    let method = id ? "PUT" : "POST";
+
     const res = await fetch(ORDER_API, {
-      method: "POST",
+      method: method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(header)
+      body: JSON.stringify({
+        ...header,
+        id: id   // 🔥 important for update
+      })
     });
 
     const headerRes = await res.json();
 
-    const orderId = headerRes.id;
+    const orderId = id ? id : headerRes.id;
 
     if (!orderId) {
       alert("Order ID missing ❌");
       return;
     }
 
-    // DETAILS SAVE
+    // 🔥 DETAILS (clear old if edit)
+    if (id) {
+      await fetch(`${DETAILS_API}?order_id=${id}`, {
+        method: "DELETE"
+      });
+    }
+
     for (let d of details) {
       if (!d.item_id || !d.qty) continue;
 
@@ -139,38 +151,13 @@ useEffect(() => {
       });
     }
 
-    alert("Order Saved ✅");
-
-    // ✅ CLEAR FORM
-    setHeader({
-      date: "",
-      customer_id: "",
-      remarks: ""
-    });
-
-    setDetails([
-      {
-        item_id: "",
-        qty: "",
-        batch: "",
-        expiry: "",
-        location_id: "",
-        brand_id: "",
-        remark: ""
-      }
-    ]);
-
-    // ✅ NEW ORDER NUMBER
-    fetch(ORDER_API + "?type=next_number")
-      .then(res => res.json())
-      .then(data => setOrderNumber(data.number));
+    alert(id ? "Order Updated ✅" : "Order Saved ✅");
 
   } catch (err) {
     console.error(err);
-    alert("Error saving ❌");
+    alert("Error ❌");
   }
 };
-
   return (
     <div className="order-ui-container">
 

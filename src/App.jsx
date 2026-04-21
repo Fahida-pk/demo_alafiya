@@ -18,6 +18,9 @@ import Suppliers from "./pages/SUPPLIERS/SUPPLIERS";
 import OrderForm from "./pages/order/OrderForm";
 import OrderList from "./pages/order/OrderList";
 import Brand  from "./pages/brand/Brands";
+import GrnForm from "./pages/grn/GrnForm";
+import GrnList from "./pages/grn/GrnList";
+
 function App() {
   return (
     <BrowserRouter>
@@ -46,6 +49,10 @@ function App() {
 <Route path="/order-form/:id" element={<OrderForm />} />
 <Route path="/orders" element={<OrderList />} />
 <Route path="/order-form" element={<OrderForm />} />
+<Route path="/grn-form/:id" element={<GrnForm />} />
+<Route path="/grn-form" element={<GrnForm />} />
+<Route path="/grn-list" element={<GrnList />} />
+
         </Route>
 
       </Routes>
