@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
+import { FaEdit, FaTrash } from "react-icons/fa";
+
 import { useParams } from "react-router-dom";
 
 import "./OrderForm.css";
@@ -175,7 +177,7 @@ useEffect(() => {
       {/* HEADER */}
       <div className="order-ui-card">
         <div className="order-ui-header">
-          <h2>📋 Order Header</h2>
+          <h2>📋 Order </h2>
 
           <button
             className="order-ui-back-btn"
@@ -238,7 +240,7 @@ useEffect(() => {
       <div className="order-ui-card">
 
         <div className="order-ui-header">
-          <h2>📦 Order Items</h2>
+          <h2>📦 Order Details</h2>
           <button className="order-ui-add-btn" onClick={addRow}>+ Add Item</button>
         </div>
 
@@ -306,11 +308,11 @@ useEffect(() => {
       />
 
       <button
-        className="order-ui-delete-btn"
-        onClick={() => setDetails(details.filter((_, index) => index !== i))}
-      >
-        Delete
-      </button>
+  className="order-ui-delete-btn"
+  onClick={() => setDetails(details.filter((_, index) => index !== i))}
+>
+  <FaTrash />
+</button>
 
     </div>
   ))}
@@ -405,7 +407,7 @@ useEffect(() => {
           className="order-ui-delete-btn"
           onClick={() => setDetails(details.filter((_, index) => index !== i))}
         >
-          🗑
+          <FaTrash/>
         </button>
       </td>
     </tr>
