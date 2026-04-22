@@ -20,6 +20,7 @@ import OrderList from "./pages/order/OrderList";
 import Brand  from "./pages/brand/Brands";
 import GrnForm from "./pages/grn/GrnForm";
 import GrnList from "./pages/grn/GrnList";
+import DailyPicking  from "./pages/order/DailyPicking";
 
 function App() {
   return (
@@ -52,7 +53,7 @@ function App() {
 <Route path="/grn-form/:id" element={<GrnForm />} />
 <Route path="/grn-form" element={<GrnForm />} />
 <Route path="/grn-list" element={<GrnList />} />
-
+<Route path="/daily-picking" element={<DailyPicking />} />
         </Route>
 
       </Routes>

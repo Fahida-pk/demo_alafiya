@@ -131,51 +131,53 @@ const addRow = () => {
     const headerRes = await res.json();
     const orderId = id ? id : headerRes.id;
 
-    // 🔥 STEP 1: get existing data
-    const existingRes = await fetch(`${DETAILS_API}?order_id=${orderId}`);
-    const existingData = await existingRes.json();
-
-    const existingIds = existingData.map(d => d.id);
-    const currentIds = details.filter(d => d.id).map(d => d.id);
-
-    // 🔥 STEP 2: delete removed rows
-    for (let exId of existingIds) {
-      if (!currentIds.includes(exId)) {
-        await fetch(`${DETAILS_API}?id=${exId}`, {
-          method: "DELETE"
-        });
-      }
+    // 🔥 IMPORTANT: delete old details
+    if (id) {
+      await fetch(`${DETAILS_API}?order_id=${orderId}`, {
+        method: "DELETE"
+      });
     }
 
-    // 🔥 STEP 3: insert / update
+    // 🔥 insert fresh data
     for (let d of details) {
 
       if (!d.item_id || !d.qty) continue;
 
-      // NEW
-      if (!d.id) {
-        await fetch(DETAILS_API, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...d,
-            order_id: orderId
-          })
-        });
-      }
-
-      // UPDATE
-      else {
-        await fetch(DETAILS_API, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(d)
-        });
-      }
+      await fetch(DETAILS_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...d,
+          order_id: orderId
+        })
+      });
     }
 
-    alert("Order Updated  ✅");
+    alert(id ? "Order Updated ✅" : "Order Saved ✅");
+if (!id) {
+  setHeader({
+    date: "",
+    customer_id: "",
+    remarks: ""
+  });
 
+  setDetails([
+    {
+      item_id: "",
+      qty: "",
+      batch: "",
+      expiry: "",
+      location_id: "",
+      brand_id: "",
+      remark: ""
+    }
+  ]);
+
+  // 🔥 NEW ORDER NUMBER
+  fetch(ORDER_API + "?type=next_number")
+    .then(res => res.json())
+    .then(data => setOrderNumber(data.number));
+}
   } catch (err) {
     console.error(err);
     alert("Error ❌");

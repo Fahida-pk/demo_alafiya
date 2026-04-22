@@ -10,6 +10,7 @@ import { FaTruckLoading } from "react-icons/fa"; // Suppliers
 import { MdReceiptLong } from "react-icons/md";
 import { MdShoppingCart } from "react-icons/md";
 import { MdAltRoute } from "react-icons/md";
+import { MdAssignmentTurnedIn } from "react-icons/md";
 import {
   FaClipboardCheck,
   FaMapMarkedAlt,
@@ -141,6 +142,10 @@ const Sidebar = () => {
       <MdReceiptLong />
       <span>GRN</span>
     </Link>
+    <Link to="/daily-picking" onClick={() => setMobileOpen(false)}>
+  <MdAssignmentTurnedIn />
+  <span>Daily Picking</span>
+</Link>
     <Link to="/orders" onClick={() => setMobileOpen(false)}>
       <MdShoppingCart />
       <span>Orders</span>
