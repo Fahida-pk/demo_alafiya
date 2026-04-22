@@ -251,13 +251,48 @@ background: linear-gradient(
   background: #bbb;
   border-radius: 10px;
 }
+@media (max-width: 768px) {
+
+  .erp-topbar {
+    margin-bottom: 12px;   /* search block gap */
+  }
+
+  .erp-filter-box {
+    margin-bottom: 12px;   /* filter gap */
+  }
+
+  .erp-table-container {
+    margin-top: 10px;
+  }
+
+}
+@media (max-width: 768px) {
+
+  .erp-topbar,
+  .erp-filter-box,
+  .erp-table-container {
+
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+
+  }
+
+}
 /* ===== MOBILE ===== */
 @media (max-width: 768px) {
   .erp-container {
     padding: 0;
   }
+  @media (max-width: 768px) {
+
   .erp-card {
-    padding: 0;
+    padding: 12px;   /* 🔥 ADD THIS */
+  }
+
+}
+  .erp-card {
     border-radius: 0;
     width: 100vw;
     max-width: 100vw;
