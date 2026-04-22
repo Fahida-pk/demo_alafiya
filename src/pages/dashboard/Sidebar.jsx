@@ -7,6 +7,9 @@ import { FaBuilding } from "react-icons/fa";
 import { FaMapMarkerAlt  } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";      // Brands
 import { FaTruckLoading } from "react-icons/fa"; // Suppliers
+import { MdReceiptLong } from "react-icons/md";
+import { MdShoppingCart } from "react-icons/md";
+import { MdAltRoute } from "react-icons/md";
 import {
   FaClipboardCheck,
   FaMapMarkedAlt,
@@ -120,7 +123,7 @@ const Sidebar = () => {
           <div className="submenu">
 
             <Link to="/fixed-trips" onClick={() => setMobileOpen(false)}>
-              <FaClipboardCheck />
+              <MdAltRoute  />
               <span>Fixed Trip</span>
             </Link>
 
@@ -135,11 +138,11 @@ const Sidebar = () => {
       <span>Trip Settlement</span>
     </Link>
     <Link to="/grn-list" onClick={() => setMobileOpen(false)}>
-      <FaClipboardCheck />
+      <MdReceiptLong />
       <span>GRN</span>
     </Link>
     <Link to="/orders" onClick={() => setMobileOpen(false)}>
-      <FaClipboardCheck />
+      <MdShoppingCart />
       <span>Orders</span>
     </Link>
           </div>

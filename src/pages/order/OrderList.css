@@ -24,8 +24,12 @@
 }
 
 .erp-add-top {
-  background: #22c55e;
-  color: #fff;
+background: linear-gradient(
+  180deg,
+  #8e63e0 0%,
+  #7a5cd6 50%,
+  #654fc4 100%
+);  color: #fff;
   border: none;
   padding: 8px 14px;
   border-radius: 6px;
@@ -52,8 +56,12 @@
 }
 
 .erp-search-btn {
-  background: #22c55e;
-  color: #fff;
+background: linear-gradient(
+  180deg,
+  #8e63e0 0%,
+  #7a5cd6 50%,
+  #654fc4 100%
+);  color: #fff;
   border: none;
   padding: 8px 15px;
   border-radius: 6px;
@@ -93,8 +101,12 @@
 }
 
 .erp-apply {
-  background: #22c55e;
-  color: #fff;
+background: linear-gradient(
+  180deg,
+  #8e63e0 0%,
+  #7a5cd6 50%,
+  #654fc4 100%
+);  color: #fff;
   border: none;
   padding: 7px 12px;
   border-radius: 6px;
@@ -224,8 +236,12 @@
 }
 
 .erp-pagination .active {
-  background: #22c55e;
-  color: #fff;
+background: linear-gradient(
+  180deg,
+  #8e63e0 0%,
+  #7a5cd6 50%,
+  #654fc4 100%
+);  color: #fff;
 }
 .erp-table-body::-webkit-scrollbar {
   width: 8px;

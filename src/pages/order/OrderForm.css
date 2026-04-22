@@ -78,8 +78,12 @@
 
 /* BUTTON */
 .order-ui-add-btn {
-  background: #22c55e;
-  color: white;
+background: linear-gradient(
+  180deg,
+  #8e63e0 0%,
+  #7a5cd6 50%,
+  #654fc4 100%
+);  color: white;
   border: none;
   padding: 8px 12px;
   border-radius: 6px;
@@ -137,8 +141,12 @@
 /* SAVE */
 .order-ui-save-btn {
   margin-top: 15px;
-  background: #22c55e;
-  color: white;
+background: linear-gradient(
+  180deg,
+  #8e63e0 0%,
+  #7a5cd6 50%,
+  #654fc4 100%
+);  color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 6px;

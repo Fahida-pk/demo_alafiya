@@ -32,6 +32,7 @@ const TopNavbar = () => {
     if (path === "/floating-trips") return "Floating Trip";
     if (path === "/report") return "Trip Settlement"; // ⚠️ important
     if (path === "/orders") return "Orders";
+    if (path === "/grn-list") return "GRN";
 
     // ===== REPORT =====
     if (path === "/driver-report") return "Driver Report";

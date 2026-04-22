@@ -95,12 +95,18 @@ useEffect(() => {
       .then(data => setOrderNumber(data.number));
   }
 }, [id]);
-  const addRow = () => {
-    setDetails([...details, {
-      item_id: "", qty: "", batch: "", expiry: "",
-      location_id: "", brand_id: "", remark: ""
-    }]);
-  };
+const addRow = () => {
+  setDetails([...details, {
+    id: null, // 🔥 MUST
+    item_id: "",
+    qty: "",
+    batch: "",
+    expiry: "",
+    location_id: "",
+    brand_id: "",
+    remark: ""
+  }]);
+};
 
   const handleDetailChange = (index, field, value) => {
     const newDetails = [...details];
@@ -118,40 +124,57 @@ useEffect(() => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...header,
-        id: id   // 🔥 important for update
+        id: id
       })
     });
 
     const headerRes = await res.json();
-
     const orderId = id ? id : headerRes.id;
 
-    if (!orderId) {
-      alert("Order ID missing ❌");
-      return;
+    // 🔥 STEP 1: get existing data
+    const existingRes = await fetch(`${DETAILS_API}?order_id=${orderId}`);
+    const existingData = await existingRes.json();
+
+    const existingIds = existingData.map(d => d.id);
+    const currentIds = details.filter(d => d.id).map(d => d.id);
+
+    // 🔥 STEP 2: delete removed rows
+    for (let exId of existingIds) {
+      if (!currentIds.includes(exId)) {
+        await fetch(`${DETAILS_API}?id=${exId}`, {
+          method: "DELETE"
+        });
+      }
     }
 
-    // 🔥 DETAILS (clear old if edit)
-    if (id) {
-      await fetch(`${DETAILS_API}?order_id=${id}`, {
-        method: "DELETE"
-      });
-    }
-
+    // 🔥 STEP 3: insert / update
     for (let d of details) {
+
       if (!d.item_id || !d.qty) continue;
 
-      await fetch(DETAILS_API, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...d,
-          order_id: orderId
-        })
-      });
+      // NEW
+      if (!d.id) {
+        await fetch(DETAILS_API, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...d,
+            order_id: orderId
+          })
+        });
+      }
+
+      // UPDATE
+      else {
+        await fetch(DETAILS_API, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(d)
+        });
+      }
     }
 
-    alert(id ? "Order Updated ✅" : "Order Saved ✅");
+    alert("Order Updated  ✅");
 
   } catch (err) {
     console.error(err);

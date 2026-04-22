@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
+import { MdInventory } from "react-icons/md";
+import { BsBoxSeam } from "react-icons/bs";
 import "./GrnForm.css";
 
 const GRN_API = "https://zyntaweb.com/demoalafiya/api/grn_header.php";
@@ -173,8 +175,7 @@ const handleSave = async () => {
   {/* HEADER */}
   <div className="order-ui-card">
     <div className="order-ui-header">
-      <h2>📋 GRN</h2>
-
+<h2><BsBoxSeam /> GRN </h2>
       <button
         className="order-ui-back-btn"
         onClick={() => navigate(-1)}
@@ -241,7 +242,7 @@ const handleSave = async () => {
       <div className="grn-ui-card">
 
         <div className="grn-ui-header">
-          <h2>📦 GRN Details</h2>
+          <h2><MdInventory /> GRN Details</h2>
           <button className="grn-ui-add-btn" onClick={addRow}>
             + Add Item
           </button>

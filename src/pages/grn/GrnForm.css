@@ -5,17 +5,36 @@
   padding: 20px;
   background: #f5f7fb;
 }
+.grn-ui-header h2 svg {
+  color: #7b5cff;   /* purple */
+}/* GRN */
+.grn-ui-header h2 svg {
+  color: #7b5cff;   /* purple */
+}
 
+/* ORDER */
+.order-ui-header h2 svg {
+  color: #3b82f6;
+}
 /* TOP BAR */
 .grn-ui-topbar {
  display: flex;
   align-items: center;
   margin-bottom: 15px;
 }
-
+.grn-ui-header h2 svg {
+  margin-right: 8px;
+  font-size: 22px;
+  vertical-align: middle;
+}
 /* BACK BUTTON */
 .grn-ui-back-btn {
-  background: #fff;
+background: linear-gradient(
+  180deg,
+  #8e63e0 0%,
+  #7a5cd6 50%,
+  #654fc4 100%
+);
   border: 1px solid #ddd;
   padding: 8px 14px;
   border-radius: 6px;
@@ -47,7 +66,12 @@
 
 }
 .grn-ui-add-btn {
-  background: #22c55e;
+background: linear-gradient(
+  180deg,
+  #8e63e0 0%,
+  #7a5cd6 50%,
+  #654fc4 100%
+);
   color: white;
   border: none;
   padding: 8px 14px; /* slightly bigger */
@@ -57,7 +81,12 @@
 }
 
 .grn-ui-back-btn {
-   background: #fff;
+background: linear-gradient(
+  180deg,
+  #8e63e0 0%,
+  #7a5cd6 50%,
+  #654fc4 100%
+);
   border: 1px solid #ddd;
   padding: 8px 14px;
   border-radius: 6px;
@@ -100,7 +129,12 @@
 
 /* BUTTON */
 .grn-ui-add-btn {
-  background: #22c55e;
+background: linear-gradient(
+  180deg,
+  #8e63e0 0%,
+  #7a5cd6 50%,
+  #654fc4 100%
+);
   color: white;
   border: none;
   padding: 8px 12px;
@@ -158,7 +192,12 @@
 /* SAVE */
 .grn-ui-save-btn {
   margin-top: 15px;
-  background: #22c55e;
+background: linear-gradient(
+  180deg,
+  #8e63e0 0%,
+  #7a5cd6 50%,
+  #654fc4 100%
+);
   color: white;
   padding: 10px 20px;
   border: none;

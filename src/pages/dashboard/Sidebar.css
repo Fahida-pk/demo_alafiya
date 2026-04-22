@@ -20,7 +20,11 @@
   flex-direction: column;
 }
 
-
+.menu-item svg,
+.submenu svg {
+  font-size: 24px;
+  min-width: 20px;
+}
 .sidebar a {
   text-decoration: none;
   color: #fff;
