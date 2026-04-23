@@ -122,94 +122,81 @@ if (!newData[index].manual) {
           />
         </div>
 
-        {/* TABLE */}
-        <div className="dp-pro-table-container">
-          <div className="dp-pro-table-body">
+   <div className="dp-pro-table-container">
+  <div className="dp-pro-table-body">
+    <table className="dp-pro-table">
+      
+      <thead>
+        <tr>
+          <th>Sl No</th>
+          <th>Customer Name</th>
+          <th>Item Name</th>
+          <th>Item Location</th>
+          <th>Brand</th>
+          <th>Qty Req</th>
+          <th>Pick Qty</th>
+          <th>Back Order</th>
+          <th>Status</th>
+          <th>Delivery Remarks</th>
+        </tr>
+      </thead>
 
-            <table className="dp-pro-table">
+      <tbody>
+        {data.length === 0 ? (
+          <tr>
+            <td colSpan="10" style={{ textAlign: "center" }}>
+              No Data
+            </td>
+          </tr>
+        ) : (
+          data.map((d, i) => {
+            let picked = d.picking_qty || 0;
+            let back = d.qty - picked;
 
-              <thead>
-                <tr>
-                  <th>Sl No</th>
-                  <th>Customer Name</th>
-                  <th>Item Name</th>
-                  <th>Item Location</th>
-                  <th>Brand</th>
-                  <th>Qty Req</th>
-                  <th>Pick Qty</th>
-                  <th>Back Order</th>
-                  <th>Status</th>
-                  <th>Delivery Remarks</th>
-                </tr>
-              </thead>
+            return (
+              <tr key={i}>
+                <td>{i + 1}</td>
+                <td>{d.customer_name}</td>
+                <td>{d.item_name}</td>
+                <td>{d.location_name}</td>
+                <td>{d.brand_name}</td>
+                <td>{d.qty}</td>
 
-              <tbody>
+                <td>
+                  <input
+                    type="number"
+                    value={d.picking_qty > 0 ? d.picking_qty : ""}
+                    onChange={(e) => handlePickChange(i, e.target.value)}
+                  />
+                </td>
 
-                {data.length === 0 ? (
-                  <tr>
-                    <td colSpan="10" style={{ textAlign: "center" }}>
-                      No Data
-                    </td>
-                  </tr>
-                ) : (
+                <td style={{ textAlign: "center", fontWeight: "600" }}>
+                  {back}
+                </td>
 
-                  data.map((d, i) => {
+                <td>
+                  <select
+                    value={d.status}
+                    onChange={(e) => handleStatusChange(i, e.target.value)}
+                  >
+                    <option value="Order Placed">Order Placed</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Pending">Pending</option>
+                  </select>
+                </td>
 
-                    let picked = d.picking_qty || 0;
-                    let back = d.qty - picked;
+                <td>
+                  <input value={d.remark || ""} readOnly />
+                </td>
+              </tr>
+            );
+          })
+        )}
+      </tbody>
 
-                    return (
-                      <tr key={i}>
-
-                        <td>{i + 1}</td>
-                        <td>{d.customer_name}</td>
-                        <td>{d.item_name}</td>
-                        <td>{d.location_name}</td>
-                        <td>{d.brand_name}</td>
-                        <td>{d.qty}</td>
-
-                        <td>
-                          <input
-                            type="number"
-                            value={d.picking_qty > 0 ? d.picking_qty : ""}
-                            onChange={(e) =>
-                              handlePickChange(i, e.target.value)
-                            }
-                          />
-                        </td>
-
-                        <td style={{ textAlign: "center", fontWeight: "600" }}>
-                          {back}
-                        </td>
-
-                        <td>
-                          <select
-                            value={d.status}
-                            onChange={(e) =>
-                              handleStatusChange(i, e.target.value)
-                            }
-                          >
-                            <option value="Order Placed">Order Placed</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Pending">Pending</option>
-                          </select>
-                        </td>
-
-                        <td>
-                          <input value={d.remark || ""} readOnly />
-                        </td>
-
-                      </tr>
-                    );
-                  })
-                )}
-
-              </tbody>
-
-            </table>
-
-          </div>
-        </div>
+    </table>
+  </div>
+</div>
 
         {/* SAVE */}
         {data.length > 0 && (

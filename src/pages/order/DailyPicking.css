@@ -1,6 +1,6 @@
 /* ===== CONTAINER ===== */
 .dp-pro-container {
-  width: 100%;
+  width:82%;
   padding: 0;
 }
 
@@ -26,19 +26,12 @@
   font-weight: 600;
 }
 /* DELIVERY REMARK COLUMN WIDTH */
-.dp-pro-table th:last-child,
-.dp-pro-table td:last-child {
-  min-width: 180px;   /* 🔥 increase width */
-  padding-right: 20px; /* 🔥 right space */
-}
+
 .dp-pro-table td:last-child input {
   width: 100%;
   padding-right: 10px;
 }
-.dp-pro-table th:last-child,
-.dp-pro-table td:last-child {
-  min-width: 220px;
-}
+
 /* BUTTON */
 .dp-pro-btn {
   background: linear-gradient(180deg,#8e63e0,#654fc4);
@@ -47,6 +40,7 @@
   padding: 10px 16px;
   border-radius: 8px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 /* INPUT */
@@ -62,9 +56,83 @@
   width: 100%;
   border: 1px solid #eee;
   border-radius: 10px;
-  overflow-x: auto;
+}
+/* ===== TABLE CONTAINER ===== */
+.dp-pro-table-container {
+  width: 100%;
+  overflow-x: auto;   /* 🔥 enable horizontal scroll */
 }
 
+/* ===== TABLE ===== */
+.dp-pro-table {
+  width: max-content;   /* 🔥 IMPORTANT (expand based on columns) */
+  min-width: 100%;      /* full width minimum */
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+/* ===== HEADER ===== */
+.dp-pro-table th {
+  white-space: nowrap;   /* 🔥 prevent text break */
+  padding: 18px 24px;
+}
+
+/* ===== BODY ===== */
+.dp-pro-table td {
+  padding: 18px 24px;
+}
+
+/* ===== COLUMN WIDTH FIX ===== */
+
+/* DELIVERY REMARK (IMPORTANT FIX) */
+.dp-pro-table th:nth-child(10),
+.dp-pro-table td:nth-child(10) {
+  min-width: 300px;   /* 🔥 increase */
+  width: 320px;
+}
+
+/* INPUT INSIDE DELIVERY */
+.dp-pro-table td:nth-child(10) input {
+  width: 100%;
+}
+
+/* OTHER COLUMNS LITTLE INCREASE */
+.dp-pro-table th:nth-child(2),
+.dp-pro-table td:nth-child(2) {
+  min-width: 200px;
+}
+
+.dp-pro-table th:nth-child(3),
+.dp-pro-table td:nth-child(3) {
+  min-width: 180px;
+}
+
+.dp-pro-table th:nth-child(4),
+.dp-pro-table td:nth-child(4) {
+  min-width: 180px;
+}
+
+/* SCROLL SMOOTH */
+.dp-pro-table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.dp-pro-table-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+.dp-pro-table-body {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* sticky header */
+.dp-pro-table thead th {
+  position: sticky;
+  top: 0;
+  background: #f9fafb;
+  z-index: 2;
+}
 /* TABLE */
 /* HEADING SPACING */
 .dp-pro-table th {
@@ -94,7 +162,47 @@
 .dp-pro-table td {
   border-right: 2px solid #f1f1f1;
 }
+/* Desktop scrollable table body with horizontal and vertical scroll */
+.dp-pro-table-container {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: auto;
+  /* Ensures horizontal scroll if table is wide */
+}
 
+.dp-pro-table-body {
+  max-height: 400px; /* Adjust as needed */
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+/* Table always at least as wide as container */
+.dp-pro-table {
+  min-width: 1200px;
+  width: max-content;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+/* Sticky header */
+.dp-pro-table thead th {
+  position: sticky;
+  top: 0;
+  background: #f9fafb;
+  z-index: 2;
+}
+
+/* Custom scrollbars */
+.dp-pro-table-container::-webkit-scrollbar,
+.dp-pro-table-body::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.dp-pro-table-container::-webkit-scrollbar-thumb,
+.dp-pro-table-body::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
 /* last column border remove */
 .dp-pro-table th:last-child,
 .dp-pro-table td:last-child {
@@ -109,6 +217,13 @@
   border: 1px solid #ddd;
   border-radius: 6px;
 }
+.dp-pro-table-body::-webkit-scrollbar {
+  width: 6px;
+}
+.dp-pro-table-body::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
 
 /* BACK ORDER */
 .dp-pro-table td:nth-child(8) {
@@ -116,12 +231,22 @@
   font-weight: 600;
 }
 .dp-pro-table {
-  width: 100%;
-  min-width: 1200px;   /* 🔥 important – table expand aakan */
+ 
   border-collapse: collapse;
-  table-layout: auto;  /* 🔥 auto = content based width */
+  table-layout: auto;
+}
+.dp-pro-table {
+  width: max-content;
+  min-width: 1400px;   /* 🔥 increase THIS */
+}
+.dp-pro-table-container {
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
+.dp-pro-table {
+  min-width: 1200px;   /* 🔥 force scroll */
+}
 .dp-pro-table thead {
   display: table-header-group !important;
 }
@@ -191,14 +316,28 @@
 /* STATUS */
 .dp-pro-table th:nth-child(9),
 .dp-pro-table td:nth-child(9) {
-  min-width: 140px;
+  min-width: 120px;
 }
-
-/* DELIVERY REMARK */
+.dp-pro-table th:last-child,
+.dp-pro-table td:last-child {
+  min-width: 260px;   /* 🔥 increase more */
+  width: 260px;       /* 🔥 fixed width */
+  max-width: 300px;
+}
+/* DELIVERY REMARK (FINAL FIX) */
 .dp-pro-table th:nth-child(10),
 .dp-pro-table td:nth-child(10) {
-  min-width: 220px;
+  min-width: 300px;
+  width: 300px;
 }
+
+/* REMOVE THIS (IMPORTANT) ❌ */
+/*
+.dp-pro-table th:last-child,
+.dp-pro-table td:last-child {
+  min-width: 260px;
+}
+*/
 /* SCROLLBAR */
 .dp-pro-table-body::-webkit-scrollbar {
   width: 6px;
