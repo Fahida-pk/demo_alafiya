@@ -160,61 +160,60 @@ if (!newData[index].manual) {
                     let back = d.qty - picked;
 
                     return (
-                      <tr key={i} style={{ background: "#ffffff" }}>
+                     <tr key={i} style={{ background: "#ffffff" }}>
 
-                        <td>{i + 1}</td>
-                        <td>{d.customer_name}</td>
-                        <td>{d.item_name}</td>
-                        <td>{d.qty}</td>
-                        <td>{d.location_name}</td>
+  <td>{i + 1}</td>
+  <td>{d.customer_name}</td>
+  <td>{d.item_name}</td>
+  <td>{d.location_name}</td>   {/* FIX */}
+  <td>{d.brand_name}</td>      {/* FIX */}
+  <td>{d.qty}</td>             {/* FIX */}
 
-                        {/* PICK QTY */}
-                        <td>
-                          <input
-                            type="number"
-                            value={d.picking_qty || ""}
-                            onChange={(e) =>
-                              handlePickChange(i, e.target.value)
-                            }
-                            style={{ width: "60px" }}
-                          />
-                        </td>
+  {/* PICK QTY */}
+  <td>
+    <input
+      type="number"
+      value={d.picking_qty || ""}
+      onChange={(e) =>
+        handlePickChange(i, e.target.value)
+      }
+      style={{ width: "60px" }}
+    />
+  </td>
 
-                        <td>{d.brand_name}</td>
+  {/* REMARK */}
+  <td>
+    <input
+      value={d.remark || ""}
+      readOnly
+      style={{
+        width: "120px",
+        background: "#f5f5f5",
+        border: "1px solid #ccc"
+      }}
+    />
+  </td>
 
-                        {/* REMARK */}
-                        <td>
-                          <input
-                            value={d.remark || ""}
-                            readOnly
-                            style={{
-                              width: "120px",
-                              background: "#f5f5f5",
-                              border: "1px solid #ccc"
-                            }}
-                          />
-                        </td>
+  {/* BACK ORDER */}
+  <td style={{ textAlign: "center", fontWeight: "bold" }}>
+    {back}
+  </td>
 
-                        {/* BACK ORDER */}
-                        <td style={{ textAlign: "center", fontWeight: "bold" }}>
-                          {back}
-                        </td>
+  {/* STATUS */}
+  <td>
+    <select
+      value={d.status || "Order Placed"}
+      onChange={(e) =>
+        handleStatusChange(i, e.target.value)
+      }
+    >
+      <option value="Order Placed">Order Placed</option>
+      <option value="Completed">Completed</option>
+      <option value="Pending">Pending</option>
+    </select>
+  </td>
 
-                        {/* STATUS */}
-                        <td>
-                          <select
-                            value={d.status || "Order Placed"}
-                            onChange={(e) =>
-                              handleStatusChange(i, e.target.value)
-                            }
-                          >
-                            <option value="Order Placed">Order Placed</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Pending">Pending</option>
-                          </select>
-                        </td>
-
-                      </tr>
+</tr>
                     );
                   })
 
