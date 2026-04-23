@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import TopNavbar from "../dashboard/TopNavbar";
-import "./OrderList.css";
+import "./DailyPicking.css";
 
 const API = "https://zyntaweb.com/demoalafiya/api/daily_picking.php";
 const UPDATE_API = "https://zyntaweb.com/demoalafiya/api/order_details.php";
@@ -100,16 +100,16 @@ if (!newData[index].manual) {
     alert("Saved ✅");
   };
 
-  return (
-    <div className="erp-container">
+ return (
+    <div className="dp-pro-container">
 
       <TopNavbar />
 
-      <div className="erp-card">
+      <div className="dp-pro-card">
 
         {/* HEADER */}
-        <div className="erp-header">
-          <h2 className="erp-title">Daily Picking</h2>
+        <div className="dp-pro-header">
+          <h2 className="dp-pro-title">Daily Picking</h2>
         </div>
 
         {/* DATE */}
@@ -118,15 +118,15 @@ if (!newData[index].manual) {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="erp-search"
+            className="dp-pro-input"
           />
         </div>
 
         {/* TABLE */}
-        <div className="erp-table-container">
-          <div className="erp-table-body">
+        <div className="dp-pro-table-container">
+          <div className="dp-pro-table-body">
 
-            <table className="erp-table">
+            <table className="dp-pro-table">
 
               <thead>
                 <tr>
@@ -137,10 +137,9 @@ if (!newData[index].manual) {
                   <th>Brand</th>
                   <th>Qty Req</th>
                   <th>Pick Qty</th>
-
-                  <th>Delivery Remarks</th>
                   <th>Back Order</th>
                   <th>Status</th>
+                  <th>Delivery Remarks</th>
                 </tr>
               </thead>
 
@@ -160,74 +159,61 @@ if (!newData[index].manual) {
                     let back = d.qty - picked;
 
                     return (
-                     <tr key={i} style={{ background: "#ffffff" }}>
+                      <tr key={i}>
 
-  <td>{i + 1}</td>
-  <td>{d.customer_name}</td>
-  <td>{d.item_name}</td>
-  <td>{d.location_name}</td>   {/* FIX */}
-  <td>{d.brand_name}</td>      {/* FIX */}
-  <td>{d.qty}</td>             {/* FIX */}
+                        <td>{i + 1}</td>
+                        <td>{d.customer_name}</td>
+                        <td>{d.item_name}</td>
+                        <td>{d.location_name}</td>
+                        <td>{d.brand_name}</td>
+                        <td>{d.qty}</td>
 
-  {/* PICK QTY */}
-  <td>
-    <input
-      type="number"
-      value={d.picking_qty > 0 ? d.picking_qty : ""}
-      onChange={(e) =>
-        handlePickChange(i, e.target.value)
-      }
-      style={{ width: "60px" }}
-    />
-  </td>
+                        <td>
+                          <input
+                            type="number"
+                            value={d.picking_qty > 0 ? d.picking_qty : ""}
+                            onChange={(e) =>
+                              handlePickChange(i, e.target.value)
+                            }
+                          />
+                        </td>
 
-  {/* REMARK */}
-  <td>
-    <input
-      value={d.remark || ""}
-      readOnly
-      style={{
-        width: "120px",
-        background: "#f5f5f5",
-        border: "1px solid #ccc"
-      }}
-    />
-  </td>
+                        <td style={{ textAlign: "center", fontWeight: "600" }}>
+                          {back}
+                        </td>
 
-  {/* BACK ORDER */}
-  <td style={{ textAlign: "center", fontWeight: "bold" }}>
-    {back}
-  </td>
+                        <td>
+                          <select
+                            value={d.status}
+                            onChange={(e) =>
+                              handleStatusChange(i, e.target.value)
+                            }
+                          >
+                            <option value="Order Placed">Order Placed</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Pending">Pending</option>
+                          </select>
+                        </td>
 
-  {/* STATUS */}
-  <td>
-    <select
-      value={d.status || "Order Placed"}
-      onChange={(e) =>
-        handleStatusChange(i, e.target.value)
-      }
-    >
-      <option value="Order Placed">Order Placed</option>
-      <option value="Completed">Completed</option>
-      <option value="Pending">Pending</option>
-    </select>
-  </td>
+                        <td>
+                          <input value={d.remark || ""} readOnly />
+                        </td>
 
-</tr>
+                      </tr>
                     );
                   })
-
                 )}
 
               </tbody>
 
             </table>
+
           </div>
         </div>
 
-        {/* SAVE BUTTON */}
+        {/* SAVE */}
         {data.length > 0 && (
-          <button className="erp-add-top" onClick={handleSave}>
+          <button className="dp-pro-btn" onClick={handleSave}>
             Save Picking
           </button>
         )}
