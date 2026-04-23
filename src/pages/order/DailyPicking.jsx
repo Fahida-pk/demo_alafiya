@@ -173,7 +173,7 @@ if (!newData[index].manual) {
   <td>
     <input
       type="number"
-      value={d.picking_qty || ""}
+      value={d.picking_qty > 0 ? d.picking_qty : ""}
       onChange={(e) =>
         handlePickChange(i, e.target.value)
       }

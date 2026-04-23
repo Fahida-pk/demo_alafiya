@@ -114,79 +114,64 @@ const [inventoryOpen, setInventoryOpen] = useState(false);
         )}
 
      {/* ================= TRANSACTION ================= */}
+{/* ================= TRIP ================= */}
 <div
   className="menu-item"
-  onClick={() => setOpenMenu(openMenu === "transaction" ? null : "transaction")}
+  onClick={() => setTripOpen(!tripOpen)}
 >
-  <MdSwapHoriz />
-  <span>Transaction</span>
-  <FaChevronDown className={openMenu === "transaction" ? "rotate" : ""} />
+  <MdAltRoute />
+  <span>Trip</span>
+  <FaChevronDown className={tripOpen ? "rotate" : ""} />
 </div>
 
-{openMenu === "transaction" && (
+{tripOpen && (
   <div className="submenu">
 
-    {/* -------- TRIP -------- */}
-    <div
-      className="menu-item submenu-title"
-      onClick={() => setTripOpen(!tripOpen)}
-    >
-      <MdAltRoute  />
-      <span>Trip</span>
-      <FaChevronDown className={tripOpen ? "rotate" : ""} />
-    </div>
+    <Link to="/fixed-trips" onClick={() => setMobileOpen(false)}>
+      <FaRoad />
+      <span>Fixed Trip</span>
+    </Link>
 
-    {tripOpen && (
-      <div className="submenu nested">
+    <Link to="/floating-trips" onClick={() => setMobileOpen(false)}>
+      <MdExplore />
+      <span>Floating Trip</span>
+    </Link>
 
-        <Link to="/fixed-trips" onClick={() => setMobileOpen(false)}>
-          <FaRoad />
-          <span>Fixed Trip</span>
-        </Link>
+    <Link to="/report" onClick={() => setMobileOpen(false)}>
+      <MdPayments />
+      <span>Trip Settlement</span>
+    </Link>
 
-        <Link to="/floating-trips" onClick={() => setMobileOpen(false)}>
-          <MdExplore />
-          <span>Floating Trip</span>
-        </Link>
+  </div>
+)}
 
-        <Link to="/report" onClick={() => setMobileOpen(false)}>
-          <MdPayments />
-          <span>Trip Settlement</span>
-        </Link>
+{/* ================= INVENTORY ================= */}
+<div
+  className="menu-item"
+  onClick={() => setInventoryOpen(!inventoryOpen)}
+>
+  <FaWarehouse />
+  <span>Inventory</span>
+  <FaChevronDown className={inventoryOpen ? "rotate" : ""} />
+</div>
 
-      </div>
-    )}
+{inventoryOpen && (
+  <div className="submenu">
 
-    {/* -------- INVENTORY -------- */}
-    <div
-      className="menu-item submenu-title"
-      onClick={() => setInventoryOpen(!inventoryOpen)}
-    >
-      <FaWarehouse />
-      <span>Inventory</span>
-      <FaChevronDown className={inventoryOpen ? "rotate" : ""} />
-    </div>
+    <Link to="/grn-list" onClick={() => setMobileOpen(false)}>
+      <FaFileImport />
+      <span>GRN</span>
+    </Link>
 
-    {inventoryOpen && (
-      <div className="submenu nested">
+    <Link to="/orders" onClick={() => setMobileOpen(false)}>
+      <FaCartPlus />
+      <span>Orders</span>
+    </Link>
 
-        <Link to="/grn-list" onClick={() => setMobileOpen(false)}>
-          <FaFileImport />
-          <span>GRN</span>
-        </Link>
-
-        <Link to="/orders" onClick={() => setMobileOpen(false)}>
-          <FaCartPlus />
-          <span>Orders</span>
-        </Link>
-
-        <Link to="/daily-picking" onClick={() => setMobileOpen(false)}>
-          <FaClipboardList />
-          <span>Daily Picking</span>
-        </Link>
-
-      </div>
-    )}
+    <Link to="/daily-picking" onClick={() => setMobileOpen(false)}>
+      <FaClipboardList />
+      <span>Daily Picking</span>
+    </Link>
 
   </div>
 )}
