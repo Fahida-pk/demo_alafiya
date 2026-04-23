@@ -352,6 +352,8 @@
 
   /* FULL WIDTH */
   .dp-pro-container {
+      width:100%;
+
     padding: 0;
   }
 
@@ -375,6 +377,8 @@
   .dp-pro-btn {
     padding: 6px 10px;
     font-size: 12px;
+      margin-top: 10px;
+
   }
 
   /* INPUT */
