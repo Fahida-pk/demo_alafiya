@@ -131,12 +131,13 @@ if (!newData[index].manual) {
               <thead>
                 <tr>
                   <th>Sl No</th>
-                  <th>Customer</th>
-                  <th>Item</th>
-                  <th>Qty Req</th>
-                  <th>Location</th>
-                  <th>Pick Qty</th>
+                  <th>Customer Name</th>
+                  <th>Item Name</th>
+                  <th>Item Location</th>
                   <th>Brand</th>
+                  <th>Qty Req</th>
+                  <th>Pick Qty</th>
+
                   <th>Delivery Remarks</th>
                   <th>Back Order</th>
                   <th>Status</th>
