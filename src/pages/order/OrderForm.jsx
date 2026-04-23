@@ -114,11 +114,36 @@ const addRow = () => {
     setDetails(newDetails);
   };
 
- const handleSave = async () => {
+const handleSave = async () => {
   try {
+
+    // ✅ VALIDATION
+// 🔥 FILTER ONLY VALID ITEMS
+const validItems = details.filter(d => d.item_id && d.qty);
+
+if (validItems.length === 0) {
+  alert("Please enter at least one item ❗");
+  return;
+}
+
+// 🔥 MAP AFTER FILTER
+const formattedItems = validItems.map(d => ({
+  item_id: d.item_id,
+  qty: d.qty,
+  batch: d.batch || "",
+  expiry: d.expiry || null,
+  location_id: d.location_id || null,
+  brand_id: d.brand_id || null,
+  remark: d.remark || ""
+}));
+    if (validItems.length === 0) {
+      alert("Please enter at least one item ❗");
+      return;
+    }
 
     let method = id ? "PUT" : "POST";
 
+    // ✅ SAVE HEADER
     const res = await fetch(ORDER_API, {
       method: method,
       headers: { "Content-Type": "application/json" },
@@ -131,58 +156,54 @@ const addRow = () => {
     const headerRes = await res.json();
     const orderId = id ? id : headerRes.id;
 
-    // 🔥 IMPORTANT: delete old details
-    if (id) {
-      await fetch(`${DETAILS_API}?order_id=${orderId}`, {
-        method: "DELETE"
-      });
-    }
-
-    // 🔥 insert fresh data
-    for (let d of details) {
-
-      if (!d.item_id || !d.qty) continue;
-
-      await fetch(DETAILS_API, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...d,
-          order_id: orderId
-        })
-      });
-    }
+    // ✅ SAVE DETAILS
+    await fetch(DETAILS_API, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        order_id: orderId,
+        items: validItems
+      })
+    });
 
     alert(id ? "Order Updated ✅" : "Order Saved ✅");
-if (!id) {
-  setHeader({
-    date: "",
-    customer_id: "",
-    remarks: ""
-  });
 
-  setDetails([
-    {
-      item_id: "",
-      qty: "",
-      batch: "",
-      expiry: "",
-      location_id: "",
-      brand_id: "",
-      remark: ""
+    // 🔥 AFTER SAVE RESET FORM
+    if (!id) {
+      // clear header
+      setHeader({
+        date: "",
+        customer_id: "",
+        remarks: ""
+      });
+
+      // reset details (1 empty row)
+      setDetails([
+        {
+          item_id: "",
+          qty: "",
+          batch: "",
+          expiry: "",
+          location_id: "",
+          brand_id: "",
+          remark: ""
+        }
+      ]);
+
+      // 🔥 LOAD NEXT ORDER NUMBER
+      const nextRes = await fetch(ORDER_API + "?type=next_number");
+      const nextData = await nextRes.json();
+      setOrderNumber(nextData.number);
     }
-  ]);
 
-  // 🔥 NEW ORDER NUMBER
-  fetch(ORDER_API + "?type=next_number")
-    .then(res => res.json())
-    .then(data => setOrderNumber(data.number));
-}
   } catch (err) {
     console.error(err);
     alert("Error ❌");
   }
 };
+  
   return (
     <div className="order-ui-container">
 

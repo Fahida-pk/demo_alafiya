@@ -36,7 +36,7 @@ const GrnForm = () => {
       remark: ""
     }
   ]);
-
+const [loading, setLoading] = useState(false);
   // ================= LOAD MASTER DATA =================
   useEffect(() => {
     fetch(SUPPLIER_API)
@@ -111,52 +111,83 @@ const GrnForm = () => {
 
   // ================= DELETE ROW =================
   const deleteRow = (index) => {
-    setDetails(details.filter((_, i) => i !== index));
-  };
+  if (details.length === 1) {
+    alert("At least one item required ❗");
+    return;
+  }
 
+  setDetails(details.filter((_, i) => i !== index));
+  alert("Item deleted 🗑️");
+};
   // ================= SAVE =================
 const handleSave = async () => {
+  if (loading) return;
+
   try {
+    setLoading(true);
+
+    // ✅ VALIDATION
+    const validItems = details.filter(d => d.item_id && d.qty);
+
+    if (validItems.length === 0) {
+      alert("Please add at least one item ❗");
+      return;
+    }
 
     const method = id ? "PUT" : "POST";
 
+    // ✅ SAVE HEADER
     const res = await fetch(GRN_API, {
-      method: method,
+      method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...header,
-        id: id   // 🔥 important
+        id
       })
     });
 
-    const h = await res.json();
+    // 🔥 SAFE JSON
+    let headerRes = {};
+    const headerText = await res.text();
 
-    const grnId = id ? id : h.id;
+    try {
+      headerRes = headerText ? JSON.parse(headerText) : {};
+    } catch {
+      alert("Header JSON error ❌");
+      return;
+    }
+
+    const grnId = id ? id : headerRes.id;
 
     if (!grnId) {
       alert("Header failed ❌");
       return;
     }
 
-    // 🔥 EDIT mode → delete old details
-    if (id) {
-      await fetch(`${DETAILS_API}?grn_id=${id}`, {
-        method: "DELETE"
-      });
+    // ✅ SAVE DETAILS (same as ORDER)
+    const detailsRes = await fetch(DETAILS_API, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        grn_id: grnId,
+        items: validItems
+      })
+    });
+
+    // 🔥 SAFE JSON
+    let detailsData = {};
+    const text = await detailsRes.text();
+
+    try {
+      detailsData = text ? JSON.parse(text) : {};
+    } catch {
+      alert("Details JSON error ❌");
+      return;
     }
 
-    // INSERT DETAILS
-    for (let d of details) {
-      if (!d.item_id || !d.qty) continue;
-
-      await fetch(DETAILS_API, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          grn_id: grnId,
-          ...d
-        })
-      });
+    if (detailsData.status !== "success") {
+      alert("Failed to save items ❌");
+      return;
     }
 
     alert(id ? "GRN Updated ✅" : "GRN Saved ✅");
@@ -166,9 +197,10 @@ const handleSave = async () => {
   } catch (err) {
     console.error(err);
     alert("Error saving GRN ❌");
+  } finally {
+    setLoading(false);
   }
 };
-
   return (
    <div className="order-ui-container">
 

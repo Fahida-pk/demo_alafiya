@@ -11,6 +11,8 @@ import { MdReceiptLong } from "react-icons/md";
 import { MdShoppingCart } from "react-icons/md";
 import { MdAltRoute } from "react-icons/md";
 import { MdAssignmentTurnedIn } from "react-icons/md";
+import { FaRoad, FaWarehouse, FaFileImport, FaCartPlus, FaClipboardList } from "react-icons/fa";
+import { MdPayments, MdExplore } from "react-icons/md";
 import {
   FaClipboardCheck,
   FaMapMarkedAlt,
@@ -30,7 +32,8 @@ const Sidebar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
   const role = localStorage.getItem("role");
-
+const [tripOpen, setTripOpen] = useState(false);
+const [inventoryOpen, setInventoryOpen] = useState(false);
   useEffect(() => {
     const handler = () => setMobileOpen(true);
     window.addEventListener("open-sidebar", handler);
@@ -110,49 +113,83 @@ const Sidebar = () => {
     
         )}
 
-        {/* ================= TRANSACTION ================= */}
-        <div
-          className="menu-item"
-          onClick={() => setOpenMenu(openMenu === "transaction" ? null : "transaction")}
-        >
-          <MdSwapHoriz />
-          <span>Transaction</span>
-          <FaChevronDown className={openMenu === "transaction" ? "rotate" : ""} />
-        </div>
+     {/* ================= TRANSACTION ================= */}
+<div
+  className="menu-item"
+  onClick={() => setOpenMenu(openMenu === "transaction" ? null : "transaction")}
+>
+  <MdSwapHoriz />
+  <span>Transaction</span>
+  <FaChevronDown className={openMenu === "transaction" ? "rotate" : ""} />
+</div>
 
-        {openMenu === "transaction" && (
-          <div className="submenu">
+{openMenu === "transaction" && (
+  <div className="submenu">
 
-            <Link to="/fixed-trips" onClick={() => setMobileOpen(false)}>
-              <MdAltRoute  />
-              <span>Fixed Trip</span>
-            </Link>
+    {/* -------- TRIP -------- */}
+    <div
+      className="menu-item submenu-title"
+      onClick={() => setTripOpen(!tripOpen)}
+    >
+      <MdAltRoute  />
+      <span>Trip</span>
+      <FaChevronDown className={tripOpen ? "rotate" : ""} />
+    </div>
 
-            <Link to="/floating-trips" onClick={() => setMobileOpen(false)}>
-              <FaMapMarkedAlt />
-              <span>Floating Trip</span>
-            </Link>
+    {tripOpen && (
+      <div className="submenu nested">
 
-            {/* ✅ Trip Settlement correctly placed under Floating */}
-            <Link to="/report" onClick={() => setMobileOpen(false)}>
-      <FaFileInvoice />
-      <span>Trip Settlement</span>
-    </Link>
-    <Link to="/grn-list" onClick={() => setMobileOpen(false)}>
-      <MdReceiptLong />
-      <span>GRN</span>
-    </Link>
-    <Link to="/daily-picking" onClick={() => setMobileOpen(false)}>
-  <MdAssignmentTurnedIn />
-  <span>Daily Picking</span>
-</Link>
-    <Link to="/orders" onClick={() => setMobileOpen(false)}>
-      <MdShoppingCart />
-      <span>Orders</span>
-    </Link>
-          </div>
-        )}
+        <Link to="/fixed-trips" onClick={() => setMobileOpen(false)}>
+          <FaRoad />
+          <span>Fixed Trip</span>
+        </Link>
 
+        <Link to="/floating-trips" onClick={() => setMobileOpen(false)}>
+          <MdExplore />
+          <span>Floating Trip</span>
+        </Link>
+
+        <Link to="/report" onClick={() => setMobileOpen(false)}>
+          <MdPayments />
+          <span>Trip Settlement</span>
+        </Link>
+
+      </div>
+    )}
+
+    {/* -------- INVENTORY -------- */}
+    <div
+      className="menu-item submenu-title"
+      onClick={() => setInventoryOpen(!inventoryOpen)}
+    >
+      <FaWarehouse />
+      <span>Inventory</span>
+      <FaChevronDown className={inventoryOpen ? "rotate" : ""} />
+    </div>
+
+    {inventoryOpen && (
+      <div className="submenu nested">
+
+        <Link to="/grn-list" onClick={() => setMobileOpen(false)}>
+          <FaFileImport />
+          <span>GRN</span>
+        </Link>
+
+        <Link to="/orders" onClick={() => setMobileOpen(false)}>
+          <FaCartPlus />
+          <span>Orders</span>
+        </Link>
+
+        <Link to="/daily-picking" onClick={() => setMobileOpen(false)}>
+          <FaClipboardList />
+          <span>Daily Picking</span>
+        </Link>
+
+      </div>
+    )}
+
+  </div>
+)}
 {/* ================= REPORT ================= */}
 {/* ================= REPORT ================= */}
 <div

@@ -10,23 +10,31 @@ const DailyPicking = () => {
   const [date, setDate] = useState("");
   const [data, setData] = useState([]);
 
-  // 🔥 FETCH DATA
+  // ✅ FETCH DATA
   useEffect(() => {
     if (date) {
       fetch(`${API}?date=${date}`)
         .then(res => res.json())
         .then(res => {
-          // default status set
-          const updated = res.map(d => ({
-            ...d,
-            status: d.status || "Order Placed"
-          }));
+         const updated = res.map(d => {
+
+  let qty = Number(d.qty);
+  let picked = Number(d.picking_qty || 0);
+  let back = qty - picked;
+
+  let status = back === 0 ? "Completed" : "Pending";
+
+  return {
+    ...d,
+    status
+  };
+});
           setData(updated);
         });
     }
   }, [date]);
 
-  // 🔥 PICK CHANGE (AUTO STATUS)
+  // ✅ PICK CHANGE
   const handlePickChange = (index, value) => {
 
     let newData = [...data];
@@ -43,37 +51,39 @@ const DailyPicking = () => {
 
     let back = qty - picked;
 
-    // ✅ AUTO STATUS
+    // ✅ AUTO STATUS (CORRECT LOGIC)
     if (!newData[index].manual) {
-      if (back > 0 && picked > 0) {
-        newData[index].status = "Back Order";
-      } else if (picked === qty) {
-        newData[index].status = "Picked";
-      } else {
-        newData[index].status = "Order Placed";
-      }
+if (!newData[index].manual) {
+
+  if (back === 0) {
+    newData[index].status = "Completed";
+  } else {
+    newData[index].status = "Pending";
+  }
+
+}
     }
 
     setData(newData);
   };
 
-  // 🔥 MANUAL STATUS CHANGE
+  // ✅ MANUAL STATUS CHANGE
   const handleStatusChange = (index, value) => {
     let newData = [...data];
     newData[index].status = value;
-    newData[index].manual = true; // 🔥 user override
+    newData[index].manual = true;
     setData(newData);
   };
 
-  // 🔥 SAVE
+  // ✅ SAVE
   const handleSave = async () => {
 
     for (let d of data) {
 
       let status_id = 1; // Order Placed
 
-      if (d.status === "Picked") status_id = 2;
-      if (d.status === "Back Order") status_id = 3;
+      if (d.status === "Completed") status_id = 2;
+      if (d.status === "Pending") status_id = 3;
 
       await fetch(UPDATE_API, {
         method: "PUT",
@@ -198,8 +208,8 @@ const DailyPicking = () => {
                             }
                           >
                             <option value="Order Placed">Order Placed</option>
-                            <option value="Picked">Picked</option>
-                            <option value="Back Order">Back Order</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Pending">Pending</option>
                           </select>
                         </td>
 
