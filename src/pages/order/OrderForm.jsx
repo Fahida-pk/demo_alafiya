@@ -29,7 +29,7 @@ const navigate = useNavigate();
     customer_id: "",
     remarks: ""
   });
-
+const [loading, setLoading] = useState(false);
   const [details, setDetails] = useState([
     {
       item_id: "",
@@ -115,29 +115,19 @@ const addRow = () => {
   };
 
 const handleSave = async () => {
+
+  if (loading) return; // 🔥 DOUBLE CLICK STOP
+
+  setLoading(true);
+
   try {
 
-    // ✅ VALIDATION
-// 🔥 FILTER ONLY VALID ITEMS
-const validItems = details.filter(d => d.item_id && d.qty);
+    // 🔥 FILTER ONLY VALID ITEMS
+    const validItems = details.filter(d => d.item_id && d.qty);
 
-if (validItems.length === 0) {
-  alert("Please enter at least one item ❗");
-  return;
-}
-
-// 🔥 MAP AFTER FILTER
-const formattedItems = validItems.map(d => ({
-  item_id: d.item_id,
-  qty: d.qty,
-  batch: d.batch || "",
-  expiry: d.expiry || null,
-  location_id: d.location_id || null,
-  brand_id: d.brand_id || null,
-  remark: d.remark || ""
-}));
     if (validItems.length === 0) {
       alert("Please enter at least one item ❗");
+      setLoading(false);
       return;
     }
 
@@ -170,16 +160,14 @@ const formattedItems = validItems.map(d => ({
 
     alert(id ? "Order Updated ✅" : "Order Saved ✅");
 
-    // 🔥 AFTER SAVE RESET FORM
+    // 🔥 RESET ONLY AFTER SUCCESS
     if (!id) {
-      // clear header
       setHeader({
         date: "",
         customer_id: "",
         remarks: ""
       });
 
-      // reset details (1 empty row)
       setDetails([
         {
           item_id: "",
@@ -192,7 +180,6 @@ const formattedItems = validItems.map(d => ({
         }
       ]);
 
-      // 🔥 LOAD NEXT ORDER NUMBER
       const nextRes = await fetch(ORDER_API + "?type=next_number");
       const nextData = await nextRes.json();
       setOrderNumber(nextData.number);
@@ -202,6 +189,8 @@ const formattedItems = validItems.map(d => ({
     console.error(err);
     alert("Error ❌");
   }
+
+  setLoading(false); // 🔥 END
 };
   
   return (

@@ -82,8 +82,8 @@ if (!newData[index].manual) {
 
       let status_id = 1; // Order Placed
 
-      if (d.status === "Completed") status_id = 2;
-      if (d.status === "Pending") status_id = 3;
+      if (d.status === "Completed") status_id = 3;
+      if (d.status === "Pending") status_id = 2;
 
       await fetch(UPDATE_API, {
         method: "PUT",
