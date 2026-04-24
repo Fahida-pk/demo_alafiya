@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 import { FaEdit, FaTrash } from "react-icons/fa";
-
+import { FaEye } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 import "./OrderForm.css";
@@ -16,14 +17,14 @@ const LOCATION_API = "https://zyntaweb.com/demoalafiya/api/locations.php";
 const BRAND_API = "https://zyntaweb.com/demoalafiya/api/brands.php";
 const OrderForm = () => {
   const { id } = useParams();
-
 const navigate = useNavigate();
   const [orderNumber, setOrderNumber] = useState("");
   const [customers, setCustomers] = useState([]);
   const [items, setItems] = useState([]);
   const [locations, setLocations] = useState([]);
   const [brands, setBrands] = useState([]);
-
+const location = useLocation();
+const isView = new URLSearchParams(location.search).get("view") === "true";
   const [header, setHeader] = useState({
     date: "",
     customer_id: "",
@@ -274,8 +275,11 @@ const formattedItems = validItems.map(d => ({
 
         <div className="order-ui-header">
           <h2>📦 Order Details</h2>
-          <button className="order-ui-add-btn" onClick={addRow}>+ Add Item</button>
-        </div>
+{!isView && (
+  <button className="order-ui-add-btn" onClick={addRow}>
+    + Add Item
+  </button>
+)}        </div>
 
         {/* MOBILE */}
         <div className="order-ui-mobile">
@@ -339,13 +343,19 @@ const formattedItems = validItems.map(d => ({
         value={d.remark || ""}
         onChange={e => handleDetailChange(i, "remark", e.target.value)}
       />
+{isView ? (
+  <button className="order-ui-view-btn" disabled>
+    <FaEye />
+  </button>
+) : (
+  <button
+    className="order-ui-delete-btn"
+    onClick={() => setDetails(details.filter((_, index) => index !== i))}
+  >
+    <FaTrash />
+  </button>
+)}
 
-      <button
-  className="order-ui-delete-btn"
-  onClick={() => setDetails(details.filter((_, index) => index !== i))}
->
-  <FaTrash />
-</button>
 
     </div>
   ))}
@@ -363,7 +373,7 @@ const formattedItems = validItems.map(d => ({
                 <th>Location</th>
                 <th>Brand</th>
                 <th>Remark</th>
-                <th>Action</th>
+                {!isView && <th>Action</th>}
               </tr>
             </thead>
 
@@ -435,24 +445,27 @@ const formattedItems = validItems.map(d => ({
         />
       </td>
 
-      <td>
-        <button
-          className="order-ui-delete-btn"
-          onClick={() => setDetails(details.filter((_, index) => index !== i))}
-        >
-          <FaTrash/>
-        </button>
-      </td>
+      {!isView && (
+  <td>
+    <button
+      className="order-ui-delete-btn"
+      onClick={() => setDetails(details.filter((_, index) => index !== i))}
+    >
+      <FaTrash />
+    </button>
+  </td>
+)}
     </tr>
   ))}
 </tbody>
           </table>
         </div>
 
-        <button className="order-ui-save-btn" onClick={handleSave}>
-          Save Order
-        </button>
-
+        {!isView && (
+  <button className="order-ui-save-btn" onClick={handleSave}>
+    Save Order
+  </button>
+)}
       </div>
     </div>
   );

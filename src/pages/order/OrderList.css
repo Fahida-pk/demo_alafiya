@@ -24,16 +24,25 @@
 }
 
 .erp-add-top {
-background: linear-gradient(
-  180deg,
-  #8e63e0 0%,
-  #7a5cd6 50%,
-  #654fc4 100%
-);  color: #fff;
+ display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  padding: 12px 18px;
+  border-radius: 14px;
   border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
+
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
   cursor: pointer;
+
+  background: linear-gradient(to left, #4e73df, #6f42c1);
+
+
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+  transition: all 0.25s ease;
 }
 
 /* ===== TOPBAR ===== */
@@ -153,7 +162,19 @@ background: linear-gradient(
   padding: 10px;
   border-bottom: 1px solid #eee;
 }
+.erp-view {
+  background: #6c757d;
+  color: white;
+  border: none;
 
+  padding: 10px 14px;   /* 👈 BIG BUTTON */
+  border-radius: 8px;
+
+  font-size: 18px;      /* 👈 ICON SIZE BIG */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* scrollbar */
 .erp-table-body::-webkit-scrollbar {
   width: 6px;

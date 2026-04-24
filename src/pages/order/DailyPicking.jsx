@@ -78,28 +78,43 @@ if (!newData[index].manual) {
   // ✅ SAVE
   const handleSave = async () => {
 
-    for (let d of data) {
+  // 🔥 1. UPDATE DETAILS
+  for (let d of data) {
 
-      let status_id = 1; // Order Placed
+    let status_id = 1;
 
-      if (d.status === "Completed") status_id = 3;
-      if (d.status === "Pending") status_id = 2;
+    if (d.status === "Completed") status_id = 3;
+    if (d.status === "Pending") status_id = 2;
 
-      await fetch(UPDATE_API, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: d.id,
-          picking_qty: d.picking_qty || 0,
-          status_id: status_id,
-          remark: d.remark || ""
-        })
-      });
-    }
+    await fetch(UPDATE_API, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: d.id,
+        picking_qty: d.picking_qty || 0,
+        status_id: status_id,
+        remark: d.remark || ""
+      })
+    });
+  }
 
-    alert("Saved ✅");
-  };
+  // 🔥 2. GET UNIQUE ORDER IDs
+  const orderIds = [...new Set(data.map(d => d.order_id))];
 
+  // 🔥 3. LOCK ORDERS
+  for (let id of orderIds) {
+    await fetch("https://zyntaweb.com/demoalafiya/api/order_header.php", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: id,
+        picking_done: 1
+      })
+    });
+  }
+
+  alert("Daily picking saved successfully");
+};
  return (
     <div className="dp-pro-container">
 

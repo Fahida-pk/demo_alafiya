@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiFilter } from "react-icons/fi";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 import TopNavbar from "../dashboard/TopNavbar";
+import { FaPlus } from "react-icons/fa";
 
 import "./OrderList.css";
 
@@ -83,19 +85,20 @@ const handleDelete = (id) => {
   return (
   <div className="erp-container">
       <TopNavbar />
-
+<button
+  className="erp-add-top"
+  onClick={() => navigate("/order-form")}
+>
+  <FaPlus /> Add New Order
+</button>
     <div className="erp-card">
+ 
 
       {/* ✅ HEADER */}
       <div className="erp-header">
         <h2 className="erp-title">Orders</h2>
 
-        <button
-          className="erp-add-top"
-          onClick={() => navigate("/order-form")}
-        >
-          +
-        </button>
+       
       </div>
 
       {/* 🔍 TOP BAR */}
@@ -219,19 +222,33 @@ const handleDelete = (id) => {
               <td>
 <div className="erp-actions">
 
-  <button 
-    className="erp-edit"
-    onClick={() => navigate(`/order-form/${o.id}`)}
-  >
-    <FaEdit />
-  </button>
+  {o.picking_done == 1 ? (
+    // 🔒 LOCKED → VIEW ONLY
+    <button
+      className="erp-view"
+      title="View Only"
+      onClick={() => navigate(`/order-form/${o.id}?view=true`)}
+    >
+      <FaEye />
+    </button>
+  ) : (
+    // 🔓 NOT DONE → EDIT + DELETE
+    <>
+      <button
+        className="erp-edit"
+        onClick={() => navigate(`/order-form/${o.id}`)}
+      >
+        <FaEdit />
+      </button>
 
-  <button 
-    className="erp-delete"
-    onClick={() => handleDelete(o.id)}
-  >
-    <FaTrash />
-  </button>
+      <button
+        className="erp-delete"
+        onClick={() => handleDelete(o.id)}
+      >
+        <FaTrash />
+      </button>
+    </>
+  )}
 
 </div>
 </td>

@@ -6,6 +6,7 @@
   overflow-y: auto;
   padding: 20px;
   background: #f5f7fb;
+  width:79%;
 }
 /* TOP BAR */
 .order-ui-topbar {
@@ -13,7 +14,41 @@
   align-items: center;
   margin-bottom: 15px;
 }
+/* ITEM */
+.order-ui-table th:nth-child(1),
+.order-ui-table td:nth-child(1) {
+  min-width: 250px;
+}
 
+/* BATCH */
+.order-ui-table th:nth-child(3),
+.order-ui-table td:nth-child(3) {
+  min-width: 200px;
+}
+
+/* EXPIRY */
+.order-ui-table th:nth-child(4),
+.order-ui-table td:nth-child(4) {
+  min-width: 200px;
+}
+
+/* LOCATION */
+.order-ui-table th:nth-child(5),
+.order-ui-table td:nth-child(5) {
+  min-width: 200px;
+}
+
+/* BRAND */
+.order-ui-table th:nth-child(6),
+.order-ui-table td:nth-child(6) {
+  min-width: 200px;
+}
+
+/* REMARK */
+.order-ui-table th:nth-child(7),
+.order-ui-table td:nth-child(7) {
+  min-width: 250px;
+}
 /* BACK BUTTON */
 .order-ui-back-btn {
   background: #fff;
@@ -89,17 +124,30 @@ background: linear-gradient(
   border-radius: 6px;
   cursor: pointer;
 }
-
-/* TABLE */
 .order-ui-table-wrapper {
-  overflow-x: auto;
+  max-height: 400px;   /* height fix */
+  overflow-y: auto;    /* ✅ vertical scroll */
+  overflow-x: auto;    /* optional horizontal */
 }
+/* TABLE */
 
+
+
+.order-ui-table td,
+.order-ui-table th {
+  padding: 14px;      /* bigger spacing */
+}
 .order-ui-table {
-  width: 100%;
-  border-collapse: collapse;
+  min-width: 1200px;   /* 👈 increase table size */
+  width: max-content;  /* ✅ allow expansion */
 }
-
+.order-ui-table-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+.order-ui-table-wrapper::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
 .order-ui-table th {
   text-align: left;
   font-size: 13px;
@@ -121,12 +169,25 @@ background: linear-gradient(
   width: 100%;
   height: 36px;
 }
-
+/* ITEM COLUMN BIG */
+.order-ui-table th:nth-child(1),
+.order-ui-table td:nth-child(1) {
+  min-width: 220px;   /* 👈 increase this */
+  width: 250px;
+}
 /* REMARK */
 .order-ui-remark {
   width: 100%;
 }
-
+.order-ui-view-btn {
+  background: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: not-allowed;
+  font-size: 16px;
+}
 /* DELETE */
 .order-ui-delete-btn {
   background: none;
@@ -210,6 +271,7 @@ background: linear-gradient(
 
   .order-ui-container {
     padding: 10px;
+    width:100%;
   }
 
   .order-ui-card {
@@ -232,7 +294,11 @@ background: linear-gradient(
     width: 100%;
   }
 
-  .order-ui-add-btn,
+  .order-ui-add-btn {
+    width: 60%;
+    padding: 12px;
+  }
+
   .order-ui-save-btn {
     width: 100%;
     padding: 12px;

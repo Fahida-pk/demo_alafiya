@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { FiFilter } from "react-icons/fi";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import TopNavbar from "../dashboard/TopNavbar";
+import { FaPlus } from "react-icons/fa";
+
 import "../order/OrderList.css";
 const API = "https://zyntaweb.com/demoalafiya/api/grn_header.php";
 
@@ -83,19 +85,19 @@ const GrnList = () => {
   return (
     <div className="erp-container">
       <TopNavbar />
-
+<button
+            className="erp-add-top"
+            onClick={() => navigate("/grn-form")}
+          >
+  <FaPlus /> Add New GRN
+          </button>
       <div className="erp-card">
 
         {/* HEADER */}
         <div className="erp-header">
           <h2 className="erp-title">GRN</h2>
 
-          <button
-            className="erp-add-top"
-            onClick={() => navigate("/grn-form")}
-          >
-            +
-          </button>
+          
         </div>
 
         {/* TOPBAR */}

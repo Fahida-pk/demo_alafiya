@@ -70,7 +70,10 @@
   border-collapse: collapse;
   table-layout: auto;
 }
-
+.dp-pro-table th:nth-child(10),
+.dp-pro-table td:nth-child(10) {
+  border-right: none !important;
+}
 /* ===== HEADER ===== */
 .dp-pro-table th {
   white-space: nowrap;   /* 🔥 prevent text break */
@@ -155,6 +158,11 @@
   border-bottom: 1px solid #f1f1f1;
 }
 /* BODY */
+.dp-pro-table td:nth-child(10) input {
+  border: none !important;
+  outline: none;
+  background: transparent;
+}
 .dp-pro-table td {
   padding: 20px 24px;  /* same spacing */
 }
