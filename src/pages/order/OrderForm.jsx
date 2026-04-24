@@ -115,19 +115,29 @@ const addRow = () => {
   };
 
 const handleSave = async () => {
-
-  if (loading) return; // 🔥 DOUBLE CLICK STOP
-
-  setLoading(true);
-
   try {
 
-    // 🔥 FILTER ONLY VALID ITEMS
-    const validItems = details.filter(d => d.item_id && d.qty);
+    // ✅ VALIDATION
+// 🔥 FILTER ONLY VALID ITEMS
+const validItems = details.filter(d => d.item_id && d.qty);
 
+if (validItems.length === 0) {
+  alert("Please enter at least one item ❗");
+  return;
+}
+
+// 🔥 MAP AFTER FILTER
+const formattedItems = validItems.map(d => ({
+  item_id: d.item_id,
+  qty: d.qty,
+  batch: d.batch || "",
+  expiry: d.expiry || null,
+  location_id: d.location_id || null,
+  brand_id: d.brand_id || null,
+  remark: d.remark || ""
+}));
     if (validItems.length === 0) {
       alert("Please enter at least one item ❗");
-      setLoading(false);
       return;
     }
 
@@ -160,14 +170,16 @@ const handleSave = async () => {
 
     alert(id ? "Order Updated ✅" : "Order Saved ✅");
 
-    // 🔥 RESET ONLY AFTER SUCCESS
+    // 🔥 AFTER SAVE RESET FORM
     if (!id) {
+      // clear header
       setHeader({
         date: "",
         customer_id: "",
         remarks: ""
       });
 
+      // reset details (1 empty row)
       setDetails([
         {
           item_id: "",
@@ -180,6 +192,7 @@ const handleSave = async () => {
         }
       ]);
 
+      // 🔥 LOAD NEXT ORDER NUMBER
       const nextRes = await fetch(ORDER_API + "?type=next_number");
       const nextData = await nextRes.json();
       setOrderNumber(nextData.number);
@@ -189,8 +202,6 @@ const handleSave = async () => {
     console.error(err);
     alert("Error ❌");
   }
-
-  setLoading(false); // 🔥 END
 };
   
   return (
