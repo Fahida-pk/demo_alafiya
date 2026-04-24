@@ -248,17 +248,29 @@ background: linear-gradient(
   .grn-ui-card {
     padding: 15px;
   }
+.grn-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
 
-  .grn-ui-header {
-    flex-direction: column;
-    gap: 10px;
-  }
+.grn-field label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #555;
+}
 
-  .grn-ui-grid {
-    grid-template-columns: 1fr;
-  }
+.grn-ui-header {
+  flex-direction: column;
+  gap: 10px;
+}
 
-  .grn-ui-table {
+.grn-ui-grid {
+  grid-template-columns: 1fr;
+}
+
+.grn-ui-table {
     display: visible;
   }
 

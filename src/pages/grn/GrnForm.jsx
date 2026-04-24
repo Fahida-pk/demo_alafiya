@@ -363,64 +363,79 @@ const handleSave = async () => {
         </div>
 
         {/* ===== MOBILE VIEW ===== */}
-        <div className="grn-ui-mobile">
-          {details.map((d, i) => (
-            <div key={i} className="grn-ui-item-card">
+     <div className="grn-ui-mobile">
+  {details.map((d, i) => (
+    <div key={i} className="grn-ui-item-card">
 
-              <select
-                value={d.item_id}
-                onChange={e => handleItemChange(i, e.target.value)}
-              >
-                <option value="">Item</option>
-                {items.map(it => (
-                  <option key={it.id} value={it.id}>{it.name}</option>
-                ))}
-              </select>
-
-              <input
-                placeholder="Qty"
-                value={d.qty}
-                onChange={e => handleChange(i, "qty", e.target.value)}
-              />
-
-              <input
-                placeholder="Batch"
-                value={d.batch}
-                onChange={e => handleChange(i, "batch", e.target.value)}
-              />
-
-              <input
-                type="date"
-                value={d.expiry}
-                onChange={e => handleChange(i, "expiry", e.target.value)}
-              />
-
-              <select
-                value={d.location_id}
-                onChange={e => handleChange(i, "location_id", e.target.value)}
-              >
-                <option value="">Location</option>
-                {locations.map(l => (
-                  <option key={l.id} value={l.id}>{l.name}</option>
-                ))}
-              </select>
-
-              <input
-                placeholder="Remark"
-                value={d.remark}
-                onChange={e => handleChange(i, "remark", e.target.value)}
-              />
-
-              <button
-                className="grn-ui-delete-btn"
-                onClick={() => deleteRow(i)}
-              >
-                Delete
-              </button>
-
-            </div>
+      <div className="grn-field">
+        <label>Item</label>
+        <select
+          value={d.item_id}
+          onChange={e => handleItemChange(i, e.target.value)}
+        >
+          <option value="">Select Item</option>
+          {items.map(it => (
+            <option key={it.id} value={it.id}>{it.name}</option>
           ))}
-        </div>
+        </select>
+      </div>
+
+      <div className="grn-field">
+        <label>Qty</label>
+        <input
+          value={d.qty}
+          onChange={e => handleChange(i, "qty", e.target.value)}
+        />
+      </div>
+
+      <div className="grn-field">
+        <label>Batch</label>
+        <input
+          value={d.batch}
+          onChange={e => handleChange(i, "batch", e.target.value)}
+        />
+      </div>
+
+      <div className="grn-field">
+        <label>Expiry</label>
+        <input
+          type="date"
+          value={d.expiry}
+          onChange={e => handleChange(i, "expiry", e.target.value)}
+        />
+      </div>
+
+      <div className="grn-field">
+        <label>Location</label>
+        <select
+          value={d.location_id}
+          onChange={e => handleChange(i, "location_id", e.target.value)}
+        >
+          <option value="">Select Location</option>
+          {locations.map(l => (
+            <option key={l.id} value={l.id}>{l.name}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="grn-field">
+        <label>Remark</label>
+        <input
+          value={d.remark}
+          onChange={e => handleChange(i, "remark", e.target.value)}
+        />
+      </div>
+
+      <button
+        className="grn-ui-delete-btn"
+        onClick={() => deleteRow(i)}
+      >
+        Delete
+      </button>
+
+    </div>
+  ))}
+</div>
 
         <button className="grn-ui-save-btn" onClick={handleSave}>
           Save GRN
