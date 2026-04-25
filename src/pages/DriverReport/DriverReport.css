@@ -490,7 +490,10 @@ input {
 
  @media (max-width: 768px) {
 
-
+  .ledger-table {
+    table-layout: auto !important;
+    width: 100%;
+  }
 
   /* Remove desktop width forcing */
   .ledger-table th,
@@ -511,6 +514,8 @@ input {
 
 }
 }
+/* ================= FINAL CLEAN PRINT ================= */
+
 @media print {
 
   @page {
@@ -518,120 +523,98 @@ input {
     margin: 8mm;
   }
 
-  /* RESET */
-  * {
-    float: none !important;
-    box-shadow: none !important;
-  }
-
   html, body {
     margin: 0;
     padding: 0;
-    width: 100%;
-    overflow: visible !important;
     background: #fff;
   }
 
-  /* REMOVE SIDEBAR */
-  .sidebar,
-  nav,
-  aside {
-    display: none !important;
-  }
-
-  /* FULL WIDTH */
-  .ledger-page-wrapper,
-  .ledger-card-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-  }
-
-  /* HIDE NON PRINT */
+  /* Hide non-print content */
   .no-print,
   .ledger-filter-section,
   .ledger-title {
     display: none !important;
   }
 
-  /* TABLE FIX */
-  .ledger-table {
+  /* Keep layout same as screen */
+  .ledger-card-container {
     width: 100% !important;
-    table-layout: fixed !important;
-    border-collapse: collapse !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* IMPORTANT: Reset mobile table behavior */
+  .ledger-table {
+    display: table !important;
+    width: 100% !important;
+    table-layout: auto !important;
+    white-space: normal !important;
   }
 
   .ledger-table th,
   .ledger-table td {
-    border: 1px solid #000 !important;
     padding: 6px !important;
     font-size: 12px;
   }
 
-  /* COLUMN WIDTHS */
-  .ledger-table th:nth-child(1),
-  .ledger-table td:nth-child(1) { width: 120px; }
-
-  .ledger-table th:nth-child(2),
-  .ledger-table td:nth-child(2) { width: 120px; }
-
-  .ledger-table th:nth-child(3),
-  .ledger-table td:nth-child(3) { width: 120px; }
-
-  .ledger-table th:nth-child(4),
-  .ledger-table td:nth-child(4) {
-    width: 300px;
-    white-space: normal;
+  /* Keep summary right */
+  .summary-right-box {
+    width: 300px !important;
+    float: right !important;
+    margin-top: 20px !important;
   }
 
-  .ledger-table th:nth-child(5),
-  .ledger-table td:nth-child(5),
-  .ledger-table th:nth-child(6),
-  .ledger-table td:nth-child(6),
-  .ledger-table th:nth-child(7),
-  .ledger-table td:nth-child(7),
-  .ledger-table th:nth-child(8),
-  .ledger-table td:nth-child(8) {
-    width: 120px;
-    text-align: right;
+
+}
+@media print {
+
+  /* EXISTING code undakum... athinu shesham add cheyyu */
+
+  /* 🔥 MAIN FIX FOR CUT ISSUE */
+  html, body {
+    height: auto !important;
+    overflow: visible !important;
   }
 
-  /* PAGE BREAK CONTROL */
-  thead {
-    display: table-header-group;
-  }
-
-  tr {
-    page-break-inside: avoid;
+  .print-section {
+    page-break-inside: auto;
   }
 
   table {
     page-break-inside: auto;
   }
 
-  /* REMOVE SCROLL */
-  .ledger-table-container {
-    overflow: visible !important;
-    max-height: none !important;
-  }
-
-  /* SUMMARY RIGHT */
-  .summary-right-box {
-    float: right;
-    width: 280px;
-    margin-top: 20px;
+  tr {
     page-break-inside: avoid;
   }
 
-}
-@media print {
-  .ledger-table {
-    table-layout: auto !important;
+  .summary-right-box {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-top: 20px;
   }
+
 }
 @media print {
-  tr {
+
+  .table-wrapper {
+    page-break-inside: avoid;
+  }
+
+  .summary-right-box {
+    page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
+
+  .print-section {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
 }
+
+
+
+
