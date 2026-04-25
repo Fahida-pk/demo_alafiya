@@ -453,42 +453,21 @@
 .dp-print-only {
   display: none;
 }
-@media print {
 
-  html {
-    zoom: 1 !important;
-  }
-
-  .dp-pro-container {
-    width: 100% !important;
-  }
-
-  .dp-pro-card {
-    width: 100% !important;
-  }
-
-  .dp-pro-table {
-    width: 100vw !important;
-    table-layout: auto !important;
-  }
-
-}
 /* ================= FINAL PERFECT PRINT ================= */
 @media print {
 
   /* ===== PAGE SETUP ===== */
   @page {
     size: A4 landscape;
-    margin: 8mm;
+    margin: 5mm;
   }
 
   body {
     font-family: Arial, sans-serif;
+    zoom: 0.95; /* prevent cut */
   }
-html, body {
-  width: 100%;
-  overflow: visible !important;
-}
+
   /* ===== HIDE SCREEN ===== */
   .no-print,
   button,
@@ -519,15 +498,12 @@ html, body {
     overflow: visible !important;
     max-height: none !important;
   }
-.dp-pro-table {
-  width: 100% !important;
-  min-width: 100% !important;
-}
+
   /* ===== TABLE ===== */
   .dp-pro-table {
     width: 100% !important;
     border-collapse: collapse !important;
-table-layout: auto !important;
+    table-layout: fixed !important;  /* 🔥 IMPORTANT */
     border: 2px solid #000 !important;
   }
 
@@ -596,10 +572,8 @@ table-layout: auto !important;
 
   /* 🔥 DELIVERY REMARK BIG COLUMN */
   .dp-pro-table th:nth-child(10),
-.dp-pro-table td:nth-child(10) {
-  width: auto !important;
-  width: 180px;
-}
+  .dp-pro-table td:nth-child(10) { width: 23%; }
+
   /* ===== HEADER CENTER ===== */
   .dp-print-header {
     width: 100% !important;
@@ -632,15 +606,4 @@ table-layout: auto !important;
     outline: 2px solid #000;
   }
 
-}
-html {
-  zoom: 1 !important;
-}
-.dp-pro-container,
-.dp-pro-card {
-  width: 100vw !important;
-  max-width: 100vw !important;
-}
-.dp-pro-table {
-  width: 100vw !important;
 }
