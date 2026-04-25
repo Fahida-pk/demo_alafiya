@@ -604,3 +604,8 @@
     display: block !important;
   }
 }
+@media print {
+  .dp-pro-table th {
+    outline: 2px solid #000; /* backup border */
+  }
+}
