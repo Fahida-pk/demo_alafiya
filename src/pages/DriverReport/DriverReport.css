@@ -420,7 +420,7 @@ input {
 
 }
 }
-/* ================= FINAL CLEAN PRINT ================= */
+/* ================= FINAL PERFECT PRINT ================= */
 
 @media print {
 
@@ -429,107 +429,148 @@ input {
     margin: 8mm;
   }
 
+  /* ===== RESET ===== */
+  * {
+    box-shadow: none !important;
+    float: none !important;
+  }
+
   html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: auto;
+    overflow: visible !important;
     background: #fff;
+    font-family: Arial, sans-serif;
   }
 
-  /* Hide non-print content */
+  /* ===== HIDE NON PRINT ===== */
   .no-print,
   .ledger-filter-section,
-  .ledger-title {
+  .ledger-title,
+  nav,
+  aside,
+  .sidebar {
     display: none !important;
   }
 
-  /* Keep layout same as screen */
+  /* ===== FULL WIDTH ===== */
+  .ledger-page-wrapper,
   .ledger-card-container {
     width: 100% !important;
     max-width: 100% !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
+    margin: 0 auto !important;
     padding: 0 !important;
+    border-radius: 0 !important;
   }
 
-  /* IMPORTANT: Reset mobile table behavior */
+  /* ===== PRINT HEADER ===== */
+  .print-only {
+    display: block !important;
+  }
+
+  .print-company-header {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .print-company-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .print-company-header p {
+    margin: 2px 0;
+    font-size: 13px;
+  }
+
+  /* ===== TABLE FIX ===== */
   .ledger-table {
     display: table !important;
     width: 100% !important;
+    border-collapse: collapse !important;
     table-layout: auto !important;
-    white-space: normal !important;
   }
-
-  .ledger-table th,
-  .ledger-table td {
-    padding: 6px !important;
-    font-size: 12px;
-  }
-
-  /* Keep summary right */
-  .summary-right-box {
-    width: 300px !important;
-    float: right !important;
-    margin-top: 20px !important;
-  }
-
-
-}
-@media print {
-
-  /* EXISTING code undakum... athinu shesham add cheyyu */
-
-  /* 🔥 MAIN FIX FOR CUT ISSUE */
-  html, body {
-    height: auto !important;
-    overflow: visible !important;
-  }
-
-  .print-section {
-    page-break-inside: auto;
-  }
-
-  table {
-    page-break-inside: auto;
-  }
-
-   @media print {
 
   thead {
-    display: table-header-group;
+    display: table-header-group !important;
   }
 
-  tbody tr {
+  tbody {
+    display: table-row-group !important;
+  }
+
+  tr {
+    display: table-row !important;
     page-break-inside: auto !important;
     break-inside: auto !important;
   }
 
-}
-
-  .summary-right-box {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    margin-top: 20px;
+  th, td {
+    display: table-cell !important;
+    border: 1px solid #000 !important;
+    padding: 6px !important;
+    font-size: 12px !important;
+    text-align: left;
   }
 
-}
-@media print {
-
-  .table-wrapper {
-    page-break-inside: avoid;
+  th {
+    background: #f3f4f6 !important;
+    font-weight: bold;
   }
 
-  .summary-right-box {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
+  /* ===== COLUMN WIDTHS ===== */
+  th:nth-child(1), td:nth-child(1) { width: 100px; }
+  th:nth-child(2), td:nth-child(2) { width: 120px; }
+  th:nth-child(3), td:nth-child(3) { width: 120px; }
+
+  th:nth-child(4), td:nth-child(4) {
+    width: 300px;
+    white-space: normal;
   }
 
+  th:nth-child(5),
+  th:nth-child(6),
+  th:nth-child(7),
+  th:nth-child(8),
+  td:nth-child(5),
+  td:nth-child(6),
+  td:nth-child(7),
+  td:nth-child(8) {
+    text-align: right;
+    width: 100px;
+  }
+
+  /* ===== REMOVE SCROLL ===== */
+  .ledger-table-container,
   .print-section {
-    height: auto !important;
     overflow: visible !important;
+    max-height: none !important;
+  }
+
+  /* ===== SUMMARY RIGHT ===== */
+  .summary-right-box {
+    width: 280px !important;
+    float: right !important;
+    margin-top: 20px;
+    page-break-inside: avoid !important;
+    border-top: 2px solid #000;
+    padding-top: 10px;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 13px;
+  }
+
+  .summary-row.balance {
+    font-weight: bold;
+    border-top: 1px solid #000;
+    padding-top: 6px;
   }
 
 }
-
-
-
-
