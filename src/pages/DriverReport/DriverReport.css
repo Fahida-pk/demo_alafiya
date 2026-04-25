@@ -614,7 +614,83 @@ input {
   }
 
 }
+/* ================= REMOVE SIDEBAR IN PRINT ================= */
+@media print {
 
+  /* Hide sidebar completely */
+  .sidebar,
+  .sidebar-wrapper,
+  .dashboard-sidebar,
+  .left-menu,
+  nav,
+  aside {
+    display: none !important;
+    width: 0 !important;
+  }
 
+  /* Remove any left margin caused by sidebar */
+  .main-content,
+  .content,
+  .page-content,
+  .ledger-page-wrapper {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Center your report */
+  .ledger-card-container {
+    margin: auto !important;
+  }
+
+}
+@media print {
+
+  .ledger-table {
+    table-layout: auto !important;
+    width: 100% !important;
+  }
+
+  /* Adjust column widths properly */
+
+  /* Date */
+  .ledger-table th:nth-child(1),
+  .ledger-table td:nth-child(1) {
+    width: 150px;
+  }
+
+  /* Bill No */
+  .ledger-table th:nth-child(2),
+  .ledger-table td:nth-child(2) {
+    width: 150px;
+  }
+
+  /* Trip Sheet */
+  .ledger-table th:nth-child(3),
+  .ledger-table td:nth-child(3) {
+    width: 150px;
+  }
+
+  /* 🔥 Type / Area (make BIG) */
+  .ledger-table th:nth-child(4),
+  .ledger-table td:nth-child(4) {
+    width: 300px;
+    white-space: normal !important;
+  }
+
+  /* Amount columns */
+  .ledger-table th:nth-child(5),
+  .ledger-table td:nth-child(5),
+  .ledger-table th:nth-child(6),
+  .ledger-table td:nth-child(6),
+  .ledger-table th:nth-child(7),
+  .ledger-table td:nth-child(7),
+  .ledger-table th:nth-child(8),
+  .ledger-table td:nth-child(8) {
+    width: 150px;
+    text-align: right;
+  }
+
+}
 
 

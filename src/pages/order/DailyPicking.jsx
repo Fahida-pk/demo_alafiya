@@ -4,11 +4,34 @@ import "./DailyPicking.css";
 
 const API = "https://zyntaweb.com/demoalafiya/api/daily_picking.php";
 const UPDATE_API = "https://zyntaweb.com/demoalafiya/api/order_details.php";
+const COMPANY_API = "https://zyntaweb.com/demoalafiya/api/company.php";
 
 const DailyPicking = () => {
 
   const [date, setDate] = useState("");
   const [data, setData] = useState([]);
+
+  // 🔥 COMPANY STATE
+  const [company, setCompany] = useState({
+    company_name: "",
+    address: "",
+    phone: ""
+  });
+
+  // 🔥 LOAD COMPANY
+  useEffect(() => {
+    fetch(COMPANY_API)
+      .then(res => res.json())
+      .then(data => {
+        if (data) {
+          setCompany({
+            company_name: data.company_name || "",
+            address: data.address || "",
+            phone: data.phone || ""
+          });
+        }
+      });
+  }, []);
 
   // ✅ FETCH DATA
   useEffect(() => {
@@ -16,19 +39,15 @@ const DailyPicking = () => {
       fetch(`${API}?date=${date}`)
         .then(res => res.json())
         .then(res => {
-         const updated = res.map(d => {
+          const updated = res.map(d => {
+            let qty = Number(d.qty);
+            let picked = Number(d.picking_qty || 0);
+            let back = qty - picked;
 
-  let qty = Number(d.qty);
-  let picked = Number(d.picking_qty || 0);
-  let back = qty - picked;
+            let status = back === 0 ? "Completed" : "Pending";
 
-  let status = back === 0 ? "Completed" : "Pending";
-
-  return {
-    ...d,
-    status
-  };
-});
+            return { ...d, status };
+          });
           setData(updated);
         });
     }
@@ -36,7 +55,6 @@ const DailyPicking = () => {
 
   // ✅ PICK CHANGE
   const handlePickChange = (index, value) => {
-
     let newData = [...data];
 
     let qty = Number(newData[index].qty);
@@ -51,23 +69,14 @@ const DailyPicking = () => {
 
     let back = qty - picked;
 
-    // ✅ AUTO STATUS (CORRECT LOGIC)
     if (!newData[index].manual) {
-if (!newData[index].manual) {
-
-  if (back === 0) {
-    newData[index].status = "Completed";
-  } else {
-    newData[index].status = "Pending";
-  }
-
-}
+      newData[index].status = back === 0 ? "Completed" : "Pending";
     }
 
     setData(newData);
   };
 
-  // ✅ MANUAL STATUS CHANGE
+  // ✅ STATUS CHANGE
   const handleStatusChange = (index, value) => {
     let newData = [...data];
     newData[index].status = value;
@@ -78,69 +87,79 @@ if (!newData[index].manual) {
   // ✅ SAVE
   const handleSave = async () => {
 
-  // 🔥 1. UPDATE DETAILS
-  for (let d of data) {
+    for (let d of data) {
+      let status_id = 1;
+      if (d.status === "Completed") status_id = 3;
+      if (d.status === "Pending") status_id = 2;
 
-    let status_id = 1;
+      await fetch(UPDATE_API, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: d.id,
+          picking_qty: d.picking_qty || 0,
+          status_id: status_id,
+          remark: d.remark || ""
+        })
+      });
+    }
 
-    if (d.status === "Completed") status_id = 3;
-    if (d.status === "Pending") status_id = 2;
+    const orderIds = [...new Set(data.map(d => d.order_id))];
 
-    await fetch(UPDATE_API, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: d.id,
-        picking_qty: d.picking_qty || 0,
-        status_id: status_id,
-        remark: d.remark || ""
-      })
-    });
-  }
+    for (let id of orderIds) {
+      await fetch("https://zyntaweb.com/demoalafiya/api/order_header.php", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: id,
+          picking_done: 1
+        })
+      });
+    }
 
-  // 🔥 2. GET UNIQUE ORDER IDs
-  const orderIds = [...new Set(data.map(d => d.order_id))];
+    alert("Daily picking saved successfully");
+  };
 
-  // 🔥 3. LOCK ORDERS
-  for (let id of orderIds) {
-    await fetch("https://zyntaweb.com/demoalafiya/api/order_header.php", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: id,
-        picking_done: 1
-      })
-    });
-  }
+  const handlePrint = () => window.print();
 
-  alert("Daily picking saved successfully");
-};
- return (
+  return (
     <div className="dp-pro-container">
 
-      <TopNavbar />
+      <div className="no-print">
+        <TopNavbar />
+      </div>
 
       <div className="dp-pro-card">
 
-        {/* HEADER */}
-        <div className="dp-pro-header">
-          <h2 className="dp-pro-title">Daily Picking</h2>
-        </div>
+        {/* TITLE */}
+        <h3 className="dp-pro-title no-print">Daily Picking</h3>
 
-        {/* DATE */}
-        <div style={{ marginBottom: "15px" }}>
+        {/* FILTER */}
+        <div className="no-print" style={{ marginBottom: "15px" }}>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             className="dp-pro-input"
           />
+         
         </div>
 
-   <div className="dp-pro-table-container">
-  <div className="dp-pro-table-body">
-    <table className="dp-pro-table">
-      
+        {/* 🔥 PRINT HEADER */}
+        <div className="dp-print-header dp-print-only">
+          <h2>{company.company_name}</h2>
+          <p>{company.address}</p>
+          <p>Phone: {company.phone}</p>
+
+          <h3>DAILY PICKING REPORT</h3>
+          <p>Date: {date}</p>
+          <hr />
+        </div>
+
+        {/* TABLE */}
+        <div className="dp-pro-table-container">
+          <div className="dp-pro-table-body">
+            <table className="dp-pro-table">
       <thead>
         <tr>
           <th>Sl No</th>
@@ -177,32 +196,34 @@ if (!newData[index].manual) {
                 <td>{d.brand_name}</td>
                 <td>{d.qty}</td>
 
-                <td>
-                  <input
-                    type="number"
-                    value={d.picking_qty > 0 ? d.picking_qty : ""}
-                    onChange={(e) => handlePickChange(i, e.target.value)}
-                  />
-                </td>
+               <td>
+  <span className="print-only">{d.picking_qty || ""}</span>
+  <input
+    className="no-print"
+    type="number"
+    value={d.picking_qty > 0 ? d.picking_qty : ""}
+    onChange={(e) => handlePickChange(i, e.target.value)}
+  />
+</td>
 
                 <td style={{ textAlign: "center", fontWeight: "600" }}>
                   {back}
                 </td>
-
-                <td>
-                  <select
-                    value={d.status}
-                    onChange={(e) => handleStatusChange(i, e.target.value)}
-                  >
-                    <option value="Order Placed">Order Placed</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Pending">Pending</option>
-                  </select>
-                </td>
-
-                <td>
-                  <input value={d.remark || ""} readOnly />
-                </td>
+<td>
+  <span className="print-only">{d.status}</span>
+  <select
+    className="no-print"
+    value={d.status}
+    onChange={(e) => handleStatusChange(i, e.target.value)}
+  >
+    <option>Order Placed</option>
+    <option>Completed</option>
+    <option>Pending</option>
+  </select>
+</td><td>
+  <span className="print-only">{d.remark}</span>
+  <input className="no-print" value={d.remark || ""} readOnly />
+</td>
               </tr>
             );
           })
@@ -210,16 +231,22 @@ if (!newData[index].manual) {
       </tbody>
 
     </table>
-  </div>
+          </div>
+        </div>
+
+       <div className="dp-btn-group no-print">
+  
+  {data.length > 0 && (
+    <button className="dp-pro-btn" onClick={handleSave}>
+      Save Picking
+    </button>
+  )}
+
+  <button className="dp-pro-btn" onClick={handlePrint}>
+    Print
+  </button>
+
 </div>
-
-        {/* SAVE */}
-        {data.length > 0 && (
-          <button className="dp-pro-btn" onClick={handleSave}>
-            Save Picking
-          </button>
-        )}
-
       </div>
     </div>
   );
