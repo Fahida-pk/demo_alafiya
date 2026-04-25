@@ -466,11 +466,7 @@
     font-family: Arial, sans-serif;
   }
 
-  .dp-pro-table {
-    width: 100% !important;
-    table-layout: fixed !important;
-  }
-/* ===== HIDE SCREEN ===== */
+  /* HIDE SCREEN */
   .no-print,
   button,
   input,
@@ -480,19 +476,9 @@
   .sidebar {
     display: none !important;
   }
-@media print {
 
-  .dp-pro-table tr:last-child td {
-    padding-bottom: 10px !important;   /* 🔥 EXTRA SPACE INSIDE LAST ROW */
-  }
-
-}
-  /* ===== FULL WIDTH ===== */
-  .dp-pro-container {
-    width: 100% !important;
-  }
-
-  /* ===== REMOVE CARD ===== */
+  /* FULL WIDTH */
+  .dp-pro-container,
   .dp-pro-card {
     width: 100% !important;
     margin: 0 !important;
@@ -500,55 +486,48 @@
     box-shadow: none !important;
   }
 
-  /* ===== REMOVE SCROLL ===== */
+  /* REMOVE SCROLL */
   .dp-pro-table-container,
   .dp-pro-table-body {
     overflow: visible !important;
     max-height: none !important;
   }
-.dp-pro-table {
-  margin-bottom: 6mm;   /* 🔥 prevents last row cut */
-}
-  /* ===== TABLE ===== */
+
+  /* TABLE */
   .dp-pro-table {
     width: 100% !important;
     border-collapse: collapse !important;
-    table-layout: auto !important;  /* 🔥 IMPORTANT */
+    table-layout: fixed !important;
     border: 2px solid #000 !important;
+    margin-bottom: 2mm;   /* 🔥 small safe space */
   }
 
-  /* ===== CELLS ===== */
+  /* CELLS */
   .dp-pro-table th,
   .dp-pro-table td {
     border: 2px solid #000 !important;
-    padding: 4px !important;
+    padding: 5px !important;
     font-size: 10px !important;
-    white-space: normal !important;
-    word-break: break-word !important;
-    overflow-wrap: break-word !important;
+    word-break: break-word;
   }
-.dp-pro-table td:nth-child(10) {
-  word-break: break-word;
-  white-space: normal;
-}
-  .dp-pro-table {
-  page-break-inside: auto;
-}
 
-.dp-pro-table tr {
-  break-inside: auto;
-}
+  /* 🔥 LAST BORDER FIX */
+  .dp-pro-table tr:last-child td {
+    border-bottom: 2px solid #000 !important;
+    padding-bottom: 8px !important;
+  }
 
-  /* ===== HEADER ===== */
+  /* HEADER */
   .dp-pro-table thead {
     display: table-header-group;
   }
 
   .dp-pro-table thead th {
     background: #f2f2f2 !important;
-    font-weight: bold;
     text-align: center;
   }
+
+
 
   /* ===== ALIGN ===== */
   .dp-pro-table td:nth-child(1),
