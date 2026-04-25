@@ -459,16 +459,14 @@
 
   /* ===== PAGE SETUP ===== */
   @page {
-    size: A4 landscape;
-    margin: 5mm;
-  }
-body {
-  margin-bottom: 10mm;
+  size: A4 landscape;
+  margin: 8mm;
 }
-  body {
-    font-family: Arial, sans-serif;
-    zoom: 0.95; /* prevent cut */
-  }
+body {
+  font-family: Arial, sans-serif;
+  transform: scale(0.97);
+  transform-origin: top left;
+}
 
   /* ===== HIDE SCREEN ===== */
   .no-print,
@@ -500,7 +498,9 @@ body {
     overflow: visible !important;
     max-height: none !important;
   }
-
+.dp-pro-table {
+  margin-bottom: 6mm;   /* 🔥 prevents last row cut */
+}
   /* ===== TABLE ===== */
   .dp-pro-table {
     width: 100% !important;
