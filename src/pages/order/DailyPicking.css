@@ -454,7 +454,6 @@
   display: none;
 }
 
-/* ================= CLEAN DRIVER STYLE PRINT ================= */
 @media print {
 
   @page {
@@ -462,275 +461,65 @@
     margin: 8mm;
   }
 
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: #fff;
-  }
-
-  /* Hide non-print content */
-  .no-print,
-  .dp-filter-section,
-  .dp-title {
-    display: none !important;
-  }
-
-  /* Keep layout same as screen */
-  .dp-card-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-  }
-
-  /* IMPORTANT: Reset mobile table behavior */
-  .dp-table {
-    display: table !important;
-    width: 100% !important;
-    table-layout: auto !important;
-    white-space: normal !important;
-  }
-
-  .dp-table th,
-  .dp-table td {
-    padding: 6px !important;
-    font-size: 12px;
-  }
-
-  /* Keep summary right */
-  .dp-summary-right-box {
-    width: 300px !important;
-    float: right !important;
-    margin-top: 20px !important;
-  }
-
-
-}
-@media print {
-
-  /* EXISTING code undakum... athinu shesham add cheyyu */
-
-  /* 🔥 MAIN FIX FOR CUT ISSUE */
-  html, body {
-    height: auto !important;
-    overflow: visible !important;
-  }
-
-  .dp-print-section {
-    page-break-inside: auto;
-  }
-
-  table {
-    page-break-inside: auto;
-  }
-
-  tr {
-    page-break-inside: avoid;
-  }
-
-  .dp-summary-right-box {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    margin-top: 20px;
-  }
-
-}
-@media print {
-
-  .dp-table-wrapper {
-    page-break-inside: avoid;
-  }
-
-  .dp-summary-right-box {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-
-  .dp-print-section {
-    height: auto !important;
-    overflow: visible !important;
-  }
-
-}
-/* ================= REMOVE SIDEBAR IN PRINT ================= */
-@media print {
-
-  /* Hide sidebar completely */
-  .sidebar,
-  .sidebar-wrapper,
-  .dashboard-sidebar,
-  .left-menu,
-  nav,
-  aside {
-    display: none !important;
-    width: 0 !important;
-  }
-
-  /* Remove any left margin caused by sidebar */
-  .main-content,
-  .content,
-  .page-content,
-  .dp-page-wrapper {
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-    width: 100% !important;
-  }
-
-  /* Center your report */
-  .dp-card-container {
-    margin: auto !important;
-  }
-
-}
-@media print {
-
-  .dp-table {
-    table-layout: auto !important;
-    width: 100% !important;
-  }
-
-  /* Adjust column widths properly */
-
-  /* Date */
-  .dp-table th:nth-child(1),
-  .dp-table td:nth-child(1) {
-    width: 150px;
-  }
-
-  /* Bill No */
-  .dp-table th:nth-child(2),
-  .dp-table td:nth-child(2) {
-    width: 150px;
-  }
-
-  /* Trip Sheet */
-  .dp-table th:nth-child(3),
-  .dp-table td:nth-child(3) {
-    width: 150px;
-  }
-
-  /* 🔥 Type / Area (make BIG) */
-  .dp-table th:nth-child(4),
-  .dp-table td:nth-child(4) {
-    width: 300px;
-    white-space: normal !important;
-  }
-
-  /* Amount columns */
-  .dp-table th:nth-child(5),
-  .dp-table td:nth-child(5),
-  .dp-table th:nth-child(6),
-  .dp-table td:nth-child(6),
-  .dp-table th:nth-child(7),
-  .dp-table td:nth-child(7),
-  .dp-table th:nth-child(8),
-  .dp-table td:nth-child(8) {
-    width: 150px;
-    text-align: right;
-  }
-
-}
-/* ================= CLEAN DRIVER STYLE PRINT ================= */
-
-@media print {
-
-  @page {
-    size: A4 landscape;
-    margin: 10mm;
-  }
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: #fff;
+  body {
     font-family: Arial, sans-serif;
   }
 
-  /* HIDE SCREEN */
+  
+
+  
+
+  /* ===== HIDE SCREEN ===== */
   .no-print,
   button,
   input,
-  select {
+  select,
+  nav,
+  aside,
+  .sidebar {
     display: none !important;
   }
 
-  /* SHOW PRINT */
-  .dp-print-only {
-    display: block !important;
-  }
-
-  .print-only {
-    display: inline !important;
-  }
-
-  /* REMOVE CARD STYLE */
+  /* ===== REMOVE CARD STYLE ===== */
   .dp-pro-card {
     width: 100% !important;
-    max-width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     box-shadow: none !important;
   }
 
-  /* REMOVE SCROLL */
+  /* ===== REMOVE SCROLL ===== */
   .dp-pro-table-container,
   .dp-pro-table-body {
     overflow: visible !important;
     max-height: none !important;
   }
 
-  /* ===== HEADER ===== */
-  .dp-print-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .dp-print-header h2 {
-    font-size: 22px;
-    font-weight: bold;
-    margin: 0;
-  }
-
-  .dp-print-header p {
-    margin: 2px 0;
-    font-size: 13px;
-  }
-
-  .dp-print-header h3 {
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: 600;
-  }
-
-  .dp-print-header hr {
-    border: 1px solid #aaa;   /* 🔥 light line */
-    margin-top: 10px;
-  }
-
   /* ===== TABLE ===== */
   .dp-pro-table {
     width: 100% !important;
     border-collapse: collapse !important;
-    table-layout: auto !important;   /* 🔥 IMPORTANT CHANGE */
+    table-layout: fixed !important;
+    border: 2px solid #000 !important;   /* 🔥 OUTER BORDER */
   }
 
-  /* LIGHT BORDERS (LIKE DRIVER) */
+  /* ===== CELLS ===== */
   .dp-pro-table th,
   .dp-pro-table td {
-    border: 1px solid #e5e7eb !important; /* 🔥 light gray */
-    padding: 8px !important;
-    font-size: 12px;
+    border: 2px solid #000 !important;   /* 🔥 FULL GRID */
+    padding: 6px !important;
+    font-size: 11px;
   }
 
-  /* HEADER STYLE */
-  .dp-pro-table th {
-    background: #f3f4f6 !important;
-    font-weight: 600;
-    text-align: left;
+  /* ===== HEADER ROW (IMPORTANT FIX) ===== */
+  .dp-pro-table thead th {
+    border-bottom: 2px solid #000 !important; /* 🔥 STRONG LINE */
+    background: #f2f2f2 !important;
+    font-weight: bold;
+    text-align: center;
   }
 
-  /* ALIGN NUMBERS */
+  /* ===== ALIGN ===== */
   .dp-pro-table td:nth-child(1),
   .dp-pro-table td:nth-child(6),
   .dp-pro-table td:nth-child(7),
@@ -738,17 +527,173 @@
     text-align: center;
   }
 
-  /* ROW SPACING */
-  .dp-pro-table tr {
-    height: 35px;
-  }
+  /* ===== COLUMN WIDTH ===== */
+  .dp-pro-table th:nth-child(1),
+  .dp-pro-table td:nth-child(1) { width: 5%; }
 
-  /* PAGE BREAK */
-  tr {
-    page-break-inside: avoid;
+  .dp-pro-table th:nth-child(2),
+  .dp-pro-table td:nth-child(2) { width: 16%; }
+
+  .dp-pro-table th:nth-child(3),
+  .dp-pro-table td:nth-child(3) { width: 12%; }
+
+  .dp-pro-table th:nth-child(4),
+  .dp-pro-table td:nth-child(4) { width: 12%; }
+
+  .dp-pro-table th:nth-child(5),
+  .dp-pro-table td:nth-child(5) { width: 10%; }
+
+  .dp-pro-table th:nth-child(6),
+  .dp-pro-table td:nth-child(6) { width: 7%; }
+
+  .dp-pro-table th:nth-child(7),
+  .dp-pro-table td:nth-child(7) { width: 7%; }
+
+  .dp-pro-table th:nth-child(8),
+  .dp-pro-table td:nth-child(8) { width: 7%; }
+
+  .dp-pro-table th:nth-child(9),
+  .dp-pro-table td:nth-child(9) { width: 10%; }
+
+  .dp-pro-table th:nth-child(10),
+  .dp-pro-table td:nth-child(10) { 
+    width: 14%;
+    word-break: break-word;
   }
 
 }
+@media print {
+  .dp-print-only {
+    display: block !important;
+  }
+}
+@media print {
 
+  /* REMOVE GAP */
+  .dp-print-header {
+    margin-bottom: 0 !important;
+  }
 
+  /* TABLE TOP LINE (LIKE YOUR EXPECTATION) */
+  
 
+}
+
+.dp-print-header {
+  text-align: center !important;
+}
+
+.dp-print-header h2,
+.dp-print-header p,
+.dp-print-header h3 {
+  text-align: center !important;
+}
+@media print {
+
+  /* 🔥 FORCE COLUMN LINES IN HEADER */
+  .dp-pro-table thead th {
+    border-right: 2px solid #000 !important;
+    border-left: 2px solid #000 !important;
+  }
+
+  /* 🔥 REMOVE DOUBLE LINE ON EDGE */
+  .dp-pro-table thead th:first-child {
+    border-left: none !important;
+  }
+
+  .dp-pro-table thead th:last-child {
+    border-right: none !important;
+  }
+
+}
+@media print {
+
+  .dp-pro-table {
+    border-collapse: collapse !important;
+  }
+
+  .dp-pro-table th,
+  .dp-pro-table td {
+    border-spacing: 0 !important;
+  }
+
+}
+@media print {
+
+  .dp-pro-table {
+    border-collapse: collapse !important;
+  }
+
+  /* 🔥 FORCE ALL BORDERS */
+  .dp-pro-table th,
+  .dp-pro-table td {
+    border: 2px solid #000 !important;
+  }
+
+  /* 🔥 VERY IMPORTANT: HEADER FIX */
+  .dp-pro-table thead {
+    display: table-header-group; /* forces proper rendering */
+  }
+
+  .dp-pro-table thead th {
+    border: 2px solid #000 !important;
+    border-bottom: 2px solid #000 !important;
+  }
+
+}
+@media print {
+
+  .dp-pro-table th {
+    outline: 2px solid #000;  /* backup border */
+  }
+
+}
+@media print {
+
+  .dp-print-header {
+    width: 100% !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    display: block !important;
+  }
+
+  .dp-print-header h2,
+  .dp-print-header h3,
+  .dp-print-header p {
+    text-align: center !important;
+    margin: 2px 0 !important;
+  }
+
+}
+@media print {
+
+  /* 🔥 FULL PAGE WIDTH */
+  .dp-pro-container {
+    width: 100% !important;
+  }
+
+  /* 🔥 HEADER PERFECT CENTER */
+  .dp-print-header {
+    width: 100% !important;
+    text-align: center !important;
+    margin: 0 auto 5px auto !important;
+  }
+
+}
+@media print {
+
+  .dp-print-header h2 {
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  .dp-print-header h3 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .dp-print-header p {
+    font-size: 13px;
+  }
+
+}

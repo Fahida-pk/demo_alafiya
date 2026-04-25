@@ -153,7 +153,7 @@ const DailyPicking = () => {
 
           <h3>DAILY PICKING REPORT</h3>
           <p>Date: {date}</p>
-          <hr />
+          
         </div>
 
         {/* TABLE */}
