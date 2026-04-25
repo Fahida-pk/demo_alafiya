@@ -540,12 +540,12 @@ input {
 
   /* SUMMARY */
   .summary-right-box {
-    width: 250px;
-    float: right;
-    margin-top: 10px;
-    border-top: 2px solid #000;
-    padding-top: 8px;
-  }
+  width: 250px;
+  margin-left: auto;   /* ✅ push right without breaking layout */
+  margin-top: 10px;
+  border-top: 2px solid #000;
+  padding-top: 8px;
+}
 
   .summary-row {
     display: flex;
@@ -559,6 +559,14 @@ input {
     border-top: 1px solid #000;
   }
 
+  @media print {
+
+  .print-section {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+}
 }
 @media print {
 
