@@ -462,7 +462,9 @@
     size: A4 landscape;
     margin: 5mm;
   }
-
+body {
+  margin-bottom: 10mm;
+}
   body {
     font-family: Arial, sans-serif;
     zoom: 0.95; /* prevent cut */
