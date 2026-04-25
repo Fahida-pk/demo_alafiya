@@ -625,7 +625,10 @@
   .dp-pro-table {
     border-collapse: collapse !important;
   }
-
+.dp-pro-table td {
+  height: auto !important;
+  white-space: normal !important;
+}
   /* 🔥 FORCE ALL BORDERS */
   .dp-pro-table th,
   .dp-pro-table td {
