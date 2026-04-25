@@ -692,5 +692,78 @@ input {
   }
 
 }
+@media print {
 
+  @page {
+    size: A4 landscape;
+    margin: 8mm;
+  }
+
+  /* ===== RESET EVERYTHING ===== */
+  * {
+    float: none !important;
+    max-width: 100% !important;
+  }
+
+  html, body {
+    width: 100%;
+    height: auto !important;
+    overflow: visible !important;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  /* ===== REMOVE SIDEBAR ===== */
+  .sidebar,
+  nav,
+  aside {
+    display: none !important;
+  }
+
+  /* ===== FULL WIDTH ===== */
+  .ledger-page-wrapper,
+  .ledger-card-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* ===== TABLE FIX ===== */
+  .ledger-table {
+    width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+  }
+
+  .ledger-table th,
+  .ledger-table td {
+    border: 1px solid #000 !important;
+    padding: 6px !important;
+    font-size: 12px;
+  }
+
+  /* ===== PAGE BREAK CONTROL ===== */
+  table {
+    page-break-inside: auto !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  /* ===== REMOVE SCROLL ===== */
+  .dp-pro-table-body,
+  .ledger-table-container {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+}
 
