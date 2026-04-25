@@ -508,7 +508,7 @@
   .dp-pro-table {
     width: 100% !important;
     border-collapse: collapse !important;
-    table-layout: fixed !important;  /* 🔥 IMPORTANT */
+    table-layout: auto !important;  /* 🔥 IMPORTANT */
     border: 2px solid #000 !important;
   }
 
