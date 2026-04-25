@@ -607,3 +607,20 @@
   }
 
 }
+@media print {
+
+  html, body {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .dp-pro-table {
+    page-break-inside: auto !important;
+  }
+
+  .dp-pro-table tr {
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
+  }
+
+}
