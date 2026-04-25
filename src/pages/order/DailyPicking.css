@@ -455,20 +455,24 @@
 }
 
 /* ================= FINAL PERFECT PRINT ================= */
+/* ================= FINAL VERCEL PRINT FIX ================= */
 @media print {
 
-  /* ===== PAGE SETUP ===== */
+  /* PAGE */
   @page {
     size: A4 landscape;
     margin: 5mm;
   }
 
-  body {
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: visible !important;
+    height: auto !important;
     font-family: Arial, sans-serif;
-    zoom: 0.95; /* prevent cut */
   }
 
-  /* ===== HIDE SCREEN ===== */
+  /* HIDE SCREEN */
   .no-print,
   button,
   input,
@@ -479,35 +483,30 @@
     display: none !important;
   }
 
-  /* ===== FULL WIDTH ===== */
-  .dp-pro-container {
+  /* PRINT AREA */
+  .print-area {
     width: 100% !important;
   }
 
-  /* ===== REMOVE CARD ===== */
-  .dp-pro-card {
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-  }
-
-  /* ===== REMOVE SCROLL ===== */
+  /* REMOVE SCROLL (🔥 MAIN FIX) */
   .dp-pro-table-container,
   .dp-pro-table-body {
-    overflow: visible !important;
+    display: block !important;
+    height: auto !important;
     max-height: none !important;
+    overflow: visible !important;
   }
 
-  /* ===== TABLE ===== */
+  /* TABLE */
   .dp-pro-table {
     width: 100% !important;
+    min-width: 0 !important;
     border-collapse: collapse !important;
-    table-layout: fixed !important;  /* 🔥 IMPORTANT */
+    table-layout: fixed !important;
     border: 2px solid #000 !important;
   }
 
-  /* ===== CELLS ===== */
+  /* CELLS */
   .dp-pro-table th,
   .dp-pro-table td {
     border: 2px solid #000 !important;
@@ -515,26 +514,25 @@
     font-size: 10px !important;
     white-space: normal !important;
     word-break: break-word !important;
-    overflow-wrap: break-word !important;
   }
 
-  /* ===== PREVENT CUT ===== */
+  /* PREVENT CUT */
   .dp-pro-table tr {
     page-break-inside: avoid !important;
   }
 
-  /* ===== HEADER ===== */
+  /* HEADER */
   .dp-pro-table thead {
     display: table-header-group;
   }
 
   .dp-pro-table thead th {
     background: #f2f2f2 !important;
-    font-weight: bold;
     text-align: center;
+    font-weight: bold;
   }
 
-  /* ===== ALIGN ===== */
+  /* ALIGN */
   .dp-pro-table td:nth-child(1),
   .dp-pro-table td:nth-child(6),
   .dp-pro-table td:nth-child(7),
@@ -542,7 +540,7 @@
     text-align: center;
   }
 
-  /* ===== COLUMN WIDTH (BALANCED) ===== */
+  /* COLUMN WIDTH */
   .dp-pro-table th:nth-child(1),
   .dp-pro-table td:nth-child(1) { width: 5%; }
 
@@ -570,57 +568,34 @@
   .dp-pro-table th:nth-child(9),
   .dp-pro-table td:nth-child(9) { width: 8%; }
 
-  /* 🔥 DELIVERY REMARK BIG COLUMN */
+  /* 🔥 DELIVERY REMARK */
   .dp-pro-table th:nth-child(10),
   .dp-pro-table td:nth-child(10) { width: 23%; }
 
-  /* ===== HEADER CENTER ===== */
+  /* HEADER DESIGN */
   .dp-print-header {
-    width: 100% !important;
-    text-align: center !important;
+    text-align: center;
     margin-bottom: 5px !important;
   }
 
   .dp-print-header h2 {
     font-size: 20px;
-    font-weight: bold;
+    margin: 0;
   }
 
   .dp-print-header h3 {
     font-size: 14px;
-    font-weight: bold;
+    margin: 5px 0;
   }
 
   .dp-print-header p {
     font-size: 12px;
-    margin: 2px 0 !important;
+    margin: 2px 0;
   }
 
-  /* ===== SHOW PRINT HEADER ===== */
+  /* SHOW PRINT */
   .dp-print-only {
     display: block !important;
-  }
-
-  /* ===== BORDER BACKUP ===== */
-  .dp-pro-table th {
-    outline: 2px solid #000;
-  }
-
-}
-@media print {
-
-  html, body {
-    height: auto !important;
-    overflow: visible !important;
-  }
-
-  .dp-pro-table {
-    page-break-inside: auto !important;
-  }
-
-  .dp-pro-table tr {
-    page-break-inside: avoid !important;
-    page-break-after: auto !important;
   }
 
 }
