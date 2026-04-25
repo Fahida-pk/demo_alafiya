@@ -469,7 +469,6 @@
   .dp-pro-table {
     width: 100% !important;
     table-layout: fixed !important;
-    margin-bottom: 2mm;   /* 🔥 FINAL PERFECT */
   }
 /* ===== HIDE SCREEN ===== */
   .no-print,
@@ -481,7 +480,13 @@
   .sidebar {
     display: none !important;
   }
+@media print {
 
+  .dp-pro-table tr:last-child td {
+    padding-bottom: 10px !important;   /* 🔥 EXTRA SPACE INSIDE LAST ROW */
+  }
+
+}
   /* ===== FULL WIDTH ===== */
   .dp-pro-container {
     width: 100% !important;
