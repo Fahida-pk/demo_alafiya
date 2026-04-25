@@ -596,7 +596,13 @@
     text-align: center !important;
     margin-bottom: 5px !important;
   }
+@media print {
 
+  .dp-pro-table tr:last-child td {
+    padding-bottom: 10px !important;   /* 🔥 EXTRA SPACE INSIDE LAST ROW */
+  }
+
+}
   .dp-print-header h2 {
     font-size: 20px;
     font-weight: bold;
