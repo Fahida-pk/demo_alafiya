@@ -465,10 +465,6 @@
     font-family: Arial, sans-serif;
   }
 
-  
-
-  
-
   /* ===== HIDE SCREEN ===== */
   .no-print,
   button,
@@ -480,7 +476,12 @@
     display: none !important;
   }
 
-  /* ===== REMOVE CARD STYLE ===== */
+  /* ===== FULL WIDTH ===== */
+  .dp-pro-container {
+    width: 100% !important;
+  }
+
+  /* ===== REMOVE CARD ===== */
   .dp-pro-card {
     width: 100% !important;
     margin: 0 !important;
@@ -499,21 +500,27 @@
   .dp-pro-table {
     width: 100% !important;
     border-collapse: collapse !important;
-    table-layout: auto !important;
-    border: 2px solid #000 !important;   /* 🔥 OUTER BORDER */
+    table-layout: auto !important;   /* 🔥 IMPORTANT FIX */
+    border: 2px solid #000 !important;
+    word-break: break-word !important;
   }
 
   /* ===== CELLS ===== */
   .dp-pro-table th,
   .dp-pro-table td {
-    border: 2px solid #000 !important;   /* 🔥 FULL GRID */
+    border: 2px solid #000 !important;
     padding: 6px !important;
     font-size: 11px;
+    white-space: normal !important;
+    height: auto !important;
   }
 
-  /* ===== HEADER ROW (IMPORTANT FIX) ===== */
+  /* ===== HEADER ===== */
+  .dp-pro-table thead {
+    display: table-header-group;
+  }
+
   .dp-pro-table thead th {
-    border-bottom: 2px solid #000 !important; /* 🔥 STRONG LINE */
     background: #f2f2f2 !important;
     font-weight: bold;
     text-align: center;
@@ -528,6 +535,7 @@
   }
 
   /* ===== COLUMN WIDTH ===== */
+
   .dp-pro-table th:nth-child(1),
   .dp-pro-table td:nth-child(1) { width: 5%; }
 
@@ -555,139 +563,23 @@
   .dp-pro-table th:nth-child(9),
   .dp-pro-table td:nth-child(9) { width: 10%; }
 
+  /* 🔥 DELIVERY REMARK FIX (FINAL) */
   .dp-pro-table th:nth-child(10),
-.dp-pro-table td:nth-child(10) { 
-  width: 18% !important;              /* more space */
-  white-space: normal !important;     /* 🔥 allow wrap */
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
-}
-
-}
-@media print {
-  .dp-print-only {
-    display: block !important;
-  }
-}
-@media print {
-
-  /* REMOVE GAP */
-  .dp-print-header {
-    margin-bottom: 0 !important;
+  .dp-pro-table td:nth-child(10) {
+    width: auto !important;
+    min-width: 250px !important;
+    max-width: 300px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
   }
 
-  /* TABLE TOP LINE (LIKE YOUR EXPECTATION) */
-  
-
-}
-
-.dp-print-header {
-  text-align: center !important;
-}
-
-.dp-print-header h2,
-.dp-print-header p,
-.dp-print-header h3 {
-  text-align: center !important;
-}
-@media print {
-
-  /* 🔥 FORCE COLUMN LINES IN HEADER */
-  .dp-pro-table thead th {
-    border-right: 2px solid #000 !important;
-    border-left: 2px solid #000 !important;
-  }
-
-  /* 🔥 REMOVE DOUBLE LINE ON EDGE */
-  .dp-pro-table thead th:first-child {
-    border-left: none !important;
-  }
-
-  .dp-pro-table thead th:last-child {
-    border-right: none !important;
-  }
-
-}
-@media print {
-
-  .dp-pro-table {
-    border-collapse: collapse !important;
-  }
-
-  .dp-pro-table th,
-  .dp-pro-table td {
-    border-spacing: 0 !important;
-  }
-
-}
-@media print {
-
-  .dp-pro-table {
-    border-collapse: collapse !important;
-  }
-.dp-pro-table td {
-  height: auto !important;
-  white-space: normal !important;
-}
-  /* 🔥 FORCE ALL BORDERS */
-  .dp-pro-table th,
-  .dp-pro-table td {
-    border: 2px solid #000 !important;
-  }
-
-  /* 🔥 VERY IMPORTANT: HEADER FIX */
-  .dp-pro-table thead {
-    display: table-header-group; /* forces proper rendering */
-  }
-
-  .dp-pro-table thead th {
-    border: 2px solid #000 !important;
-    border-bottom: 2px solid #000 !important;
-  }
-
-}
-@media print {
-
-  .dp-pro-table th {
-    outline: 2px solid #000;  /* backup border */
-  }
-
-}
-@media print {
-
-  .dp-print-header {
-    width: 100% !important;
-    text-align: center !important;
-    margin: 0 auto !important;
-    display: block !important;
-  }
-
-  .dp-print-header h2,
-  .dp-print-header h3,
-  .dp-print-header p {
-    text-align: center !important;
-    margin: 2px 0 !important;
-  }
-
-}
-@media print {
-
-  /* 🔥 FULL PAGE WIDTH */
-  .dp-pro-container {
-    width: 100% !important;
-  }
-.dp-pro-table td {
-  height: auto !important;
-}
-  /* 🔥 HEADER PERFECT CENTER */
+  /* ===== HEADER CENTER ===== */
   .dp-print-header {
     width: 100% !important;
     text-align: center !important;
     margin: 0 auto 5px auto !important;
   }
-
-}
-@media print {
 
   .dp-print-header h2 {
     font-size: 22px;
@@ -701,6 +593,14 @@
 
   .dp-print-header p {
     font-size: 13px;
+    margin: 2px 0 !important;
   }
 
+}
+
+/* SHOW PRINT HEADER */
+@media print {
+  .dp-print-only {
+    display: block !important;
+  }
 }
