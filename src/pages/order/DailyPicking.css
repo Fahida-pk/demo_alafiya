@@ -517,11 +517,17 @@
     word-break: break-word !important;
     overflow-wrap: break-word !important;
   }
+.dp-pro-table td:nth-child(10) {
+  word-break: break-word;
+  white-space: normal;
+}
+  .dp-pro-table {
+  page-break-inside: auto;
+}
 
-  /* ===== PREVENT CUT ===== */
-  .dp-pro-table tr {
-    page-break-inside: avoid !important;
-  }
+.dp-pro-table tr {
+  break-inside: auto;
+}
 
   /* ===== HEADER ===== */
   .dp-pro-table thead {
