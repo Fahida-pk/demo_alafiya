@@ -466,10 +466,12 @@
     font-family: Arial, sans-serif;
   }
 
-  
-
-
-  /* ===== HIDE SCREEN ===== */
+  .dp-pro-table {
+    width: 100% !important;
+    table-layout: fixed !important;
+    margin-bottom: 2mm;   /* 🔥 FINAL PERFECT */
+  }
+/* ===== HIDE SCREEN ===== */
   .no-print,
   button,
   input,
