@@ -490,10 +490,7 @@ input {
 
  @media (max-width: 768px) {
 
-  .ledger-table {
-    table-layout: auto !important;
-    width: 100%;
-  }
+
 
   /* Remove desktop width forcing */
   .ledger-table th,
@@ -627,4 +624,14 @@ input {
     page-break-inside: avoid;
   }
 
+}
+@media print {
+  .ledger-table {
+    table-layout: auto !important;
+  }
+}
+@media print {
+  tr {
+    break-inside: avoid !important;
+  }
 }
