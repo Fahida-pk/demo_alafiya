@@ -465,9 +465,11 @@
 
   body {
     font-family: Arial, sans-serif;
-    zoom: 0.95; /* prevent cut */
   }
-
+html, body {
+  width: 100%;
+  overflow: visible !important;
+}
   /* ===== HIDE SCREEN ===== */
   .no-print,
   button,
@@ -498,12 +500,15 @@
     overflow: visible !important;
     max-height: none !important;
   }
-
+.dp-pro-table {
+  width: 100% !important;
+  min-width: 100% !important;
+}
   /* ===== TABLE ===== */
   .dp-pro-table {
     width: 100% !important;
     border-collapse: collapse !important;
-    table-layout: fixed !important;  /* 🔥 IMPORTANT */
+table-layout: auto !important;
     border: 2px solid #000 !important;
   }
 
@@ -572,8 +577,10 @@
 
   /* 🔥 DELIVERY REMARK BIG COLUMN */
   .dp-pro-table th:nth-child(10),
-  .dp-pro-table td:nth-child(10) { width: 23%; }
-
+.dp-pro-table td:nth-child(10) {
+  width: auto !important;
+  min-width: 180px;
+}
   /* ===== HEADER CENTER ===== */
   .dp-print-header {
     width: 100% !important;
