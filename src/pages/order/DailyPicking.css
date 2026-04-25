@@ -457,25 +457,20 @@
 /* ================= FINAL PERFECT PRINT ================= */
 @media print {
 
-  /* ===== PAGE SETUP ===== */
   @page {
-  size: A4 landscape;
-  margin: 10mm;   /* 🔥 increase more */
-}
-body {
-  font-family: Arial, sans-serif;
-  transform: scale(0.97);
-  transform-origin: top left;
-}
-@media print {
-
-  .dp-pro-table::after {
-    content: "";
-    display: block;
-    height: 15mm;   /* 🔥 FORCE EXTRA SPACE */
+    size: A4 landscape;
+    margin: 10mm;
   }
 
-}
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  .dp-pro-table {
+    margin-bottom: 3mm;   /* 🔥 SMALL SAFE SPACE */
+  }
+
+
   /* ===== HIDE SCREEN ===== */
   .no-print,
   button,
