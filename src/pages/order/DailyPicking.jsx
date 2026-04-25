@@ -125,48 +125,47 @@ const DailyPicking = () => {
   return (
     <div className="dp-pro-container">
 
-  <div className="no-print">
-    <TopNavbar />
-  </div>
-
-  <div className="dp-pro-card">
-
-    {/* TITLE */}
-    <h3 className="dp-pro-title no-print">Daily Picking</h3>
-
-    {/* FILTER */}
-    <div className="no-print" style={{ marginBottom: "15px" }}>
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        className="dp-pro-input"
-      />
-    </div>
-
-    {/* 🔥 PRINT AREA START */}
-    <div className="print-area">
-
-      {/* PRINT HEADER */}
-      <div className="dp-print-header">
-        <h2>{company.company_name}</h2>
-        <p>{company.address}</p>
-        <p>Phone: {company.phone}</p>
-
-        <h3>DAILY PICKING REPORT</h3>
-        <p>Date: {date}</p>
+      <div className="no-print">
+        <TopNavbar />
       </div>
 
-      {/* TABLE */}
-      <div className="dp-pro-table-container">
-        <div className="dp-pro-table-body">
-          <table className="dp-pro-table">
-            <thead>
-              <tr>
-                <th>Sl No</th>
-                <th>Customer Name</th>
-                <th>Item Name</th>
-                <th>Item Location</th>
+      <div className="dp-pro-card">
+
+        {/* TITLE */}
+        <h3 className="dp-pro-title no-print">Daily Picking</h3>
+
+        {/* FILTER */}
+        <div className="no-print" style={{ marginBottom: "15px" }}>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="dp-pro-input"
+          />
+         
+        </div>
+
+        {/* 🔥 PRINT HEADER */}
+        <div className="dp-print-header dp-print-only">
+          <h2>{company.company_name}</h2>
+          <p>{company.address}</p>
+          <p>Phone: {company.phone}</p>
+
+          <h3>DAILY PICKING REPORT</h3>
+          <p>Date: {date}</p>
+          
+        </div>
+
+        {/* TABLE */}
+        <div className="dp-pro-table-container">
+          <div className="dp-pro-table-body">
+            <table className="dp-pro-table">
+      <thead>
+        <tr>
+          <th>Sl No</th>
+          <th>Customer Name</th>
+          <th>Item Name</th>
+          <th>Item Location</th>
           <th>Brand</th>
           <th>Qty Req</th>
           <th>Pick Qty</th>
@@ -250,8 +249,6 @@ const DailyPicking = () => {
 </div>
       </div>
     </div>
-        </div>
-
   );
 };
 
