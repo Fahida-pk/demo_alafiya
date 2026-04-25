@@ -586,9 +586,18 @@ input {
     page-break-inside: auto;
   }
 
-  tr {
-    page-break-inside: avoid;
+   @media print {
+
+  thead {
+    display: table-header-group;
   }
+
+  tbody tr {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+}
 
   .summary-right-box {
     page-break-inside: avoid !important;

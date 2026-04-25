@@ -5,9 +5,9 @@ import { FaUserTie, FaFileAlt } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-const REPORT_API = "https://zyntaweb.com/alafiya/api/report.php";
-const DRIVER_API = "https://zyntaweb.com/alafiya/api/drivers.php";
-const COMPANY_API = "https://zyntaweb.com/alafiya/api/company.php";
+const REPORT_API = "https://zyntaweb.com/demoalafiya/api/report.php";
+const DRIVER_API = "https://zyntaweb.com/demoalafiya/api/drivers.php";
+const COMPANY_API = "https://zyntaweb.com/demoalafiya/api/company.php";
 
 const DriverReport = () => {
 
