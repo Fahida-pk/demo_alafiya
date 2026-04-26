@@ -459,7 +459,7 @@
 
   @page {
     size: A4 landscape;
-    margin: 10mm;
+    margin: 8mm;
   }
 
   body {
@@ -543,17 +543,17 @@
 
 }
   .dp-print-header h2 {
-    font-size: 20px;
+    font-size: 10px;
     font-weight: bold;
   }
 
   .dp-print-header h3 {
-    font-size: 14px;
+    font-size: 10px;
     font-weight: bold;
   }
 
   .dp-print-header p {
-    font-size: 12px;
+    font-size: 10px;
     margin: 2px 0 !important;
   }
 
