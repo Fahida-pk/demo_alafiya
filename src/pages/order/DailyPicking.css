@@ -540,16 +540,16 @@
   .dp-pro-table td:nth-child(1) { width: 100px; }
 
   .dp-pro-table th:nth-child(2),
-  .dp-pro-table td:nth-child(2) { width: 14%; }
+  .dp-pro-table td:nth-child(2) { width: 5%; }
 
   .dp-pro-table th:nth-child(3),
-  .dp-pro-table td:nth-child(3) { width: 10%; }
+  .dp-pro-table td:nth-child(3) { width: 5%; }
 
   .dp-pro-table th:nth-child(4),
-  .dp-pro-table td:nth-child(4) { width: 10%; }
+  .dp-pro-table td:nth-child(4) { width: 5%; }
 
   .dp-pro-table th:nth-child(5),
-  .dp-pro-table td:nth-child(5) { width: 9%; }
+  .dp-pro-table td:nth-child(5) { width: 5%; }
 
   .dp-pro-table th:nth-child(6),
   .dp-pro-table td:nth-child(6) { width: 7%; }
@@ -565,7 +565,7 @@
 
   /* 🔥 DELIVERY REMARK BIG COLUMN */
   .dp-pro-table th:nth-child(10),
-  .dp-pro-table td:nth-child(10) { width: 15%; }
+  .dp-pro-table td:nth-child(10) { width: 5%; }
 
   /* ===== HEADER CENTER ===== */
   .dp-print-header {
