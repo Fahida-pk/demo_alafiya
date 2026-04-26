@@ -462,15 +462,23 @@
     margin: 8mm;
   }
 
-  body {
+  /* RESET */
+  * {
+    box-shadow: none !important;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
     font-family: Arial, sans-serif;
+    overflow: visible !important;
   }
 
   /* HIDE SCREEN */
   .no-print,
-  button,
-  input,
-  select,
+  .dp-filter-section,
+  .dp-title,
   nav,
   aside,
   .sidebar {
@@ -478,94 +486,125 @@
   }
 
   /* FULL WIDTH */
-  .dp-pro-container,
-  .dp-pro-card {
+  .dp-page-wrapper,
+  .dp-card-container,
+  .print-section {
     width: 100% !important;
-    margin: 0 !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
     padding: 0 !important;
-    box-shadow: none !important;
+    overflow: visible !important;
   }
 
-  /* REMOVE SCROLL */
-  .dp-pro-table-container,
-  .dp-pro-table-body {
-    overflow: visible !important;
-    max-height: none !important;
+  /* HEADER */
+  .dp-print-only {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .dp-print-company-header h2 {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  .dp-print-company-header p {
+    margin: 2px 0;
+    font-size: 12px;
   }
 
   /* TABLE */
   .dp-pro-table {
     width: 100% !important;
     border-collapse: collapse !important;
-    table-layout: fixed !important;
-    border: 2px solid #000 !important;
-    margin-bottom: 2mm;   /* 🔥 small safe space */
+    table-layout: auto !important; /* 🔥 important */
   }
 
-  /* CELLS */
-  .dp-pro-table th,
-  .dp-pro-table td {
-    border: 2px solid #000 !important;
-    padding: 5px !important;
-    font-size: 10px !important;
-    word-break: break-word;
-  }
-
-  /* 🔥 LAST BORDER FIX */
-  .dp-pro-table tr:last-child td {
-    border-bottom: 2px solid #000 !important;
-    padding-bottom: 8px !important;
-  }
-
-  /* HEADER */
-  .dp-pro-table thead {
+  thead {
     display: table-header-group;
   }
 
-  .dp-pro-table thead th {
-    background: #f2f2f2 !important;
-    text-align: center;
+  tbody {
+    display: table-row-group;
   }
 
+  tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
 
+  th, td {
+    border: 1px solid #000 !important;
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+  }
 
-  /* ===== HEADER CENTER ===== */
-  .dp-print-header {
+  th {
+    background: #f3f4f6 !important;
+    font-weight: bold;
+  }
+
+  /* ALLOW WRAP ONLY FOR LONG COLUMN */
+  td:nth-child(4) {
+    white-space: normal !important;
+  }
+
+  /* REMOVE MOBILE LABEL */
+  td::before {
+    content: none !important;
+  }
+
+  /* PAGE BREAK FIX */
+  table {
+    page-break-inside: auto;
+  }
+
+  /* SUMMARY */
+  .dp-summary-right-box {
+    width: 250px;
+    margin-left: auto;
+    margin-top: 10px;
+    border-top: 2px solid #000;
+    padding-top: 8px;
+    page-break-inside: avoid;
+  }
+
+  .dp-summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 3px 0;
+  }
+
+  .dp-summary-row.balance {
+    font-weight: bold;
+    border-top: 1px solid #000;
+  }
+
+}
+@media print {
+
+  .dp-pro-table {
+    display: table !important;
     width: 100% !important;
-    text-align: center !important;
-    margin-bottom: 5px !important;
+    border-collapse: collapse !important;
+    table-layout: auto !important;
   }
 
-
-  .dp-pro-table tr:last-child td {
-    padding-bottom: 10px !important;   /* 🔥 EXTRA SPACE INSIDE LAST ROW */
+  thead {
+    display: table-header-group !important;
   }
 
-
-  .dp-print-header h2 {
-    font-size: 10px;
-    font-weight: bold;
+  tbody {
+    display: table-row-group !important;
   }
 
-  .dp-print-header h3 {
-    font-size: 10px;
-    font-weight: bold;
+  tr {
+    display: table-row !important;
   }
 
-  .dp-print-header p {
-    font-size: 10px;
-    margin: 2px 0 !important;
+  th, td {
+    display: table-cell !important;
   }
-
-  /* ===== SHOW PRINT HEADER ===== */
-  .dp-print-only {
-    display: block !important;
-  }
-
-  /* ===== BORDER BACKUP ===== */
-  .dp-pro-table th {
-    outline: 2px solid #000;
-  }
-
 
 }
