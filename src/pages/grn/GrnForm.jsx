@@ -480,15 +480,49 @@ const filteredLocations = locations.filter(l =>
 
       <div className="grn-field">
         <label>Item</label>
-        <select
-          value={d.item_id}
-          onChange={e => handleItemChange(i, e.target.value)}
-        >
-          <option value="">Select Item</option>
-          {items.map(it => (
-            <option key={it.id} value={it.id}>{it.name}</option>
-          ))}
-        </select>
+       <div className="custom-dropdown">
+  <div
+    className="dropdown-display"
+    onClick={() => setShowItemDropdown(!showItemDropdown)}
+  >
+    {d.item_id
+      ? items.find(it => it.id == d.item_id)?.name
+      : ""}
+
+    <span className="arrow">▼</span>
+  </div>
+
+  {showItemDropdown && (
+    <div className="dropdown-box">
+      <input
+        type="text"
+        placeholder="Search item..."
+        value={itemSearch}
+        onChange={(e) => setItemSearch(e.target.value)}
+        className="dropdown-search"
+      />
+
+      <div className="dropdown-options">
+        {filteredItems.map(it => (
+          <div
+            key={it.id}
+            className="dropdown-option"
+            onClick={() => {
+              handleItemChange(i, it.id);
+              setShowItemDropdown(false);
+              setItemSearch("");
+            }}
+          >
+            {it.name}
+          </div>
+        ))}
+        {filteredItems.length === 0 && (
+          <div className="no-results">No results found</div>
+        )}
+      </div>
+    </div>
+  )}
+</div>
       </div>
 
       <div className="grn-field">
@@ -518,15 +552,50 @@ const filteredLocations = locations.filter(l =>
 
       <div className="grn-field">
         <label>Location</label>
-        <select
-          value={d.location_id}
-          onChange={e => handleChange(i, "location_id", e.target.value)}
-        >
-          <option value="">Select Location</option>
-          {locations.map(l => (
-            <option key={l.id} value={l.id}>{l.name}</option>
-          ))}
-        </select>
+      <div className="custom-dropdown">
+  <div
+    className="dropdown-display"
+    onClick={() => setShowLocationDropdown(!showLocationDropdown)}
+  >
+    {d.location_id
+      ? locations.find(l => l.id == d.location_id)?.name
+      : ""}
+
+    <span className="arrow">▼</span>
+  </div>
+
+  {showLocationDropdown && (
+    <div className="dropdown-box">
+      <input
+        type="text"
+        placeholder="Search location..."
+        value={locationSearch}
+        onChange={(e) => setLocationSearch(e.target.value)}
+        className="dropdown-search"
+      />
+
+      <div className="dropdown-options">
+        {filteredLocations.length > 0 ? (
+          filteredLocations.map(l => (
+            <div
+              key={l.id}
+              className="dropdown-option"
+              onClick={() => {
+                handleChange(i, "location_id", l.id);
+                setShowLocationDropdown(false);
+                setLocationSearch("");
+              }}
+            >
+              {l.name}
+            </div>
+          ))
+        ) : (
+          <div className="no-results">No results found</div>
+        )}
+      </div>
+    </div>
+  )}
+</div>
       </div>
 
       <div className="grn-field">
