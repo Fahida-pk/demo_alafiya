@@ -172,7 +172,10 @@ const [inventoryOpen, setInventoryOpen] = useState(false);
       <FaClipboardList />
       <span>Daily Picking</span>
     </Link>
-
+<Link to="/oha-list" onClick={() => setMobileOpen(false)}>
+  <FaFileImport />
+  <span>OHA</span>
+</Link>
   </div>
 )}
 {/* ================= REPORT ================= */}

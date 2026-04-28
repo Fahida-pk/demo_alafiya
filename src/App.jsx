@@ -21,7 +21,8 @@ import Brand  from "./pages/brand/Brands";
 import GrnForm from "./pages/grn/GrnForm";
 import GrnList from "./pages/grn/GrnList";
 import DailyPicking  from "./pages/order/DailyPicking";
-
+import OhaForm from "./pages/oha/OhaForm";
+import OhaList from "./pages/oha/OhaList";
 function App() {
   return (
     <BrowserRouter>
@@ -54,6 +55,9 @@ function App() {
 <Route path="/grn-form" element={<GrnForm />} />
 <Route path="/grn-list" element={<GrnList />} />
 <Route path="/daily-picking" element={<DailyPicking />} />
+<Route path="/oha-form/:id" element={<OhaForm />} />
+<Route path="/oha-form" element={<OhaForm />} />
+<Route path="/oha-list" element={<OhaList />} />
         </Route>
 
       </Routes>

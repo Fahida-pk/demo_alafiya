@@ -1,0 +1,239 @@
+/* ================= CONTAINER ================= */
+.oha-ui-container {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+  background: #f5f7fb;
+  width: 75%;
+}
+
+/* ================= CARD ================= */
+.oha-ui-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* ================= HEADER ================= */
+.oha-ui-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.oha-ui-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* BACK BUTTON */
+.oha-ui-back-btn {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.oha-ui-back-btn:hover {
+  background: #f1f5f9;
+}
+
+/* ================= GRID ================= */
+.oha-ui-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+/* ================= INPUT ================= */
+.oha-ui-container input,
+.oha-ui-container select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  height: 40px;
+}
+
+/* ================= ADD BUTTON ================= */
+.oha-ui-add-btn {
+  background: linear-gradient(
+    180deg,
+    #8e63e0,
+    #654fc4
+  );
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.oha-ui-add-btn:hover {
+  opacity: 0.9;
+}
+
+/* ================= TABLE ================= */
+.oha-ui-table-wrapper {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.oha-ui-table {
+  min-width: 1200px;
+  width: max-content;
+  border-collapse: collapse;
+}
+
+.oha-ui-table th {
+  text-align: left;
+  font-size: 13px;
+  color: #777;
+  padding: 12px;
+  background: #fafafa;
+}
+
+.oha-ui-table td {
+  padding: 12px;
+}
+
+.oha-ui-table tr {
+  border-bottom: 1px solid #eee;
+}
+
+/* INPUT INSIDE TABLE */
+.oha-ui-table input,
+.oha-ui-table select {
+  width: 100%;
+  height: 38px;
+}
+
+/* ITEM COLUMN */
+.oha-ui-table th:nth-child(1),
+.oha-ui-table td:nth-child(1) {
+  min-width: 220px;
+}
+
+/* ================= DELETE BUTTON ================= */
+.oha-ui-delete-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.oha-ui-delete-btn:hover {
+  background: #dc2626;
+}
+
+/* ================= SAVE ================= */
+.oha-ui-save-btn {
+  margin-top: 15px;
+  background: linear-gradient(
+    180deg,
+    #8e63e0,
+    #654fc4
+  );
+  color: white;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* ================= DROPDOWN ================= */
+.custom-dropdown {
+  position: relative;
+}
+
+.dropdown-display {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 35px 10px 12px;
+  background: #fff;
+  cursor: pointer;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-display:hover {
+  border-color: #7b5cff;
+}
+
+/* ARROW */
+.arrow {
+  position: absolute;
+  right: 10px;
+  font-size: 12px;
+  color: #555;
+}
+
+/* DROPDOWN BOX */
+.dropdown-box {
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 5px;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.dropdown-box input {
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  outline: none;
+}
+
+.dropdown-options {
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.dropdown-option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-option:hover {
+  background: #f3f4f6;
+}
+
+/* ================= SCROLLBAR ================= */
+.oha-ui-table-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.oha-ui-table-wrapper::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+  .oha-ui-container {
+    padding: 10px;
+    width: 100%;
+  }
+
+  .oha-ui-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .oha-ui-table {
+    display: none;
+  }
+}
