@@ -116,15 +116,35 @@ const [selectedRowIndex, setSelectedRowIndex] = useState(null);
     setLoading(true);
 
     // ✅ VALIDATION
-    const validItems = details.filter(
-      d => d.item_id && Number(d.quantity) > 0
-    );
+   // ✅ 1. At least one item
+const hasItem = details.some(
+  d => d.item_id && Number(d.quantity) > 0
+);
 
-    if (validItems.length === 0) {
-      alert("Please add at least one item ❗");
-      setLoading(false); // 🔥 FIX
-      return;
-    }
+if (!hasItem) {
+  alert("Please add at least one item ❗");
+  setLoading(false);
+  return;
+}
+
+// ✅ 2. Required fields check
+const invalidRow = details.find(
+  d =>
+    d.item_id &&
+    Number(d.quantity) > 0 &&
+    (!d.return_reason_code_id || !d.action)
+);
+
+if (invalidRow) {
+  alert("Please select Reason and Action ❗");
+  setLoading(false);
+  return;
+}
+
+// ✅ 3. Final items
+const validItems = details.filter(
+  d => d.item_id && Number(d.quantity) > 0
+);
 
     const method = id ? "PUT" : "POST";
 
@@ -721,12 +741,16 @@ return (
       <div className="oha-field">
         <label>Reason</label>
         <select
-          value={d.return_reason_code_id}
-          onChange={e => handleChange(i, "return_reason_code_id", e.target.value)}
+          value={d.return_reason_code_id || ""}
+          onChange={e =>
+            handleChange(i, "return_reason_code_id", e.target.value)
+          }
         >
-          <option value="">Select</option>
+          <option value="">Select Reason</option>
           {reasons.map(r => (
-            <option key={r.id} value={r.id}>{r.code}</option>
+            <option key={r.id} value={r.id}>
+              {r.code} - {r.description}
+            </option>
           ))}
         </select>
       </div>
