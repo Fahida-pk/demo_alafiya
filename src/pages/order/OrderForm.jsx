@@ -26,13 +26,16 @@ const navigate = useNavigate();
 const location = useLocation();
 const [customerSearch, setCustomerSearch] = useState("");
 const [activeCustomer, setActiveCustomer] = useState(false);
-
+const [batchPopup, setBatchPopup] = useState([]);
+const [activeBatchIndex, setActiveBatchIndex] = useState(null);
 const [itemSearch, setItemSearch] = useState("");
 const [activeItemIndex, setActiveItemIndex] = useState(null);
 
 const [locationSearch, setLocationSearch] = useState("");
 const [activeLocationIndex, setActiveLocationIndex] = useState(null);
-
+const [showBatchModal, setShowBatchModal] = useState(false);
+const [selectedRowIndex, setSelectedRowIndex] = useState(null);
+const [batchList, setBatchList] = useState([]);
 const [brandSearch, setBrandSearch] = useState("");
 const [activeBrandIndex, setActiveBrandIndex] = useState(null);
 const isView = new URLSearchParams(location.search).get("view") === "true";
@@ -230,16 +233,31 @@ const filteredLocations = locations.filter(l =>
 const filteredBrands = brands.filter(b =>
   b.name.toLowerCase().includes(brandSearch.toLowerCase())
 );
-const handleItemChange = (i, value) => {
+const handleItemChange = async (i, value) => {
   const item = items.find(x => x.id == value);
 
   const updated = [...details];
   updated[i].item_id = value;
-
-  // 🔥 AUTO LOCATION
   updated[i].location_id = item?.location_id || "";
 
   setDetails(updated);
+
+  // 🔥 CALL YOUR API HERE
+  const res = await fetch(
+  `https://zyntaweb.com/demoalafiya/api/stock_batches.php?item_id=${details[i].item_id}`
+);
+
+const data = await res.json();
+
+console.log("BATCH DATA:", data); // 🔥 ADD THIS
+
+const batches = Array.isArray(data)
+  ? data
+  : data.data || data.batches || [];
+
+setBatchList(batches);
+  setBatchPopup(Array.isArray(data) ? data : data.data || []);
+  setActiveBatchIndex(i); // 🔥 open popup
 };
   return (
     <div className="order-ui-container">
@@ -393,25 +411,62 @@ const handleItemChange = (i, value) => {
     </div>
   )}
 </div>
+<label>Qty</label>
+<input
+  value={d.qty || ""}
+  onChange={async (e) => {
+    const value = e.target.value;
 
-      <label>Qty</label>
-      <input
-        value={d.qty || ""}
-        onChange={e => handleDetailChange(i, "qty", e.target.value)}
-      />
+    handleDetailChange(i, "qty", value);
 
+    if (!value || value <= 0) return;
+
+    if (!details[i].item_id) {
+      alert("Select item first ❗");
+      return;
+    }
+
+    // 🔥 ALWAYS fetch (even in edit)
+    const res = await fetch(
+      `https://zyntaweb.com/demoalafiya/api/stock_batches.php?item_id=${details[i].item_id}`
+    );
+
+    const data = await res.json();
+    const batches = Array.isArray(data) ? data : data.data || [];
+
+    setBatchList(batches);
+    setSelectedRowIndex(i);
+    setShowBatchModal(true);
+  }}
+
+  // ✅ ADD THIS (VERY IMPORTANT 🔥)
+  onFocus={async () => {
+    if (!details[i].item_id) return;
+
+    const res = await fetch(
+      `https://zyntaweb.com/demoalafiya/api/stock_batches.php?item_id=${details[i].item_id}`
+    );
+
+    const data = await res.json();
+    const batches = Array.isArray(data) ? data : data.data || [];
+
+    setBatchList(batches);
+    setSelectedRowIndex(i);
+    setShowBatchModal(true);
+  }}
+/>
       <label>Batch</label>
-      <input
-        value={d.batch || ""}
-        onChange={e => handleDetailChange(i, "batch", e.target.value)}
-      />
+     <input
+  value={d.batch || ""}
+  readOnly
+/>
 
       <label>Expiry</label>
       <input
-        type="date"
-        value={d.expiry || ""}
-        onChange={e => handleDetailChange(i, "expiry", e.target.value)}
-      />
+  type="date"
+  value={d.expiry || ""}
+  readOnly
+/>
 
       <label>Location</label>
       <div className="custom-dropdown">
@@ -522,6 +577,7 @@ const handleItemChange = (i, value) => {
 
     </div>
   ))}
+  
 </div>
 
         {/* TABLE */}
@@ -588,25 +644,44 @@ const handleItemChange = (i, value) => {
 </div>
       </td>
 
-      <td>
-        <input
-          value={d.qty || ""}
-          onChange={e => handleDetailChange(i, "qty", e.target.value)}
-        />
-      </td>
+<td style={{ position: "relative" }}>
 
-      <td>
-        <input
-          value={d.batch || ""}
-          onChange={e => handleDetailChange(i, "batch", e.target.value)}
-        />
-      </td>
+  <input
+    value={d.qty || ""}
+  onChange={async (e) => {
+  const value = e.target.value;
+  handleDetailChange(i, "qty", value);
 
+  if (!value || value <= 0) return;
+  if (showBatchModal) return;
+
+  if (!details[i].item_id) {
+    alert("Select item first ❗");
+    return;
+  }
+
+  const res = await fetch(
+    `https://zyntaweb.com/demoalafiya/api/stock_batches.php?item_id=${details[i].item_id}`
+  );
+
+  const data = await res.json();
+  const batches = Array.isArray(data) ? data : data.data || [];
+
+  setBatchList(batches);
+  setSelectedRowIndex(i);
+  setShowBatchModal(true);
+}}
+  />
+
+</td>
+<td>
+  <input value={d.batch || ""} readOnly />
+</td>
       <td>
         <input
           type="date"
           value={d.expiry || ""}
-          onChange={e => handleDetailChange(i, "expiry", e.target.value)}
+          readOnly
         />
       </td>
 
@@ -728,8 +803,66 @@ const handleItemChange = (i, value) => {
   {id ? "Update Order" : "Save Order"}
 </button>
 )}
-      </div>
+ {/* ✅ ONLY ONE MODAL HERE */}
+    {showBatchModal && (
+        <div className="batch-modal-overlay">
+
+      <div className="batch-modal-box">
+
+  <h3>Select Batch</h3>
+
+  <div className="batch-table">
+    <div className="batch-header">
+      <div>Batch</div>
+      <div>Expiry</div>
+      <div>Stock</div>
     </div>
+
+    {batchList.map((b, index) => (
+      <div
+        key={index}
+        className="batch-row-item"
+        onClick={() => {
+
+          if (details[selectedRowIndex].qty > (b.available_qty || b.qty)) {
+            alert("Stock not enough ❗");
+            return;
+          }
+
+          const updated = [...details];
+
+          updated[selectedRowIndex].batch = b.batch;
+          updated[selectedRowIndex].expiry = b.expiry_date || b.expiry;
+
+          setDetails(updated);
+          setShowBatchModal(false);
+        }}
+      >
+        <div>{b.batch}</div>
+        <div>{b.expiry_date || b.expiry}</div>
+        <div>
+  {(b.available_qty ?? b.qty ?? (b.quantity_in - b.quantity_out)) || 0}
+</div>
+      </div>
+    ))}
+  </div>
+
+  {/* ✅ CLOSE BUTTON */}
+  <div style={{ textAlign: "right", marginTop: "10px" }}>
+    <button
+      onClick={() => setShowBatchModal(false)}
+      className="modal-close-btn"
+    >
+      Close
+    </button>
+  </div>
+</div>
+
+</div>
+    )}
+
+  </div>
+      </div>
   );
 };
 

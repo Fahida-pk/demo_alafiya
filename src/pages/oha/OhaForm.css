@@ -109,6 +109,8 @@
   min-width: 1200px;
   width: max-content;
   border-collapse: collapse;
+      min-height: 350px;   /* 👈 increase table size */
+
 }
 
 .oha-ui-table th {

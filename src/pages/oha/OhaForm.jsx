@@ -102,7 +102,6 @@ const [loading, setLoading] = useState(false);
   };
 
   const deleteRow = (i) => {
-    if (details.length === 1) return alert("At least one item required");
     setDetails(details.filter((_, index) => index !== i));
   };
 

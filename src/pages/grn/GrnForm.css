@@ -197,7 +197,7 @@ background: linear-gradient(
   cursor: pointer;
 }
 .grn-ui-table-wrapper {
-  max-height: 400px;   /* height fix */
+  max-height:1000px;   /* height fix */
   overflow-y: auto;    /* ✅ vertical scroll */
   overflow-x: auto;    /* optional horizontal */
 }
@@ -210,8 +210,10 @@ background: linear-gradient(
   padding: 14px;      /* bigger spacing */
 }
 .grn-ui-table {
-  min-width: 1200px;   /* 👈 increase table size */
+  min-width: 1000px;   /* 👈 increase table size */
   width: max-content;  /* ✅ allow expansion */
+    min-height: 350px;   /* 👈 increase table size */
+
 }
 .grn-ui-table-wrapper::-webkit-scrollbar {
   width: 6px;
