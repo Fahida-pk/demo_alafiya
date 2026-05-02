@@ -242,22 +242,22 @@ const handleItemChange = async (i, value) => {
 
   setDetails(updated);
 
-  // 🔥 CALL YOUR API HERE
+  // 🔥 FIX: use value
   const res = await fetch(
-  `https://zyntaweb.com/demoalafiya/api/stock_batches.php?item_id=${details[i].item_id}`
-);
+    `https://zyntaweb.com/demoalafiya/api/stock_batches.php?item_id=${value}`
+  );
 
-const data = await res.json();
+  const data = await res.json();
 
-console.log("BATCH DATA:", data); // 🔥 ADD THIS
+  console.log("BATCH DATA:", data);
 
-const batches = Array.isArray(data)
-  ? data
-  : data.data || data.batches || [];
+  const batches = Array.isArray(data)
+    ? data
+    : data.data || data.batches || [];
 
-setBatchList(batches);
-  setBatchPopup(Array.isArray(data) ? data : data.data || []);
-  setActiveBatchIndex(i); // 🔥 open popup
+  setBatchList(batches);
+  setBatchPopup(batches);
+  setActiveBatchIndex(i);
 };
   return (
     <div className="order-ui-container">
@@ -427,9 +427,7 @@ setBatchList(batches);
       return;
     }
 
-    const res = await fetch(
-      `https://zyntaweb.com/demoalafiya/api/stock_batches.php?item_id=${details[i].item_id}`
-    );
+    const res = await fetch(`https://zyntaweb.com/demoalafiya/api/stock_batches.php?item_id=${details[i].item_id}`)
 
     const data = await res.json();
     const batches = Array.isArray(data) ? data : data.data || [];
@@ -649,9 +647,7 @@ setBatchList(batches);
       return;
     }
 
-    const res = await fetch(
-      `https://zyntaweb.com/demoalafiya/api/stock_batches.php?item_id=${details[i].item_id}`
-    );
+    const res = await fetch(`https://zyntaweb.com/demoalafiya/api/stock_batches.php?item_id=${details[i].item_id}`)
 
     const data = await res.json();
     const batches = Array.isArray(data) ? data : data.data || [];
