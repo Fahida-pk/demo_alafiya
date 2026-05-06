@@ -117,16 +117,44 @@ const fetchBatch = async (i, qty) => {
   );
 
   const data = await res.json();
-  const batches = Array.isArray(data) ? data : data.data || [];
 
-  if (batches.length === 0) {
-    alert("No batch found ❗");
-    return;
-  }
+const batches = Array.isArray(data)
+  ? data
+  : data.data || [];
 
-  setBatchList(batches);
-  setSelectedRowIndex(i);
-  setShowBatchModal(true);
+const adjustedBatches = batches.map(batch => {
+
+  const usedQty = details.reduce((total, row, index) => {
+
+    if (index === i) return total;
+
+    if (
+      row.item_id == details[i].item_id &&
+      row.batch === batch.batch
+    ) {
+      return total + Number(row.quantity || 0);
+    }
+
+    return total;
+
+  }, 0);
+
+  return {
+    ...batch,
+    available_qty:
+      Number(batch.available_qty) - usedQty
+  };
+
+});
+
+if (adjustedBatches.length === 0) {
+  alert("No batch found ❗");
+  return;
+}
+
+setBatchList(adjustedBatches);
+setSelectedRowIndex(i);
+setShowBatchModal(true);
 };
   // ================= SAVE =================
  const handleSave = async () => {
@@ -459,7 +487,30 @@ return (
   );
 
   const data = await res.json();
-  const batches = Array.isArray(data) ? data : data.data || [];
+  const adjustedBatches = batches.map(batch => {
+
+  // same batch used qty
+  const usedQty = details.reduce((total, row, index) => {
+
+    // current row skip
+    if (index === i) return total;
+
+    if (
+      row.item_id == details[i].item_id &&
+      row.batch === batch.batch
+    ) {
+      return total + Number(row.quantity || 0);
+    }
+
+    return total;
+
+  }, 0);
+
+  return {
+    ...batch,
+    available_qty: Number(batch.available_qty) - usedQty
+  };
+});
 
   console.log("BATCH:", batches); // 🔥 DEBUG
 
@@ -706,17 +757,42 @@ return (
     `https://zyntaweb.com/demoalafiya/api/order_batches.php?item_id=${details[i].item_id}&customer_id=${header.customer_id}`
   );
 
-  const data = await res.json();
-  const batches = Array.isArray(data) ? data : data.data || [];
+ const data = await res.json();
 
-  console.log("BATCH:", batches); // 🔥 DEBUG
+const batches = Array.isArray(data)
+  ? data
+  : data.data || [];
 
-  if (batches.length === 0) {
+const adjustedBatches = batches.map(batch => {
+
+  const usedQty = details.reduce((total, row, index) => {
+
+    if (index === i) return total;
+
+    if (
+      row.item_id == details[i].item_id &&
+      row.batch === batch.batch
+    ) {
+      return total + Number(row.quantity || 0);
+    }
+
+    return total;
+
+  }, 0);
+
+  return {
+    ...batch,
+    available_qty:
+      Number(batch.available_qty) - usedQty
+  };
+});
+
+  if (adjustedBatches.length === 0) {
     alert("No batch found ❗");
     return;
   }
 
-  setBatchList(batches);
+  setBatchList(adjustedBatches);
   setSelectedRowIndex(i);
   setShowBatchModal(true);
 }}
