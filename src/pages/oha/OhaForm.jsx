@@ -461,68 +461,78 @@ return (
       {/* QTY */}
       <td>
        
-          <input
+   <input
   value={d.quantity || ""}
   onChange={(e) => {
     handleChange(i, "quantity", e.target.value);
   }}
 
- onBlur={async (e) => {
-  const value = e.target.value;   // 🔥 FIX
+  onBlur={async (e) => {
 
-  if (!value || value <= 0) return;
+    const value = e.target.value;
 
-  if (!header.customer_id) {
-    alert("Select customer first ❗");
-    return;
-  }
+    if (!value || value <= 0) return;
 
-  if (!details[i].item_id) {
-    alert("Select item first ❗");
-    return;
-  }
-
-  const res = await fetch(
-    `https://zyntaweb.com/demoalafiya/api/order_batches.php?item_id=${details[i].item_id}&customer_id=${header.customer_id}`
-  );
-
-  const data = await res.json();
-  const adjustedBatches = batches.map(batch => {
-
-  // same batch used qty
-  const usedQty = details.reduce((total, row, index) => {
-
-    // current row skip
-    if (index === i) return total;
-
-    if (
-      row.item_id == details[i].item_id &&
-      row.batch === batch.batch
-    ) {
-      return total + Number(row.quantity || 0);
+    if (!header.customer_id) {
+      alert("Select customer first ❗");
+      return;
     }
 
-    return total;
+    if (!details[i].item_id) {
+      alert("Select item first ❗");
+      return;
+    }
 
-  }, 0);
+    const res = await fetch(
+      `https://zyntaweb.com/demoalafiya/api/order_batches.php?item_id=${details[i].item_id}&customer_id=${header.customer_id}`
+    );
 
-  return {
-    ...batch,
-    available_qty: Number(batch.available_qty) - usedQty
-  };
-});
+    const data = await res.json();
 
-  console.log("BATCH:", batches); // 🔥 DEBUG
+    // 🔥 FIX
+    const batches = Array.isArray(data)
+      ? data
+      : data.data || [];
 
-  if (batches.length === 0) {
-    alert("No batch found ❗");
-    return;
-  }
+    // 🔥 SAME BATCH USED QTY REMOVE
+    const adjustedBatches = batches.map(batch => {
 
-  setBatchList(batches);
-  setSelectedRowIndex(i);
-  setShowBatchModal(true);
-}}
+      const usedQty = details.reduce((total, row, index) => {
+
+        // current row skip
+        if (index === i) return total;
+
+        if (
+          row.item_id == details[i].item_id &&
+          row.batch === batch.batch
+        ) {
+          return total + Number(row.quantity || 0);
+        }
+
+        return total;
+
+      }, 0);
+
+      return {
+        ...batch,
+        available_qty:
+          Number(batch.available_qty) - usedQty
+      };
+
+    });
+
+    console.log("BATCH DATA:", adjustedBatches);
+
+    if (adjustedBatches.length === 0) {
+      alert("No batch found ❗");
+      return;
+    }
+
+    setBatchList(adjustedBatches);
+    setSelectedRowIndex(i);
+    setShowBatchModal(true);
+
+  }}
 />
         
       </td>
@@ -739,63 +749,71 @@ return (
   }}
 
   onBlur={async (e) => {
-  const value = e.target.value;   // 🔥 FIX
 
-  if (!value || value <= 0) return;
+    const value = e.target.value;
 
-  if (!header.customer_id) {
-    alert("Select customer first ❗");
-    return;
-  }
+    if (!value || value <= 0) return;
 
-  if (!details[i].item_id) {
-    alert("Select item first ❗");
-    return;
-  }
-
-  const res = await fetch(
-    `https://zyntaweb.com/demoalafiya/api/order_batches.php?item_id=${details[i].item_id}&customer_id=${header.customer_id}`
-  );
-
- const data = await res.json();
-
-const batches = Array.isArray(data)
-  ? data
-  : data.data || [];
-
-const adjustedBatches = batches.map(batch => {
-
-  const usedQty = details.reduce((total, row, index) => {
-
-    if (index === i) return total;
-
-    if (
-      row.item_id == details[i].item_id &&
-      row.batch === batch.batch
-    ) {
-      return total + Number(row.quantity || 0);
+    if (!header.customer_id) {
+      alert("Select customer first ❗");
+      return;
     }
 
-    return total;
+    if (!details[i].item_id) {
+      alert("Select item first ❗");
+      return;
+    }
 
-  }, 0);
+    const res = await fetch(
+      `https://zyntaweb.com/demoalafiya/api/order_batches.php?item_id=${details[i].item_id}&customer_id=${header.customer_id}`
+    );
 
-  return {
-    ...batch,
-    available_qty:
-      Number(batch.available_qty) - usedQty
-  };
-});
+    const data = await res.json();
 
-  if (adjustedBatches.length === 0) {
-    alert("No batch found ❗");
-    return;
-  }
+    // 🔥 FIX
+    const batches = Array.isArray(data)
+      ? data
+      : data.data || [];
 
-  setBatchList(adjustedBatches);
-  setSelectedRowIndex(i);
-  setShowBatchModal(true);
-}}
+    // 🔥 SAME BATCH USED QTY REMOVE
+    const adjustedBatches = batches.map(batch => {
+
+      const usedQty = details.reduce((total, row, index) => {
+
+        // current row skip
+        if (index === i) return total;
+
+        if (
+          row.item_id == details[i].item_id &&
+          row.batch === batch.batch
+        ) {
+          return total + Number(row.quantity || 0);
+        }
+
+        return total;
+
+      }, 0);
+
+      return {
+        ...batch,
+        available_qty:
+          Number(batch.available_qty) - usedQty
+      };
+
+    });
+
+    console.log("BATCH DATA:", adjustedBatches);
+
+    if (adjustedBatches.length === 0) {
+      alert("No batch found ❗");
+      return;
+    }
+
+    setBatchList(adjustedBatches);
+    setSelectedRowIndex(i);
+    setShowBatchModal(true);
+
+  }}
 />
       </div>
 
