@@ -82,7 +82,7 @@ const CurrentStockReport = () => {
         <div className="oha-filter-section">
 
           <div className="oha-filter-group">
-            <label>As On Date</label>
+            <label> Date</label>
             <input
               type="date"
               value={asOnDate}
