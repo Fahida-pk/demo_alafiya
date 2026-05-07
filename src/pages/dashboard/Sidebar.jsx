@@ -35,6 +35,7 @@ import {
   FaRoute,
   FaSignOutAlt,
   FaChevronDown,
+  FaFileInvoiceDollar,  
 } from "react-icons/fa";
 
 import "./Sidebar.css";
@@ -218,7 +219,12 @@ const [inventoryOpen, setInventoryOpen] = useState(false);
       <FaMoneyCheckAlt />
       <span>Daily Settlement</span>
     </Link>
-
+<Link
+  to="/expense"
+  onClick={() => setMobileOpen(false)}
+>
+<FaFileInvoiceDollar />  <span>Expense Entry</span>
+</Link>
   </div>
 )}
 {/* ================= REPORT ================= */}
