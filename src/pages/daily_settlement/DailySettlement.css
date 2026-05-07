@@ -354,111 +354,6 @@
 
 /* MOBILE */
 
-@media (max-width: 576px) {
-
-  .daily-pagination {
-    gap: 10px;
-  }
-
-  .page-btn {
-    flex: 1;
-    font-size: 13px;
-    padding: 10px;
-  }
-.daily-card-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  gap: 10px;
-}
-
-.daily-card-header h3 {
-  font-size: 14px;
-  white-space: nowrap;
-}
-
-.daily-search-wrapper {
-  flex: 1;
-  margin: 0;
-}
-
-.daily-search-box {
-  width: 100%;
-}
-
-.daily-search-input {
-  width: 100%;
-  height: 40px;
-
-  font-size: 12px;
-
-  padding-left: 36px;
-}
-
-.daily-search-icon {
-  left: 12px;
-  font-size: 12px;
-}.daily-card-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  gap: 10px;
-}
-
-.daily-card-header h3 {
-  font-size: 14px;
-  white-space: nowrap;
-}
-
-.daily-search-wrapper {
-  flex: 1;
-  margin: 0;
-}
-
-.daily-search-box {
-  width: 100%;
-}
-
-.daily-search-input {
-  width: 100%;
-  height: 40px;
-
-  font-size: 12px;
-
-  padding-left: 36px;
-}
-.bank-no-data p {
-  white-space: nowrap;
-  font-size: 14px;
-}
-.bank-no-data {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  color: #6b7280;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.bank-no-icon {
-  font-size: 18px;
-  color: #8b5cf6;
-}
-.daily-search-icon {
-  left: 12px;
-  font-size: 12px;
-}
-  .page-number {
-display:none;
-  }
-}
 /* ================================================= */
 /* ================= MOBILE VIEW =================== */
 /* ================================================= */
@@ -487,28 +382,126 @@ display:none;
     background: transparent;
   }
 
+  /* ================= HEADER ================= */
+
   .daily-card-header {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    width: 100%;
+    overflow: hidden;
+
     margin-bottom: 14px;
   }
 
   .daily-card-header h3 {
-    font-size: 18px;
+    display: flex;
+    align-items: center;
+
+    flex-shrink: 1;
+
+    min-width: 0;
+    max-width: 135px;
+
+    font-size: 14px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
+
+  /* ================= SEARCH ================= */
+
+  .daily-search-wrapper {
+    flex: 1;
+    min-width: 0;
+
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .daily-search-box {
+    position: relative;
+
+    width: 100%;
+    min-width: 0;
+  }
+
+  .daily-search-input {
+    width: 100%;
+    min-width: 0;
+
+    height: 40px;
+
+    padding-left: 34px;
+    padding-right: 40px;
+
+    font-size: 12px;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .daily-search-icon {
+    position: absolute;
+
+    left: 10px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 12px;
+  }
+
+  .daily-clear-btn {
+    position: absolute;
+
+    right: 10px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    z-index: 999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    border: none;
+    background: transparent;
+
+    font-size: 14px;
+
+    cursor: pointer;
+  }
+
+  /* ================= BUTTON ================= */
 
   .add-daily-settlement-top {
     width: 55%;
     justify-content: center;
+
     padding: 12px;
+
     font-size: 14px;
     border-radius: 12px;
   }
 
-  /* TABLE CARD VIEW */
+  /* ================= TABLE CARD VIEW ================= */
 
   .daily-table-wrapper {
     width: 100%;
     height: auto;
+
     overflow: visible;
+
     border: none;
     background: transparent;
   }
@@ -532,9 +525,12 @@ display:none;
 
   .daily-table tbody tr {
     background: #ffffff;
+
     margin-bottom: 16px;
     padding: 14px;
+
     border-radius: 14px;
+
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     border: 1px solid #e5e7eb;
   }
@@ -542,18 +538,25 @@ display:none;
   .daily-table tbody td {
     display: flex;
     align-items: flex-start;
+
     gap: 10px;
+
     padding: 10px 0;
+
     border: none;
+
     font-size: 13px;
+
     white-space: normal;
     word-break: break-word;
   }
 
   .daily-table tbody td::before {
     content: attr(data-label);
+
     width: 130px;
     min-width: 130px;
+
     font-weight: 700;
     color: #4b5563;
   }
@@ -563,15 +566,38 @@ display:none;
     gap: 8px;
   }
 
+  /* ================= ACTION BUTTONS ================= */
+
   .daily_edit-btn,
   .daily_delete-btn {
     padding: 8px 10px;
+
     font-size: 12px;
     border-radius: 8px;
   }
 
+  /* ================= PAGINATION ================= */
+
+  .daily-pagination {
+    gap: 10px;
+  }
+
+  .page-btn {
+    flex: 1;
+
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .page-number {
+    display: none;
+  }
+
+  /* ================= MODAL ================= */
+
   .daily_modal-box {
     width: 95%;
+
     padding: 16px;
     border-radius: 14px;
   }
@@ -588,64 +614,28 @@ display:none;
   .daily_save-btn {
     width: 100%;
   }
-}
-@media (max-width: 576px) {
 
-  .daily-card-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-  }
+  /* ================= NO DATA ================= */
 
-  .daily-card-header h3 {
-    flex: 0 0 auto;
-
-    max-width: 140px;   /* IMPORTANT */
-    
-    font-size: 14px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .daily-search-wrapper {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .daily-search-box {
-    position: relative;
-    width: 100%;
-  }
-
-  .daily-search-input {
-    width: 100%;
-    height: 40px;
-
-    padding-left: 34px;
-    padding-right: 40px;
-
-    font-size: 12px;
-  }
-
-  .daily-clear-btn {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-
-    z-index: 999;
-
+  .bank-no-data {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    width: 20px;
-    height: 20px;
+    gap: 8px;
 
+    color: #6b7280;
     font-size: 14px;
-    border: none;
-    background: transparent;
+    font-weight: 600;
+  }
+
+  .bank-no-data p {
+    white-space: nowrap;
+    font-size: 14px;
+  }
+
+  .bank-no-icon {
+    font-size: 18px;
+    color: #8b5cf6;
   }
 }
