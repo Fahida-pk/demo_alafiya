@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TopNavbar from "../dashboard/TopNavbar";
-import { FaTrash, FaPlus } from "react-icons/fa";
-
+import { FaTrash, FaPlus, FaSearch } from "react-icons/fa";
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import "./DailySettlement.css";
 
 const API = "https://zyntaweb.com/demoalafiya/api/daily_settlement.php";
@@ -11,7 +11,7 @@ const DailySettlement = () => {
   const [data, setData] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
-
+const [search, setSearch] = useState("");
   const [isEdit, setIsEdit] = useState(false);
 const [currentPage, setCurrentPage] = useState(1);
 
@@ -99,19 +99,26 @@ const rowsPerPage = 5;
 
     loadData();
   };
+  /* ================= SEARCH FILTER ================= */
+
+const filteredData = data.filter((item) =>
+  Object.values(item)
+    .join(" ")
+    .toLowerCase()
+    .includes(search.toLowerCase())
+);
 /* ================= PAGINATION ================= */
 
 const indexOfLastRow = currentPage * rowsPerPage;
 
 const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-
-const currentRows = data.slice(
+const currentRows = filteredData.slice(
   indexOfFirstRow,
   indexOfLastRow
 );
 
 const totalPages = Math.ceil(
-  data.length / rowsPerPage
+  filteredData.length / rowsPerPage
 );
   /* ================= EDIT ================= */
 
@@ -173,8 +180,42 @@ const totalPages = Math.ceil(
 
   <div className="daily-card-header">
 
-    <h3>📋 DAILY SETTLEMENT</h3>
+<h3>
+  <HiOutlineClipboardDocumentList className="daily-heading-icon" />
+  DAILY SETTLEMENT
+</h3>
+    <div className="daily-search-wrapper">
 
+  <div className="daily-search-box">
+
+    <FaSearch className="daily-search-icon" />
+
+    <input
+      type="text"
+      placeholder="Search Daily Settlement..."
+      value={search}
+      onChange={(e) => {
+        setSearch(e.target.value);
+        setCurrentPage(1);
+      }}
+      className="daily-search-input"
+    />
+
+    {search && (
+      <button
+        className="daily-clear-btn"
+        onClick={() => {
+          setSearch("");
+          setCurrentPage(1);
+        }}
+      >
+        ✕
+      </button>
+    )}
+
+  </div>
+
+</div>
   </div>
 
   <div className="daily-table-wrapper">
@@ -260,7 +301,22 @@ const totalPages = Math.ceil(
     </tr>
 
   ))}
+{currentRows.length === 0 && (
+  <tr className="bank-empty-row">
+   <td colSpan="6">
+ 
+     <div className="bank-no-data">
+ 
+       <FaSearch className="bank-no-icon" />
+ 
+       <p>  <HiOutlineClipboardDocumentList className="daily-heading-icon" />
+  DAILY SETTLEMENT</p>
 
+     </div>
+ 
+   </td>
+ </tr>
+)}
 </tbody>
     </table>
 

@@ -27,6 +27,7 @@ import { MdAssessment } from "react-icons/md";   // ⭐ BEST (report analytics l
 
 import {
   FaClipboardCheck,
+  FaUniversity,
   FaMapMarkedAlt,
   FaTachometerAlt,
   FaFolderOpen,
@@ -224,6 +225,13 @@ const [inventoryOpen, setInventoryOpen] = useState(false);
   onClick={() => setMobileOpen(false)}
 >
 <FaFileInvoiceDollar />  <span>Expense Entry</span>
+</Link>
+<Link
+  to="/bank-deposit"
+  onClick={() => setMobileOpen(false)}
+>
+  <FaUniversity />
+  <span>Bank Deposit</span>
 </Link>
   </div>
 )}

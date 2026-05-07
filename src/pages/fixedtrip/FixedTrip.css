@@ -4,7 +4,74 @@
   margin: 0;
   padding: 0;
 }
+/* SEARCH BOX */
 
+.daily-search-box {
+  position: relative;
+  width: 420px;
+}
+
+.daily-search-input {
+  width: 100%;
+  height: 48px;
+
+  padding-left: 42px;
+  padding-right: 42px;
+
+  border: 1px solid #8b5cf6;
+  border-radius: 14px;
+
+  outline: none;
+  font-size: 14px;
+}
+
+.daily-search-icon {
+  position: absolute;
+
+  left: 14px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #8b5cf6;
+}
+
+.daily-clear-btn {
+  position: absolute;
+
+  right: 14px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+
+  font-size: 18px;
+  cursor: pointer;
+
+  color: #6b7280;
+}
+
+/* NO DATA */
+
+.bank-no-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 40px 20px;
+
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.bank-no-icon {
+  font-size: 18px;
+  color: #8b5cf6;
+}
 /* ================= TOP NAVBAR ================= */
 .top-navbar {
   position: relative;
@@ -340,7 +407,54 @@ td:nth-child(5) {
   cursor: pointer;
   background: linear-gradient(190deg,#2563eb,#b3d5f0,#2563eb);
 }
+/* SEARCH */
 
+.daily-search-box {
+  position: relative;
+  width: 420px;
+}
+
+.daily-search-input {
+  width: 100%;
+  height: 48px;
+
+  padding-left: 42px;
+  padding-right: 42px;
+
+  border: 1px solid #8b5cf6;
+  border-radius: 14px;
+
+  outline: none;
+  font-size: 14px;
+}
+
+.daily-search-icon {
+  position: absolute;
+
+  left: 14px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #8b5cf6;
+}
+
+.daily-clear-btn {
+  position: absolute;
+
+  right: 14px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+
+  font-size: 18px;
+  cursor: pointer;
+
+  color: #6b7280;
+}
 /* ================================================= */
 /* ================= MOBILE VIEW =================== */
 /* ================================================= */
@@ -407,4 +521,52 @@ td:nth-child(5) {
     justify-content: flex-end;
     gap: 10px;
   }
+}
+@media (max-width: 576px) {
+
+  .card-header {
+    display: flex !important;
+    flex-direction: row !important;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 8px;
+  }
+
+  .card-header h3 {
+    font-size: 13px;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  .search-wrapper {
+    flex: 1;
+    margin: 0;
+  }
+
+  .daily-search-box {
+    width: 100%;
+  }
+
+  .daily-search-input {
+    width: 100%;
+    height: 34px;
+
+    font-size: 10px;
+
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .daily-search-icon {
+    left: 8px;
+    font-size: 10px;
+  }
+
+  .daily-clear-btn {
+    right: 8px;
+    font-size: 12px;
+  }
+
 }

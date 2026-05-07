@@ -30,6 +30,7 @@ import CurrentStockReport from "./pages/stock/CurrentStockReport";
 import DailySettlement from "./pages/daily_settlement/DailySettlement";
 import ProtectedRoute from "./pages/login/ProtectedRoute";
 import Expense  from "./pages/Expense/expense";
+import BankDeposit from  "./pages/BankDeposit/BankDeposit";
 function App() {
   return (
     <BrowserRouter>
@@ -70,6 +71,7 @@ function App() {
           <Route path="/daily-picking" element={<DailyPicking />} />
           <Route path="/daily-settlement" element={<DailySettlement />} />
           <Route path="/expense" element={<Expense />} />
+          <Route path="/bank-deposit" element={<BankDeposit />} />
           <Route path="/oha-form/:id" element={<OhaForm />} />
           <Route path="/oha-form" element={<OhaForm />} />
           <Route path="/oha-list" element={<OhaList />} />

@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
 
 import TopNavbar from "../dashboard/TopNavbar";
-
 import { FaTrash, FaPlus, FaSearch } from "react-icons/fa";
-import "./Expense.css";
+
+import "./BankDeposit.css";
 
 const API =
-  "https://zyntaweb.com/demoalafiya/api/expenseentry.php";
+  "https://zyntaweb.com/demoalafiya/api/BankDeposit.php";
 
-const Expense = () => {
+const BankDeposit = () => {
 
   const [data, setData] = useState([]);
 
-  const [expenseClass, setExpenseClass] = useState([]);
-
   const [showModal, setShowModal] = useState(false);
-
+const [search, setSearch] = useState("");
   const [isEdit, setIsEdit] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
-const [search, setSearch] = useState("");
+
   const rowsPerPage = 5;
 
   const [message, setMessage] = useState("");
@@ -32,17 +30,13 @@ const [search, setSearch] = useState("");
 
     slno: "",
 
-    expense_date: "",
+    deposit_date: "",
 
-    expense_particular: "",
+    account_name: "",
 
-    expense_amount: "",
+    account_number: "",
 
-    expense_class_id: "",
-
-    voucher_no: "",
-
-    remarks: "",
+    amount_deposited: "",
   };
 
   const [form, setForm] = useState(emptyForm);
@@ -61,24 +55,9 @@ const [search, setSearch] = useState("");
     setData(result);
   };
 
-  /* ================= LOAD DROPDOWN ================= */
-
-  const loadExpenseClass = async () => {
-
-    const res = await fetch(
-      `${API}?dropdown=1`
-    );
-
-    const result = await res.json();
-
-    setExpenseClass(result);
-  };
-
   useEffect(() => {
 
     loadData();
-
-    loadExpenseClass();
 
   }, []);
 
@@ -93,7 +72,19 @@ const [search, setSearch] = useState("");
       [e.target.name]: e.target.value,
     });
   };
+const filteredData = data.filter((item) =>
+  item.account_name
+    ?.toLowerCase()
+    .includes(search.toLowerCase()) ||
 
+  item.account_number
+    ?.toLowerCase()
+    .includes(search.toLowerCase()) ||
+
+  item.slno
+    ?.toLowerCase()
+    .includes(search.toLowerCase())
+);
   /* ================= SAVE / UPDATE ================= */
 
   const handleSubmit = async (e) => {
@@ -114,8 +105,8 @@ const [search, setSearch] = useState("");
     setMessage(
 
       isEdit
-        ? "Expense Updated Successfully ✏️"
-        : "Expense Added Successfully 🎉"
+        ? "Bank Deposit Updated Successfully ✏️"
+        : "Bank Deposit Added Successfully 🎉"
     );
 
     setMessageType("success");
@@ -130,14 +121,7 @@ const [search, setSearch] = useState("");
 
     loadData();
   };
-/* ================= SEARCH FILTER ================= */
 
-const filteredData = data.filter((item) =>
-  Object.values(item)
-    .join(" ")
-    .toLowerCase()
-    .includes(search.toLowerCase())
-);
   /* ================= PAGINATION ================= */
 
   const indexOfLastRow =
@@ -146,7 +130,7 @@ const filteredData = data.filter((item) =>
   const indexOfFirstRow =
     indexOfLastRow - rowsPerPage;
 
-  const currentRows = filteredData.slice(
+const currentRows = filteredData.slice(
   indexOfFirstRow,
   indexOfLastRow
 );
@@ -170,7 +154,7 @@ const totalPages = Math.ceil(
 
   const deleteData = async (id) => {
 
-    if (!window.confirm("Delete this expense?"))
+    if (!window.confirm("Delete this deposit?"))
       return;
 
     await fetch(`${API}?id=${id}`, {
@@ -212,7 +196,7 @@ const totalPages = Math.ceil(
           setShowModal(true);
         }}
       >
-        <FaPlus /> Add Expense
+        <FaPlus /> Add Bank Deposit
       </button>
 
       {/* ================= TABLE ================= */}
@@ -221,27 +205,27 @@ const totalPages = Math.ceil(
 
         <div className="daily-card-header">
 
-          <h3>💰 EXPENSE ENTRY</h3>
-<div className="daily-search-wrapper">
+          <h3>🏦 BANK DEPOSIT</h3>
+<div className="bank-search-wrapper">
 
-  <div className="daily-search-box">
+  <div className="bank-search-box">
 
-    <FaSearch className="daily-search-icon" />
+    <FaSearch className="bank-search-icon" />
 
     <input
       type="text"
-      placeholder="Search Expense..."
+      placeholder="Search account / number / slno"
+      className="bank-search-input"
       value={search}
       onChange={(e) => {
         setSearch(e.target.value);
         setCurrentPage(1);
       }}
-      className="daily-search-input"
     />
 
     {search && (
       <button
-        className="daily-clear-btn"
+        className="bank-clear-btn"
         onClick={() => {
           setSearch("");
           setCurrentPage(1);
@@ -266,17 +250,13 @@ const totalPages = Math.ceil(
 
                 <th>SLNO</th>
 
-                <th>Expense Date</th>
+                <th>Deposit Date</th>
 
-                <th>Expense Particular</th>
+                <th>Account Name</th>
 
-                <th>Expense Amount</th>
+                <th>Account Number</th>
 
-                <th>Expense Class</th>
-
-                <th>Voucher No</th>
-
-                <th>Remarks</th>
+                <th>Amount Deposited</th>
 
                 <th>Actions</th>
 
@@ -284,83 +264,73 @@ const totalPages = Math.ceil(
 
             </thead>
 
-            <tbody>
+           <tbody>
 
-              {currentRows.map((item) => (
+  {currentRows.length > 0 ? (
 
-                <tr key={item.id}>
+    currentRows.map((item) => (
 
-                  <td data-label="SLNO">
-                    {item.slno}
-                  </td>
+      <tr key={item.id}>
 
-                  <td data-label="Expense Date">
-                    {item.expense_date}
-                  </td>
+        <td data-label="SLNO">
+          {item.slno}
+        </td>
 
-                  <td data-label="Expense Particular">
-                    {item.expense_particular}
-                  </td>
+        <td data-label="Deposit Date">
+          {item.deposit_date}
+        </td>
 
-                  <td data-label="Expense Amount">
-                    {item.expense_amount}
-                  </td>
+        <td data-label="Account Name">
+          {item.account_name}
+        </td>
 
-                  <td data-label="Expense Class">
-                    {item.expense_class_name}
-                  </td>
+        <td data-label="Account Number">
+          {item.account_number}
+        </td>
 
-                  <td data-label="Voucher No">
-                    {item.voucher_no}
-                  </td>
+        <td data-label="Amount Deposited">
+          {item.amount_deposited}
+        </td>
 
-                  <td data-label="Remarks">
-                    {item.remarks}
-                  </td>
+        <td data-label="Actions">
 
-                  <td data-label="Actions">
+          <button
+            className="daily_edit-btn"
+            onClick={() => editData(item)}
+          >
+            ✏️
+          </button>
 
-                    <button
-                      className="daily_edit-btn"
-                      onClick={() =>
-                        editData(item)
-                      }
-                    >
-                      ✏️
-                    </button>
+          <button
+            className="daily_delete-btn"
+            onClick={() => deleteData(item.id)}
+          >
+            <FaTrash />
+          </button>
 
-                    <button
-                      className="daily_delete-btn"
-                      onClick={() =>
-                        deleteData(item.id)
-                      }
-                    >
-                      <FaTrash />
-                    </button>
+        </td>
 
-                  </td>
+      </tr>
+    ))
 
-                </tr>
+  ) : (
 
-              ))}
-{currentRows.length === 0 && (
-  <tr className="bank-empty-row">
+   <tr className="bank-empty-row">
+  <td colSpan="6">
 
-    <td colSpan="8">
+    <div className="bank-no-data">
 
-      <div className="bank-no-data">
+      <FaSearch className="bank-no-icon" />
 
-        <FaSearch className="bank-no-icon" />
+      <p>🏦 bank not found</p>
 
-        <p>💰 No Expense Found</p>
+    </div>
 
-      </div>
+  </td>
+</tr>
+  )}
 
-    </td>
-
-  </tr>
-)}
-            </tbody>
+</tbody>
 
           </table>
 
@@ -415,8 +385,8 @@ const totalPages = Math.ceil(
               <h3>
 
                 {isEdit
-                  ? "Update Expense"
-                  : "Add Expense"}
+                  ? "Update Bank Deposit"
+                  : "Add Bank Deposit"}
 
               </h3>
 
@@ -435,86 +405,45 @@ const totalPages = Math.ceil(
               className="daily_modal-body"
             >
 
-              <label>Expense Date</label>
+              <label>Deposit Date</label>
 
               <input
                 type="date"
-                name="expense_date"
-                value={form.expense_date}
+                name="deposit_date"
+                value={form.deposit_date}
                 onChange={handleChange}
                 required
               />
 
-              <label>
-                Expense Particular
-              </label>
+              <label>Account Name</label>
 
               <input
                 type="text"
-                name="expense_particular"
-                value={form.expense_particular}
+                name="account_name"
+                value={form.account_name}
                 onChange={handleChange}
                 required
               />
 
-              <label>
-                Expense Amount
-              </label>
+              <label>Account Number</label>
+
+              <input
+                type="text"
+                name="account_number"
+                value={form.account_number}
+                onChange={handleChange}
+                required
+              />
+
+              <label>Amount Deposited</label>
 
               <input
                 type="number"
                 step="0.01"
-                name="expense_amount"
-                value={form.expense_amount}
+                name="amount_deposited"
+                value={form.amount_deposited}
                 onChange={handleChange}
                 required
-              />
-
-              <label>
-                Expense Class
-              </label>
-
-              <select
-                name="expense_class_id"
-                value={form.expense_class_id}
-                onChange={handleChange}
-                required
-              >
-
-                <option value="">
-                  Select Expense Class
-                </option>
-
-                {expenseClass.map((item) => (
-
-                  <option
-                    key={item.id}
-                    value={item.id}
-                  >
-                    {item.description}
-                  </option>
-
-                ))}
-
-              </select>
-
-              <label>Voucher No</label>
-
-              <input
-                type="text"
-                name="voucher_no"
-                value={form.voucher_no}
-                onChange={handleChange}
-                required
-              />
-
-              <label>Remarks</label>
-
-              <input
-                type="text"
-                name="remarks"
-                value={form.remarks}
-                onChange={handleChange}
               />
 
               <button className="daily_save-btn">
@@ -537,4 +466,4 @@ const totalPages = Math.ceil(
   );
 };
 
-export default Expense;
+export default BankDeposit;

@@ -270,30 +270,42 @@ const filteredRoutes = routes.filter(r =>
         <div className="card-header">
           <h3>📋 FIXED TRIPS</h3>
 
-          <div className="search-wrapper">
-            <input
-              className="search-input"
-              placeholder="Search by route / driver / vehicle"
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setCurrentPage(1);
-              }}
-            />
-            <button className="search-btn">🔍</button>
+          <div className="card-header">
 
-            {search && (
-              <button
-                className="clear-btn"
-                onClick={() => {
-                  setSearch("");
-                  setCurrentPage(1);
-                }}
-              >
-                ✕
-              </button>
-            )}
-          </div>
+
+  <div className="search-wrapper">
+
+    <div className="daily-search-box">
+
+      <FaSearch className="daily-search-icon" />
+
+      <input
+        className="daily-search-input"
+        placeholder="Search by route / driver / vehicle"
+        value={search}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          setCurrentPage(1);
+        }}
+      />
+
+      {search && (
+        <button
+          className="daily-clear-btn"
+          onClick={() => {
+            setSearch("");
+            setCurrentPage(1);
+          }}
+        >
+          ✕
+        </button>
+      )}
+
+    </div>
+
+  </div>
+
+</div>
         </div>
 
         <table>
@@ -374,6 +386,23 @@ const filteredRoutes = routes.filter(r =>
 
     </tr>
   ))}
+  {paginatedTrips.length === 0 && (
+  <tr className="bank-empty-row">
+
+    <td colSpan="11">
+
+      <div className="bank-no-data">
+
+        <FaSearch className="bank-no-icon" />
+
+        <p>No Fixed Trip Found</p>
+
+      </div>
+
+    </td>
+
+  </tr>
+)}
 </tbody>
 
         </table>
