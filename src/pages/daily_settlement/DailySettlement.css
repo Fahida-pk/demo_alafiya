@@ -595,15 +595,18 @@ display:none;
     display: flex;
     align-items: center;
     gap: 8px;
-
     width: 100%;
-    overflow: hidden;
   }
 
   .daily-card-header h3 {
-    font-size: 15px;
+    flex: 0 0 auto;
+
+    max-width: 140px;   /* IMPORTANT */
+    
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
-    flex-shrink: 0;
   }
 
   .daily-search-wrapper {
@@ -612,33 +615,37 @@ display:none;
   }
 
   .daily-search-box {
-    width: 100%;
-    min-width: 0;
     position: relative;
+    width: 100%;
   }
 
   .daily-search-input {
     width: 100%;
-    min-width: 0;
-
     height: 40px;
 
-    font-size: 12px;
-
     padding-left: 34px;
-    padding-right: 34px;
+    padding-right: 40px;
 
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .daily-search-icon {
-    left: 10px;
     font-size: 12px;
   }
 
   .daily-clear-btn {
-    right: 8px;
-    font-size: 13px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    z-index: 999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    font-size: 14px;
+    border: none;
+    background: transparent;
   }
 }
