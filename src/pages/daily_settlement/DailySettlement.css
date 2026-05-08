@@ -1,4 +1,5 @@
 /* ================= RESET ================= */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,6 +7,7 @@
 }
 
 /* ================= TOP NAVBAR ================= */
+
 .top-navbar {
   position: relative;
   margin-left: 280px;
@@ -14,65 +16,157 @@
   z-index: 1000;
   width: 100%;
 }
-/* ================= TOOLBAR ================= */
 
-.daily-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 14px;
-
-  margin-bottom: 18px;
-  flex-wrap: wrap;
-}
-
-/* FILTER AREA */
-
-.daily-filter-box {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.daily-filter-select {
-  height: 44px;
-  padding: 0 12px;
-
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-
-  font-size: 14px;
-  outline: none;
-
-  background: #fff;
-}
-
-.daily-filter-btn {
-  height: 44px;
-  padding: 0 16px;
-
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-
-  background: #fff;
-
-  font-size: 14px;
-  font-weight: 600;
-
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.daily-filter-btn:hover {
-  background: #f3f4f6;
-}
 /* ================= PAGE ================= */
-.daily-settlement-page {
+
+.settlement-page {
   padding: 16px;
   background: #f4f7fb;
   width: 100%;
 }
-.daily-clear-btn {
+
+/* ================= CARD ================= */
+
+.settlement-list-card {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 100%;
+}
+
+/* ================= HEADER ================= */
+
+.settlement-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.settlement-card-header h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.settlement-heading-icon {
+  margin-right: 10px;
+  color: #8b5cf6;
+  font-size: 30px;
+  vertical-align: middle;
+}
+
+/* ================= ADD BUTTON ================= */
+
+.add-settlement-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 18px;
+
+  padding: 12px 18px;
+
+  border-radius: 14px;
+  border: none;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #ffffff;
+  cursor: pointer;
+
+  background: linear-gradient(to right, #6d28d9, #8b5cf6);
+
+  box-shadow: 0 10px 25px rgba(109, 40, 217, 0.35);
+
+  transition: 0.25s ease;
+}
+
+.add-settlement-top:hover {
+  transform: translateY(-2px);
+}
+
+/* ================= TOOLBAR ================= */
+
+.settlement-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-bottom: 18px;
+
+  flex-wrap: wrap;
+}
+
+/* ================= SEARCH ================= */
+
+.settlement-search-wrapper {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  max-width: 420px;
+
+  min-width: 0;
+  overflow: hidden;
+}
+
+.settlement-search-box {
+  position: relative;
+
+  width: 100%;
+  max-width: 100%;
+
+  min-width: 0;
+  overflow: hidden;
+}
+
+.settlement-search-input {
+  width: 100% !important;
+  max-width: 100%;
+  min-width: 0;
+
+  height: 52px;
+
+  padding-left: 45px;
+  padding-right: 42px;
+
+  border: 1px solid #8b5cf6;
+  border-radius: 14px;
+
+  font-size: 16px;
+
+  outline: none;
+  background: #fff;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.settlement-search-input:focus {
+  border-color: #7c3aed;
+}
+
+.settlement-search-icon {
+  position: absolute;
+
+  left: 16px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #8b5cf6;
+  font-size: 16px;
+}
+
+.settlement-clear-btn {
   position: absolute;
 
   right: 12px;
@@ -84,290 +178,43 @@
   background: transparent;
 
   font-size: 18px;
+
+  cursor: pointer;
   color: #6b7280;
+}
 
-  cursor: pointer;
-}
-/* ================= CARD ================= */
-.daily-settlement-list-card {
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 14px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  width: 100%;
-}
-.daily-heading-icon {
-  margin-right: 10px;
-  color: #8b5cf6;
-  font-size: 30px;
-  vertical-align: middle;
-}
-/* ================= HEADER ================= */
-.daily-card-header {
+/* ================= FILTER ================= */
+
+.settlement-filter-box {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 18px;
+  gap: 10px;
 }
 
-.daily-card-header h3 {
-  font-size: 22px;
-  font-weight: 700;
-  color: #111827;
-}
-
-/* ================= ADD BUTTON ================= */
-.add-daily-settlement-top {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 18px;
-  padding: 12px 18px;
-  border-radius: 14px;
-  border: none;
-  font-size: 15px;
-  font-weight: 600;
-  color: #ffffff;
-  cursor: pointer;
-  background: linear-gradient(to right, #6d28d9, #8b5cf6);
-  box-shadow: 0 10px 25px rgba(109, 40, 217, 0.35);
-  transition: 0.25s ease;
-}
-
-.add-daily-settlement-top:hover {
-  transform: translateY(-2px);
-}
-/* ================= TABLE WRAPPER ================= */
-
-.daily-table-wrapper {
-  width: 1200px; /* or any value less than 2500px */
-  height: 350px;
-  overflow-x: auto;
-  overflow-y: auto;
-  border: 1px solid #d1d5db;
-  border-radius: 14px;
-  background: #ffffff;
-  position: relative;
-}
-.daily-table {
-  min-width: 2500px;     /* Make table wider than wrapper to force scroll */
-  border-collapse: collapse;
-  width: max-content;
-  table-layout: fixed;
-}
-/* ================= TABLE ================= */
-
-
-
-/* ================= TABLE HEADER ================= */
-
-/* ================= TABLE HEADER ================= */
-
-/* ================= DAILY TABLE HEADER ================= */
-
-.daily-table thead th {
-  background: #f3f4f6 !important;
-  color: #000 !important;
-
-  padding: 16px 20px;
-  font-size: 18px;
-  font-weight: 700;
-
-  text-align: left;
-  border-bottom: 1px solid #d1d5db;
-  white-space: nowrap;
-}
-/* ================= TABLE BODY ================= */
-/* ================= SEARCH ================= */
-
-.daily-search-wrapper {
-  margin: 16px 0;
-}
-
-.daily-search-input {
-  width: 320px;
+.settlement-filter-select,
+.settlement-filter-btn {
   height: 44px;
-  padding: 0 14px;
+
+  padding: 0 16px;
+
   border: 1px solid #d1d5db;
   border-radius: 10px;
-  outline: none;
-  font-size: 14px;
-}
 
-.daily-search-input:focus {
-  border-color: #7c3aed;
-}
-.daily-search-box {
-  position: relative;
-  width: 420px;
-}
-
-.daily-search-input {
-  width: 100%;
-  height: 52px;
-
-  padding-left: 45px;
-
-  border: 1px solid #8b5cf6;
-  border-radius: 14px;
-
-  font-size: 16px;
-  outline: none;
-}
-
-.daily-search-icon {
-  position: absolute;
-
-  left: 16px;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  color: #8b5cf6;
-  font-size: 16px;
-}
-/* ================= NO DATA ================= */
-
-.daily-no-data {
-  text-align: center;
-  padding: 30px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #6b7280;
-}
-.daily-table td {
-  padding: 16px 20px;
-
-  font-size: 14px;
-  color: #1f2937;
-
-  border-bottom: 1px solid #e5e7eb;
-
-  white-space: nowrap;
-}
-
-.daily-table tbody tr:nth-child(even) {
-  background: #f8fafc;
-}
-
-.daily-table tbody tr:hover {
-  background: #ede9fe;
-}
-
-/* ================= COLUMN WIDTH ================= */
-
-.daily-table th,
-.daily-table td {
-  min-width: 240px;
-}
-
-.daily-table th:first-child,
-.daily-table td:first-child {
-  min-width: 140px;
-}
-
-/* ================= ACTION BUTTONS ================= */
-.daily_edit-btn {
-  background: #22c55e;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.daily_delete-btn {
-  background: #ef4444;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  margin-left: 6px;
-  cursor: pointer;
-}
-
-/* ================= MESSAGE BOX ================= */
-.daily_message-box {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 320px;
-  padding: 16px 20px;
-  border-radius: 10px;
-  font-weight: 600;
-  z-index: 9999;
-}
-
-.daily_message-box.success {
-  background: #ecfdf5;
-  color: #065f46;
-}
-
-.daily_message-box.error {
-  background: #fef2f2;
-  color: #991b1b;
-}
-
-/* ================= MODAL ================= */
-.daily_modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.daily_modal-box {
   background: #fff;
-  width: 95%;
-  max-width: 600px;
-  padding: 24px;
-  border-radius: 14px;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-}
 
-.daily_modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.daily_modal-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 16px;
-  overflow-y: auto;
-}
-
-.daily_modal-body input,
-.daily_modal-body select {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #dcdfe6;
-}
-
-/* ================= SAVE BUTTON ================= */
-.daily_save-btn {
-  margin-top: 10px;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  color: #ffffff;
+
   cursor: pointer;
-  background: linear-gradient(to right, #2563eb, #7c3aed);
+}
+
+.settlement-filter-btn:hover {
+  background: #f3f4f6;
 }
 
 /* ================= FILTER PANEL ================= */
 
-.daily-filter-panel {
+.settlement-filter-panel {
   background: #f9fafb;
 
   border: 1px solid #e5e7eb;
@@ -378,20 +225,21 @@
   margin-bottom: 18px;
 }
 
-.daily-filter-grid {
+.settlement-filter-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 
   gap: 16px;
+
   align-items: end;
 }
 
-.daily-filter-group {
+.settlement-filter-group {
   display: flex;
   flex-direction: column;
 }
 
-.daily-filter-group label {
+.settlement-filter-group label {
   font-size: 14px;
   font-weight: 600;
 
@@ -399,22 +247,24 @@
   color: #374151;
 }
 
-.daily-filter-group input {
+.settlement-filter-group input {
   height: 44px;
 
   border: 1px solid #d1d5db;
   border-radius: 10px;
 
   padding: 0 12px;
+
   outline: none;
 }
 
-.daily-filter-actions {
+.settlement-filter-actions {
   display: flex;
   gap: 10px;
 }
 
-.daily-apply-btn {
+.settlement-apply-btn,
+.settlement-clear-filter-btn {
   height: 44px;
 
   padding: 0 18px;
@@ -422,383 +272,450 @@
   border: none;
   border-radius: 10px;
 
+  color: #fff;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.settlement-apply-btn {
   background: linear-gradient(to right,#6d28d9,#8b5cf6);
-
-  color: #fff;
-  font-weight: 600;
-
-  cursor: pointer;
 }
 
-.daily-clear-filter-btn {
-  height: 44px;
+.settlement-clear-filter-btn {
+  background: #ef4444;
+}
 
-  padding: 0 18px;
+/* ================= TABLE ================= */
+
+.settlement-table-wrapper {
+  width: 1200px;
+  height: 350px;
+
+  overflow-x: auto;
+  overflow-y: auto;
+
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+
+  background: #ffffff;
+}
+
+.settlement-table {
+  min-width: 2500px;
+
+  border-collapse: collapse;
+
+  width: max-content;
+
+  table-layout: fixed;
+}
+
+.settlement-table thead th {
+  background: #f3f4f6;
+
+  color: #000;
+
+  padding: 16px 20px;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  text-align: left;
+
+  border-bottom: 1px solid #d1d5db;
+
+  white-space: nowrap;
+}
+
+.settlement-table td {
+  padding: 16px 20px;
+
+  font-size: 14px;
+  color: #1f2937;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  white-space: nowrap;
+}
+
+.settlement-table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.settlement-table tbody tr:hover {
+  background: #ede9fe;
+}
+
+.settlement-table th,
+.settlement-table td {
+  min-width: 240px;
+}
+
+.settlement-table th:first-child,
+.settlement-table td:first-child {
+  min-width: 140px;
+}
+
+/* ================= NO DATA ================= */
+
+.settlement-empty-row td {
+  height: 260px;
+  padding: 0 !important;
+}
+
+.settlement-table-body {
+  min-height: 300px;
+  position: relative;
+}
+
+.settlement-empty-row td {
+  height: 280px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.settlement-no-data {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  color: #777;
+  font-size: 16px;
+  font-weight: 1000;
+}
+
+.settlement-no-icon {
+  font-size: 45px;
+  color: #8b5cf6;
+}
+
+
+/* ================= BUTTONS ================= */
+
+.settlement_edit-btn {
+  background: #22c55e;
+  color: #fff;
 
   border: none;
-  border-radius: 10px;
 
-  background: #ef4444;
+  padding: 8px 12px;
 
-  color: #fff;
-  font-weight: 600;
+  border-radius: 8px;
 
   cursor: pointer;
 }
-/* ================= PAGINATION ================= */
 
-.daily-pagination {
+.settlement_delete-btn {
+  background: #ef4444;
+  color: #fff;
+
+  border: none;
+
+  padding: 8px 12px;
+
+  border-radius: 8px;
+
+  margin-left: 6px;
+
+  cursor: pointer;
+}
+
+/* ================= MESSAGE ================= */
+
+.settlement_message-box {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  min-width: 320px;
+
+  padding: 16px 20px;
+
+  border-radius: 10px;
+
+  font-weight: 600;
+
+  z-index: 9999;
+}
+
+.settlement_message-box.success {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.settlement_message-box.error {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* ================= MODAL ================= */
+
+.settlement_modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0,0,0,0.45);
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  z-index: 999;
+}
+
+.settlement_modal-box {
+  background: #fff;
+
+  width: 95%;
+  max-width: 600px;
+
+  padding: 24px;
+
+  border-radius: 14px;
+
+  max-height: 90vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.settlement_modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settlement_modal-body {
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin-top: 16px;
+
+  overflow-y: auto;
+}
+
+.settlement_modal-body input,
+.settlement_modal-body select {
+  padding: 10px;
+
+  border-radius: 6px;
+
+  border: 1px solid #dcdfe6;
+}
+
+.settlement_save-btn {
+  margin-top: 10px;
+
+  padding: 12px;
+
+  border-radius: 10px;
+  border: none;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  background: linear-gradient(to right, #2563eb, #7c3aed);
+}
+
+/* ================= PAGINATION ================= */
+
+.settlement-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   gap: 14px;
+
   margin-top: 20px;
+
   flex-wrap: wrap;
 }
 
-.page-btn {
-  padding: 10px 16px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(to right,#6d28d9,#8b5cf6);
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.page-btn:hover {
-  transform: translateY(-2px);
-}
-
-.page-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.page-number {
-  font-size: 14px;
-  font-weight: 600;
-  color: #374151;
-}
-
-/* MOBILE */
-
-/* ================================================= */
-/* ================= MOBILE VIEW =================== */
-/* ================================================= */
+/* ================= MOBILE ================= */
 
 @media (max-width: 576px) {
 
-  .top-navbar {
-    margin-left: 0;
+  html,
+  body {
     width: 100%;
+    overflow-x: hidden;
+  }
+
+  .top-navbar {
+    width: 100%;
+    margin-left: 0;
+
     position: fixed;
     top: 0;
+
     z-index: 1000;
   }
 
-  .daily-settlement-page {
-    padding: 12px;
+  .settlement-page {
+    width: 100%;
+    max-width: 100%;
+
+    padding: 10px;
     padding-top: 75px;
-    background: #f4f7fb;
+
+    overflow-x: hidden;
   }
 
-  .daily-settlement-list-card {
-    padding: 14px;
-    border-radius: 14px;
+  .settlement-list-card {
+    width: 100%;
+    max-width: 100%;
+
+    padding: 12px;
+
     overflow: hidden;
-    box-shadow: none;
+
     background: transparent;
+
+    box-shadow: none;
   }
 
-  /* ================= HEADER ================= */
+  .settlement-toolbar {
+    width: 100%;
 
-  .daily-card-header {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 
-    gap: 8px;
-
-    width: 100%;
-    overflow: hidden;
-
-    margin-bottom: 14px;
+    gap: 12px;
   }
 
- .daily-card-header h3 {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  width: 100%;
-
-  font-size: 16px;
-  font-weight: 700;
-
-  white-space: nowrap;
-
-  color: #111827;
-}
-
-  /* ================= SEARCH ================= */
-
-  .daily-search-wrapper {
-    flex: 1;
-    min-width: 0;
-
-    margin: 0;
-    overflow: hidden;
+  .settlement-search-wrapper {
+    width: 100%;
+    max-width: 100%;
   }
 
-  .daily-search-box {
-    position: relative;
-
+  .settlement-search-box {
     width: 100%;
-    min-width: 0;
   }
 
-  .daily-search-input {
-    width: 100%;
-    min-width: 0;
+  .settlement-search-input {
+    width: 100% !important;
 
-    height: 40px;
+    height: 42px;
 
-    padding-left: 34px;
+    padding-left: 38px;
     padding-right: 40px;
 
-    font-size: 12px;
+    font-size: 13px;
 
     border-radius: 12px;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
-  .daily-search-icon {
-    position: absolute;
-
-    left: 10px;
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    font-size: 12px;
+  .settlement-search-icon {
+    left: 12px;
+    font-size: 13px;
   }
 
-  .daily-clear-btn {
-    position: absolute;
-
+  .settlement-clear-btn {
     right: 10px;
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    z-index: 999;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 20px;
-    height: 20px;
-
-    border: none;
-    background: transparent;
-
     font-size: 14px;
-
-    cursor: pointer;
   }
 
-  /* ================= BUTTON ================= */
-
-  .add-daily-settlement-top {
-    width: 55%;
-    justify-content: center;
-
-    padding: 12px;
-
-    font-size: 14px;
-    border-radius: 12px;
-  }
-
-  /* ================= TABLE CARD VIEW ================= */
-
-  .daily-table-wrapper {
+  .settlement-filter-box {
     width: 100%;
+    display: flex;
+    gap: 10px;
+  }
+
+  .settlement-filter-select,
+  .settlement-filter-btn {
+    flex: 1;
+    height: 42px;
+    font-size: 13px;
+  }
+
+  .settlement-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .settlement-table-wrapper {
+    width: 100% !important;
+    max-width: 100%;
+
     height: auto;
 
     overflow: visible;
 
     border: none;
+
     background: transparent;
   }
 
-  .daily-table {
+  .settlement-table {
     width: 100%;
-    min-width: 100%;
+    min-width: 100% !important;
   }
 
-  .daily-table thead {
+  .settlement-table thead {
     display: none;
   }
 
-  .daily-table,
-  .daily-table tbody,
-  .daily-table tr,
-  .daily-table td {
+  .settlement-table,
+  .settlement-table tbody,
+  .settlement-table tr,
+  .settlement-table td {
     display: block;
     width: 100%;
   }
 
-  .daily-table tbody tr {
+  .settlement-table tbody tr {
     background: #ffffff;
 
     margin-bottom: 16px;
+
     padding: 14px;
 
     border-radius: 14px;
 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     border: 1px solid #e5e7eb;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   }
 
-  .daily-table tbody td {
+  .settlement-table tbody td {
     display: flex;
-    align-items: flex-start;
+    justify-content: space-between;
 
-    gap: 10px;
+    gap: 12px;
 
     padding: 10px 0;
 
     border: none;
 
     font-size: 13px;
-
-    white-space: normal;
-    word-break: break-word;
   }
 
-  .daily-table tbody td::before {
+  .settlement-table tbody td::before {
     content: attr(data-label);
 
-    width: 130px;
-    min-width: 130px;
+    min-width: 120px;
 
     font-weight: 700;
+
     color: #4b5563;
   }
 
-  .daily-table td:last-child {
-    justify-content: flex-end;
-    gap: 8px;
-  }
-
-  /* ================= ACTION BUTTONS ================= */
-
-  .daily_edit-btn,
-  .daily_delete-btn {
-    padding: 8px 10px;
-
-    font-size: 12px;
-    border-radius: 8px;
-  }
-
-  /* ================= PAGINATION ================= */
-
-  .daily-pagination {
+  .settlement-pagination {
     gap: 10px;
-  }
-
-  .page-btn {
-    flex: 1;
-
-    font-size: 13px;
-    padding: 10px;
-  }
-
-  .page-number {
-    display: none;
-  }
-
-  /* ================= MODAL ================= */
-
-  .daily_modal-box {
-    width: 95%;
-
-    padding: 16px;
-    border-radius: 14px;
-  }
-
-  .daily_modal-body {
-    gap: 10px;
-  }
-
-  .daily_modal-body input,
-  .daily_modal-body select {
-    font-size: 14px;
-  }
-
-  .daily_save-btn {
-    width: 100%;
-  }
-
-  /* ================= NO DATA ================= */
-
-  .bank-no-data {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 8px;
-
-    color: #6b7280;
-    font-size: 14px;
-    font-weight: 600;
-  }
-
-  .bank-no-data p {
-    white-space: nowrap;
-    font-size: 14px;
-  }
-
-  .bank-no-icon {
-    font-size: 18px;
-    color: #8b5cf6;
-  }
-}
-@media (max-width: 576px) {
-
-  .daily-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .daily-filter-box {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .daily-filter-select,
-  .daily-filter-btn {
-    flex: 1;
-  }
-
-}
-@media (max-width: 576px) {
-
-  .daily-filter-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .daily-filter-actions {
-    width: 100%;
-  }
-
-  .daily-apply-btn,
-  .daily-clear-filter-btn {
-    flex: 1;
   }
 
 }

@@ -19,7 +19,7 @@
 
 /* ================= PAGE ================= */
 
-.daily-settlement-page {
+.expense-page {
   padding: 16px;
   background: #f4f7fb;
   width: 100%;
@@ -27,7 +27,7 @@
 
 /* ================= CARD ================= */
 
-.daily-settlement-list-card {
+.expense-list-card {
   background: #ffffff;
   padding: 24px;
   border-radius: 14px;
@@ -37,14 +37,14 @@
 
 /* ================= HEADER ================= */
 
-.daily-card-header {
+.expense-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 18px;
 }
 
-.daily-card-header h3 {
+.expense-card-header h3 {
   font-size: 22px;
   font-weight: 700;
   color: #111827;
@@ -52,7 +52,7 @@
 
 /* ================= ADD BUTTON ================= */
 
-.add-daily-settlement-top {
+.add-expense-top {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -69,13 +69,13 @@
   transition: 0.25s ease;
 }
 
-.add-daily-settlement-top:hover {
+.add-expense-top:hover {
   transform: translateY(-2px);
 }
 
 /* ================= TABLE WRAPPER ================= */
 
-.daily-table-wrapper {
+.expense-table-wrapper {
   width: 1200px;
   height: 350px;
   overflow-x: auto;
@@ -88,7 +88,7 @@
 
 /* ================= TABLE ================= */
 
-.daily-table {
+.expense-table {
   min-width: 2000px;
   border-collapse: collapse;
   width: max-content;
@@ -97,18 +97,26 @@
 
 /* ================= TABLE HEADER ================= */
 
-.daily-table thead th {
-  color: #fff;
+.expense-table thead th {
+   background: #f3f4f6;
+
+  color: #000;
+
   padding: 16px 20px;
-  font-size: 14px;
+
+  font-size: 18px;
   font-weight: 700;
+
   text-align: left;
+
+  border-bottom: 1px solid #d1d5db;
+
   white-space: nowrap;
 }
 
 /* ================= TABLE BODY ================= */
 
-.daily-table td {
+.expense-table td {
   padding: 16px 20px;
   font-size: 14px;
   color: #1f2937;
@@ -116,29 +124,29 @@
   white-space: nowrap;
 }
 
-.daily-table tbody tr:nth-child(even) {
+.expense-table tbody tr:nth-child(even) {
   background: #f8fafc;
 }
 
-.daily-table tbody tr:hover {
+.expense-table tbody tr:hover {
   background: #ede9fe;
 }
 
 /* ================= COLUMN WIDTH ================= */
 
-.daily-table th,
-.daily-table td {
+.expense-table th,
+.expense-table td {
   min-width: 240px;
 }
 
-.daily-table th:first-child,
-.daily-table td:first-child {
+.expense-table th:first-child,
+.expense-table td:first-child {
   min-width: 140px;
 }
 
 /* ================= ACTION BUTTONS ================= */
 
-.daily_edit-btn {
+.expense_edit-btn {
   background: #22c55e;
   color: #fff;
   border: none;
@@ -147,7 +155,7 @@
   cursor: pointer;
 }
 
-.daily_delete-btn {
+.expense_delete-btn {
   background: #ef4444;
   color: #fff;
   border: none;
@@ -159,7 +167,7 @@
 
 /* ================= MESSAGE BOX ================= */
 
-.daily_message-box {
+.expense_message-box {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -171,19 +179,19 @@
   z-index: 9999;
 }
 
-.daily_message-box.success {
+.expense_message-box.success {
   background: #ecfdf5;
   color: #065f46;
 }
 
-.daily_message-box.error {
+.expense_message-box.error {
   background: #fef2f2;
   color: #991b1b;
 }
 
 /* ================= MODAL ================= */
 
-.daily_modal-overlay {
+.expense_modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
@@ -193,7 +201,7 @@
   z-index: 999;
 }
 
-.daily_modal-box {
+.expense_modal-box {
   background: #fff;
   width: 95%;
   max-width: 600px;
@@ -204,20 +212,20 @@
   flex-direction: column;
 }
 
-.daily_modal-header {
+.expense_modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.daily_modal-header button {
+.expense_modal-header button {
   background: transparent;
   border: none;
   font-size: 18px;
   cursor: pointer;
 }
 
-.daily_modal-body {
+.expense_modal-body {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -225,28 +233,28 @@
   overflow-y: auto;
 }
 
-.daily_modal-body label {
+.expense_modal-body label {
   font-size: 14px;
   font-weight: 600;
   color: #374151;
 }
 
-.daily_modal-body input,
-.daily_modal-body select {
+.expense_modal-body input,
+.expense_modal-body select {
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #dcdfe6;
   outline: none;
 }
 
-.daily_modal-body input:focus,
-.daily_modal-body select:focus {
+.expense_modal-body input:focus,
+.expense_modal-body select:focus {
   border-color: #7c3aed;
 }
 
 /* ================= SAVE BUTTON ================= */
 
-.daily_save-btn {
+.expense_save-btn {
   margin-top: 10px;
   padding: 12px;
   border-radius: 10px;
@@ -260,7 +268,7 @@
 
 /* ================= PAGINATION ================= */
 
-.daily-pagination {
+.expense-pagination {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -295,9 +303,159 @@
   color: #374151;
 }
 
+/* ================= TOOLBAR ================= */
+
+.expense-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+/* ================= SEARCH ================= */
+
+.expense-search-wrapper {
+  flex: 1;
+}
+
+.expense-search-box {
+  position: relative;
+  width: 420px;
+}
+
+.expense-search-input {
+  width: 100%;
+  height: 45px;
+  border: 2px solid #8b5cf6;
+  border-radius: 14px;
+  padding-left: 42px;
+  padding-right: 40px;
+  font-size: 15px;
+  outline: none;
+}
+
+.expense-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8b5cf6;
+}
+
+.expense-clear-btn {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* ================= FILTER ================= */
+
+.expense-filter-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.expense-filter-select,
+.expense-filter-btn {
+  height: 45px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  font-weight: 600;
+}
+
+/* ================= FILTER PANEL ================= */
+
+.expense-filter-panel1 {
+  background: #f9fafb;
+  width: 100% !important;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.expense-filter-grid1 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  align-items: end;
+}
+
+.expense-filter-group1 {
+  display: flex;
+  flex-direction: column;
+}
+
+.expense-filter-group1 label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.expense-filter-group1 input {
+  height: 44px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 0 12px;
+}
+
+.expense-filter-actions1 {
+  display: flex;
+  gap: 10px;
+}
+.expense-no-data {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  color: #777;
+  font-size: 16px;
+  font-weight: 600;
+}
+.expense-apply-btn1,
+.expense-clear-filter-btn1 {
+  height: 44px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.expense-apply-btn1 {
+  background: linear-gradient(to right,#6d28d9,#8b5cf6);
+}
+
+.expense-clear-filter-btn1 {
+  background: #ef4444;
+}
+
 /* ================= MOBILE ================= */
 
 @media (max-width: 576px) {
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
 
   .top-navbar {
     margin-left: 0;
@@ -307,123 +465,215 @@
     z-index: 1000;
   }
 
-  .daily-settlement-page {
+  .expense-page {
+    width: 100%;
+    max-width: 100%;
     padding: 12px;
     padding-top: 75px;
+    overflow-x: hidden;
     background: #f4f7fb;
   }
 
-  .daily-settlement-list-card {
+  .expense-list-card {
+    width: 100%;
+    max-width: 100%;
     padding: 14px;
-    border-radius: 14px;
     overflow: hidden;
-    box-shadow: none;
+    border-radius: 14px;
     background: transparent;
+    box-shadow: none;
   }
 
-  .daily-card-header {
+  .expense-card-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
     margin-bottom: 14px;
   }
 
-  .daily-card-header h3 {
+  .expense-card-header h3 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    white-space: nowrap;
   }
 
-  .add-daily-settlement-top {
+  .add-expense-top {
     width: 60%;
+    display: flex;
     justify-content: center;
+    align-items: center;
     padding: 12px;
     font-size: 14px;
     border-radius: 12px;
   }
 
-  /* ================= MOBILE TABLE CARD ================= */
-
-  .daily-table-wrapper {
+  .expense-toolbar {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .expense-search-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .expense-search-box {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .expense-search-input {
+    width: 100% !important;
+    max-width: 100%;
+    height: 42px;
+    padding-left: 38px;
+    padding-right: 40px;
+    border-radius: 12px;
+    font-size: 13px;
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .expense-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 13px;
+    color: #8b5cf6;
+  }
+
+  .expense-clear-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .expense-filter-box {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+  }
+
+  .expense-filter-select,
+  .expense-filter-btn {
+    flex: 1;
+    height: 42px;
+    font-size: 13px;
+  }
+
+  .expense-filter-panel1 {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .expense-filter-grid1 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .expense-filter-group1 input {
+    width: 100%;
+  }
+
+  .expense-filter-actions1 {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+  }
+
+  .expense-apply-btn1,
+  .expense-clear-filter-btn1 {
+    flex: 1;
+  }
+
+  .expense-table-wrapper {
+    width: 100%;
+    max-width: 100%;
     height: auto;
     overflow: visible;
     border: none;
     background: transparent;
   }
 
-  .daily-table {
+  .expense-table {
     width: 100%;
     min-width: 100%;
   }
 
-  .daily-table thead {
+  .expense-table thead {
     display: none;
   }
 
-  .daily-table,
-  .daily-table tbody,
-  .daily-table tr,
-  .daily-table td {
+  .expense-table,
+  .expense-table tbody,
+  .expense-table tr,
+  .expense-table td {
     display: block;
     width: 100%;
+    max-width: 100%;
   }
 
-  .daily-table tbody tr {
+  .expense-table tbody tr {
     background: #ffffff;
     margin-bottom: 16px;
     padding: 14px;
     border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   }
 
-  .daily-table tbody td {
+  .expense-table tbody td {
     display: flex;
+    justify-content: space-between;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
+    width: 100%;
     padding: 10px 0;
     border: none;
     font-size: 13px;
-    white-space: normal;
+    overflow: hidden;
     word-break: break-word;
   }
 
-  .daily-table tbody td::before {
+  .expense-table tbody td::before {
     content: attr(data-label);
-    width: 130px;
-    min-width: 130px;
+    flex: 0 0 120px;
     font-weight: 700;
     color: #4b5563;
   }
 
-  .daily-table td:last-child {
+  .expense-table td:last-child {
     justify-content: flex-end;
     gap: 8px;
   }
 
-  .daily_edit-btn,
-  .daily_delete-btn {
+  .expense_edit-btn,
+  .expense_delete-btn {
     padding: 8px 10px;
     font-size: 12px;
     border-radius: 8px;
   }
 
-  .daily_modal-box {
-    width: 95%;
-    padding: 16px;
-    border-radius: 14px;
-  }
-
-  .daily_modal-body {
-    gap: 10px;
-  }
-
-  .daily_modal-body input,
-  .daily_modal-body select {
-    font-size: 14px;
-  }
-
-  .daily_save-btn {
-    width: 100%;
-  }
-
-  .daily-pagination {
+  .expense-pagination {
+    display: flex;
     gap: 10px;
   }
 
@@ -436,4 +686,24 @@
   .page-number {
     display: none;
   }
+
+  .expense_modal-box {
+    width: 95%;
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .expense_modal-body {
+    gap: 10px;
+  }
+
+  .expense_modal-body input,
+  .expense_modal-body select {
+    font-size: 14px;
+  }
+
+  .expense_save-btn {
+    width: 100%;
+  }
+
 }

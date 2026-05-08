@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import TopNavbar from "../dashboard/TopNavbar";
 
 import { FaTrash, FaPlus, FaSearch } from "react-icons/fa";
+
 import "./Expense.css";
 
 const API =
@@ -11,37 +12,33 @@ const API =
 const Expense = () => {
 
   const [data, setData] = useState([]);
-
   const [expenseClass, setExpenseClass] = useState([]);
-
   const [showModal, setShowModal] = useState(false);
-
   const [isEdit, setIsEdit] = useState(false);
 
+  const [showFilters, setShowFilters] = useState(false);
+
+  const [filterSlno, setFilterSlno] = useState("");
+  const [filterExpenseDate, setFilterExpenseDate] = useState("");
+  const [filterVoucherNo, setFilterVoucherNo] = useState("");
+
   const [currentPage, setCurrentPage] = useState(1);
-const [search, setSearch] = useState("");
+
+  const [search, setSearch] = useState("");
+
   const rowsPerPage = 5;
 
   const [message, setMessage] = useState("");
-
   const [messageType, setMessageType] = useState("");
 
   const emptyForm = {
-
     id: "",
-
     slno: "",
-
     expense_date: "",
-
     expense_particular: "",
-
     expense_amount: "",
-
     expense_class_id: "",
-
     voucher_no: "",
-
     remarks: "",
   };
 
@@ -53,43 +50,29 @@ const [search, setSearch] = useState("");
   /* ================= LOAD DATA ================= */
 
   const loadData = async () => {
-
     const res = await fetch(API);
-
     const result = await res.json();
-
     setData(result);
   };
 
   /* ================= LOAD DROPDOWN ================= */
 
   const loadExpenseClass = async () => {
-
-    const res = await fetch(
-      `${API}?dropdown=1`
-    );
-
+    const res = await fetch(`${API}?dropdown=1`);
     const result = await res.json();
-
     setExpenseClass(result);
   };
 
   useEffect(() => {
-
     loadData();
-
     loadExpenseClass();
-
   }, []);
 
   /* ================= HANDLE CHANGE ================= */
 
   const handleChange = (e) => {
-
     setForm({
-
       ...form,
-
       [e.target.name]: e.target.value,
     });
   };
@@ -97,11 +80,9 @@ const [search, setSearch] = useState("");
   /* ================= SAVE / UPDATE ================= */
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
     await fetch(API, {
-
       method: isEdit ? "PUT" : "POST",
 
       headers: {
@@ -112,7 +93,6 @@ const [search, setSearch] = useState("");
     });
 
     setMessage(
-
       isEdit
         ? "Expense Updated Successfully ✏️"
         : "Expense Added Successfully 🎉"
@@ -130,14 +110,41 @@ const [search, setSearch] = useState("");
 
     loadData();
   };
-/* ================= SEARCH FILTER ================= */
 
-const filteredData = data.filter((item) =>
-  Object.values(item)
-    .join(" ")
-    .toLowerCase()
-    .includes(search.toLowerCase())
-);
+  /* ================= SEARCH FILTER ================= */
+
+  const filteredData = data.filter((item) => {
+
+    const matchesSearch =
+      Object.values(item)
+        .join(" ")
+        .toLowerCase()
+        .includes(search.toLowerCase());
+
+    const matchesSlno =
+      filterSlno === "" ||
+      item.slno
+        ?.toLowerCase()
+        .includes(filterSlno.toLowerCase());
+
+    const matchesDate =
+      filterExpenseDate === "" ||
+      item.expense_date === filterExpenseDate;
+
+    const matchesVoucher =
+      filterVoucherNo === "" ||
+      item.voucher_no
+        ?.toLowerCase()
+        .includes(filterVoucherNo.toLowerCase());
+
+    return (
+      matchesSearch &&
+      matchesSlno &&
+      matchesDate &&
+      matchesVoucher
+    );
+  });
+
   /* ================= PAGINATION ================= */
 
   const indexOfLastRow =
@@ -147,22 +154,19 @@ const filteredData = data.filter((item) =>
     indexOfLastRow - rowsPerPage;
 
   const currentRows = filteredData.slice(
-  indexOfFirstRow,
-  indexOfLastRow
-);
+    indexOfFirstRow,
+    indexOfLastRow
+  );
 
-const totalPages = Math.ceil(
-  filteredData.length / rowsPerPage
-);
+  const totalPages = Math.ceil(
+    filteredData.length / rowsPerPage
+  );
 
   /* ================= EDIT ================= */
 
   const editData = (item) => {
-
     setForm(item);
-
     setIsEdit(true);
-
     setShowModal(true);
   };
 
@@ -188,21 +192,20 @@ const totalPages = Math.ceil(
 
   return (
 
-    <div className="daily-settlement-page">
+    <div className="expense-page">
 
       <TopNavbar />
 
       {message && (
-
         <div
-          className={`daily_message-box ${messageType}`}
+          className={`expense_message-box ${messageType}`}
         >
           {message}
         </div>
       )}
 
       <button
-        className="add-daily-settlement-top"
+        className="add-expense-top"
         onClick={() => {
 
           setForm(emptyForm);
@@ -217,67 +220,162 @@ const totalPages = Math.ceil(
 
       {/* ================= TABLE ================= */}
 
-      <div className="daily-settlement-list-card">
+      <div className="expense-list-card">
 
-        <div className="daily-card-header">
-
+        <div className="expense-card-header">
           <h3>💰 EXPENSE ENTRY</h3>
-<div className="daily-search-wrapper">
-
-  <div className="daily-search-box">
-
-    <FaSearch className="daily-search-icon" />
-
-    <input
-      type="text"
-      placeholder="Search Expense..."
-      value={search}
-      onChange={(e) => {
-        setSearch(e.target.value);
-        setCurrentPage(1);
-      }}
-      className="daily-search-input"
-    />
-
-    {search && (
-      <button
-        className="daily-clear-btn"
-        onClick={() => {
-          setSearch("");
-          setCurrentPage(1);
-        }}
-      >
-        ✕
-      </button>
-    )}
-
-  </div>
-
-</div>
         </div>
 
-        <div className="daily-table-wrapper">
+        {/* SEARCH + FILTER */}
 
-          <table className="daily-table">
+        <div className="expense-toolbar">
+
+          <div className="expense-search-wrapper">
+
+            <div className="expense-search-box">
+
+              <FaSearch className="expense-search-icon" />
+
+              <input
+                type="text"
+                placeholder="Search Expense..."
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="expense-search-input"
+              />
+
+              {search && (
+                <button
+                  className="expense-clear-btn"
+                  onClick={() => {
+                    setSearch("");
+                    setCurrentPage(1);
+                  }}
+                >
+                  ✕
+                </button>
+              )}
+
+            </div>
+
+          </div>
+
+          <div className="expense-filter-box">
+
+            <select className="expense-filter-select">
+              <option>10 per page</option>
+              <option>25 per page</option>
+              <option>50 per page</option>
+            </select>
+
+            <button
+              className="expense-filter-btn"
+              onClick={() =>
+                setShowFilters(!showFilters)
+              }
+            >
+              ⏳ Filters
+            </button>
+
+          </div>
+
+          {showFilters && (
+            <div className="expense-filter-panel1">
+
+              <div className="expense-filter-grid1">
+
+                <div className="expense-filter-group1">
+
+                  <label>SLNO</label>
+
+                  <input
+                    type="text"
+                    placeholder="Enter SLNO"
+                    value={filterSlno}
+                    onChange={(e) =>
+                      setFilterSlno(e.target.value)
+                    }
+                  />
+
+                </div>
+
+                <div className="expense-filter-group1">
+
+                  <label>Expense Date</label>
+
+                  <input
+                    type="date"
+                    value={filterExpenseDate}
+                    onChange={(e) =>
+                      setFilterExpenseDate(e.target.value)
+                    }
+                  />
+
+                </div>
+
+                <div className="expense-filter-group1">
+
+                  <label>Voucher No</label>
+
+                  <input
+                    type="text"
+                    placeholder="Enter Voucher No"
+                    value={filterVoucherNo}
+                    onChange={(e) =>
+                      setFilterVoucherNo(e.target.value)
+                    }
+                  />
+
+                </div>
+
+                <div className="expense-filter-actions1">
+
+                  <button
+                    className="expense-apply-btn1"
+                    onClick={() => setCurrentPage(1)}
+                  >
+                    Apply
+                  </button>
+
+                  <button
+                    className="expense-clear-filter-btn1"
+                    onClick={() => {
+                      setFilterSlno("");
+                      setFilterExpenseDate("");
+                      setFilterVoucherNo("");
+                      setCurrentPage(1);
+                    }}
+                  >
+                    Clear
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+          )}
+
+        </div>
+
+        <div className="expense-table-wrapper">
+
+          <table className="expense-table">
 
             <thead>
 
               <tr>
 
                 <th>SLNO</th>
-
                 <th>Expense Date</th>
-
                 <th>Expense Particular</th>
-
                 <th>Expense Amount</th>
-
                 <th>Expense Class</th>
-
                 <th>Voucher No</th>
-
                 <th>Remarks</th>
-
                 <th>Actions</th>
 
               </tr>
@@ -321,7 +419,7 @@ const totalPages = Math.ceil(
                   <td data-label="Actions">
 
                     <button
-                      className="daily_edit-btn"
+                      className="expense_edit-btn"
                       onClick={() =>
                         editData(item)
                       }
@@ -330,7 +428,7 @@ const totalPages = Math.ceil(
                     </button>
 
                     <button
-                      className="daily_delete-btn"
+                      className="expense_delete-btn"
                       onClick={() =>
                         deleteData(item.id)
                       }
@@ -343,23 +441,27 @@ const totalPages = Math.ceil(
                 </tr>
 
               ))}
-{currentRows.length === 0 && (
-  <tr className="bank-empty-row">
 
-    <td colSpan="8">
+              {currentRows.length === 0 && (
 
-      <div className="bank-no-data">
+                <tr className="expense-empty-row">
 
-        <FaSearch className="bank-no-icon" />
+                  <td colSpan="8">
 
-        <p>💰 No Expense Found</p>
+                    <div className="expense-no-data">
 
-      </div>
+                      <FaSearch className="expense-no-icon" />
 
-    </td>
+                      <p>💰 No Expense Found</p>
 
-  </tr>
-)}
+                    </div>
+
+                  </td>
+
+                </tr>
+
+              )}
+
             </tbody>
 
           </table>
@@ -368,7 +470,7 @@ const totalPages = Math.ceil(
 
         {/* ================= PAGINATION ================= */}
 
-        <div className="daily-pagination">
+        <div className="expense-pagination">
 
           <button
             className="page-btn"
@@ -381,9 +483,7 @@ const totalPages = Math.ceil(
           </button>
 
           <span className="page-number">
-
             Page {currentPage} of {totalPages}
-
           </span>
 
           <button
@@ -406,18 +506,16 @@ const totalPages = Math.ceil(
 
       {showModal && (
 
-        <div className="daily_modal-overlay">
+        <div className="expense_modal-overlay">
 
-          <div className="daily_modal-box">
+          <div className="expense_modal-box">
 
-            <div className="daily_modal-header">
+            <div className="expense_modal-header">
 
               <h3>
-
                 {isEdit
                   ? "Update Expense"
                   : "Add Expense"}
-
               </h3>
 
               <button
@@ -432,7 +530,7 @@ const totalPages = Math.ceil(
 
             <form
               onSubmit={handleSubmit}
-              className="daily_modal-body"
+              className="expense_modal-body"
             >
 
               <label>Expense Date</label>
@@ -445,9 +543,7 @@ const totalPages = Math.ceil(
                 required
               />
 
-              <label>
-                Expense Particular
-              </label>
+              <label>Expense Particular</label>
 
               <input
                 type="text"
@@ -457,9 +553,7 @@ const totalPages = Math.ceil(
                 required
               />
 
-              <label>
-                Expense Amount
-              </label>
+              <label>Expense Amount</label>
 
               <input
                 type="number"
@@ -470,9 +564,7 @@ const totalPages = Math.ceil(
                 required
               />
 
-              <label>
-                Expense Class
-              </label>
+              <label>Expense Class</label>
 
               <select
                 name="expense_class_id"
@@ -517,7 +609,7 @@ const totalPages = Math.ceil(
                 onChange={handleChange}
               />
 
-              <button className="daily_save-btn">
+              <button className="expense_save-btn">
 
                 {isEdit
                   ? "✏️ UPDATE"

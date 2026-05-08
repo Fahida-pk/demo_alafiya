@@ -206,39 +206,46 @@ const totalTime = getTimeDifference(form.start_time, form.end_time);
       </button>
 
       <div className="floating-trip-list-card">
-        <div className="floating-card-header">
-          <h3><FaMapMarkedAlt /> FLOATING TRIPS</h3>
+       <div className="floating-card-header">
 
-     <div className="search-wrapper">
+  <h3>
+    <FaMapMarkedAlt /> FLOATING TRIPS
+  </h3>
 
-  <div className="daily-search-box">
+  <div className="floating-search-wrapper">
 
-    <FaSearch className="daily-search-icon" />
+    <div className="floating-search-box">
 
-    <input
-      className="daily-search-input"
-      placeholder="Search by area / driver / vehicle"
-      value={search}
-      onChange={(e) => {
-        setSearch(e.target.value);
-        setCurrentPage(1);
-      }}
-    />
+      <FaSearch className="floating-search-icon" />
 
-    {search && (
-      <button
-        className="daily-clear-btn"
-        onClick={() => {
-          setSearch("");
+      <input
+        className="floating-search-input"
+        placeholder="Search by area / driver / vehicle"
+        value={search}
+        onChange={(e) => {
+          setSearch(e.target.value);
           setCurrentPage(1);
         }}
-      >
-        ✕
-      </button>
-    )}
+      />
+
+      {search && (
+        <button
+          className="floating-clear-btn"
+          onClick={() => {
+            setSearch("");
+            setCurrentPage(1);
+          }}
+        >
+          ✕
+        </button>
+      )}
+
     </div>
-          </div>
-        </div>
+
+  </div>
+
+</div>
+   
 
 <div className="floating-table-scroll">
   <table className="floating-table">

@@ -273,37 +273,37 @@ const filteredRoutes = routes.filter(r =>
           <div className="card-header">
 
 
-  <div className="search-wrapper">
+ <div className="fixedtrip-search-wrapper">
 
-    <div className="daily-search-box">
+  <div className="fixedtrip-search-box">
 
-      <FaSearch className="daily-search-icon" />
+    <FaSearch className="fixedtrip-search-icon" />
 
-      <input
-        className="daily-search-input"
-        placeholder="Search by route / driver / vehicle"
-        value={search}
-        onChange={(e) => {
-          setSearch(e.target.value);
+    <input
+      className="fixedtrip-search-input"
+      placeholder="Search by route / driver / vehicle"
+      value={search}
+      onChange={(e) => {
+        setSearch(e.target.value);
+        setCurrentPage(1);
+      }}
+    />
+
+    {search && (
+      <button
+        className="fixedtrip-clear-btn"
+        onClick={() => {
+          setSearch("");
           setCurrentPage(1);
         }}
-      />
-
-      {search && (
-        <button
-          className="daily-clear-btn"
-          onClick={() => {
-            setSearch("");
-            setCurrentPage(1);
-          }}
-        >
-          ✕
-        </button>
-      )}
-
-    </div>
+      >
+        ✕
+      </button>
+    )}
 
   </div>
+
+</div>
 
 </div>
         </div>

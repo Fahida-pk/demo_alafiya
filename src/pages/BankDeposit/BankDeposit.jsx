@@ -11,7 +11,13 @@ const API =
 const BankDeposit = () => {
 
   const [data, setData] = useState([]);
+const [showFilters, setShowFilters] = useState(false);
 
+const [filterSlno, setFilterSlno] = useState("");
+
+const [filterDate, setFilterDate] = useState("");
+
+const [filterAccountNo, setFilterAccountNo] = useState("");
   const [showModal, setShowModal] = useState(false);
 const [search, setSearch] = useState("");
   const [isEdit, setIsEdit] = useState(false);
@@ -72,19 +78,38 @@ const [search, setSearch] = useState("");
       [e.target.name]: e.target.value,
     });
   };
-const filteredData = data.filter((item) =>
-  item.account_name
-    ?.toLowerCase()
-    .includes(search.toLowerCase()) ||
+const filteredData = data.filter((item) => {
 
-  item.account_number
-    ?.toLowerCase()
-    .includes(search.toLowerCase()) ||
+  const matchesSearch =
+    Object.values(item)
+      .join(" ")
+      .toLowerCase()
+      .includes(search.toLowerCase());
 
-  item.slno
-    ?.toLowerCase()
-    .includes(search.toLowerCase())
-);
+  const matchesSlno =
+    filterSlno === "" ||
+    item.slno
+      ?.toLowerCase()
+      .includes(filterSlno.toLowerCase());
+
+  const matchesDate =
+    filterDate === "" ||
+    item.deposit_date === filterDate;
+
+  const matchesAccountNo =
+    filterAccountNo === "" ||
+    item.account_number
+      ?.toLowerCase()
+      .includes(filterAccountNo.toLowerCase());
+
+  return (
+    matchesSearch &&
+    matchesSlno &&
+    matchesDate &&
+    matchesAccountNo
+  );
+
+});
   /* ================= SAVE / UPDATE ================= */
 
   const handleSubmit = async (e) => {
@@ -172,289 +197,180 @@ const totalPages = Math.ceil(
 
   return (
 
-    <div className="daily-settlement-page">
+  <div className="bank-page">
 
-      <TopNavbar />
+    <TopNavbar />
 
-      {message && (
+    {message && (
 
-        <div
-          className={`daily_message-box ${messageType}`}
-        >
-          {message}
-        </div>
-      )}
-
-      <button
-        className="add-daily-settlement-top"
-        onClick={() => {
-
-          setForm(emptyForm);
-
-          setIsEdit(false);
-
-          setShowModal(true);
-        }}
+      <div
+        className={`bank_message-box ${messageType}`}
       >
-        <FaPlus /> Add Bank Deposit
-      </button>
+        {message}
+      </div>
 
-      {/* ================= TABLE ================= */}
-
-      <div className="daily-settlement-list-card">
-
-        <div className="daily-card-header">
-
-          <h3>🏦 BANK DEPOSIT</h3>
-<div className="bank-search-wrapper">
-
-  <div className="bank-search-box">
-
-    <FaSearch className="bank-search-icon" />
-
-    <input
-      type="text"
-      placeholder="Search account / number / slno"
-      className="bank-search-input"
-      value={search}
-      onChange={(e) => {
-        setSearch(e.target.value);
-        setCurrentPage(1);
-      }}
-    />
-
-    {search && (
-      <button
-        className="bank-clear-btn"
-        onClick={() => {
-          setSearch("");
-          setCurrentPage(1);
-        }}
-      >
-        ✕
-      </button>
     )}
 
-  </div>
+    <button
+      className="add-bank-top"
+      onClick={() => {
 
-</div>
-        </div>
+        setForm(emptyForm);
 
-        <div className="daily-table-wrapper">
+        setIsEdit(false);
 
-          <table className="daily-table">
+        setShowModal(true);
 
-            <thead>
+      }}
+    >
+      <FaPlus /> Add Bank Deposit
+    </button>
 
-              <tr>
+    {/* ================= TABLE ================= */}
 
-                <th>SLNO</th>
+    <div className="bank-list-card">
 
-                <th>Deposit Date</th>
+      <div className="bank-card-header">
 
-                <th>Account Name</th>
+        <h3>🏦 BANK DEPOSIT</h3>
 
-                <th>Account Number</th>
+      </div>
 
-                <th>Amount Deposited</th>
+      {/* SEARCH + FILTER */}
 
-                <th>Actions</th>
+      <div className="bank-toolbar">
 
-              </tr>
+        <div className="bank-search-wrapper">
 
-            </thead>
+          <div className="bank-search-box">
 
-           <tbody>
+            <FaSearch className="bank-search-icon" />
 
-  {currentRows.length > 0 ? (
+            <input
+              type="text"
+              placeholder="Search account / number / slno"
+              className="bank-search-input"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setCurrentPage(1);
+              }}
+            />
 
-    currentRows.map((item) => (
+            {search && (
 
-      <tr key={item.id}>
+              <button
+                className="bank-clear-btn"
+                onClick={() => {
+                  setSearch("");
+                  setCurrentPage(1);
+                }}
+              >
+                ✕
+              </button>
 
-        <td data-label="SLNO">
-          {item.slno}
-        </td>
+            )}
 
-        <td data-label="Deposit Date">
-          {item.deposit_date}
-        </td>
-
-        <td data-label="Account Name">
-          {item.account_name}
-        </td>
-
-        <td data-label="Account Number">
-          {item.account_number}
-        </td>
-
-        <td data-label="Amount Deposited">
-          {item.amount_deposited}
-        </td>
-
-        <td data-label="Actions">
-
-          <button
-            className="daily_edit-btn"
-            onClick={() => editData(item)}
-          >
-            ✏️
-          </button>
-
-          <button
-            className="daily_delete-btn"
-            onClick={() => deleteData(item.id)}
-          >
-            <FaTrash />
-          </button>
-
-        </td>
-
-      </tr>
-    ))
-
-  ) : (
-
-   <tr className="bank-empty-row">
-  <td colSpan="6">
-
-    <div className="bank-no-data">
-
-      <FaSearch className="bank-no-icon" />
-
-      <p>🏦 bank not found</p>
-
-    </div>
-
-  </td>
-</tr>
-  )}
-
-</tbody>
-
-          </table>
+          </div>
 
         </div>
 
-        {/* ================= PAGINATION ================= */}
+        <div className="bank-filter-box">
 
-        <div className="daily-pagination">
-
-          <button
-            className="page-btn"
-            disabled={currentPage === 1}
-            onClick={() =>
-              setCurrentPage(currentPage - 1)
-            }
-          >
-            ⬅ Previous
-          </button>
-
-          <span className="page-number">
-
-            Page {currentPage} of {totalPages}
-
-          </span>
+          <select className="bank-filter-select">
+            <option>10 per page</option>
+            <option>25 per page</option>
+            <option>50 per page</option>
+          </select>
 
           <button
-            className="page-btn"
-            disabled={
-              currentPage === totalPages
-            }
+            className="bank-filter-btn"
             onClick={() =>
-              setCurrentPage(currentPage + 1)
+              setShowFilters(!showFilters)
             }
           >
-            Next ➡
+            ⏳ Filters
           </button>
 
         </div>
 
       </div>
 
-      {/* ================= MODAL ================= */}
+      {showFilters && (
 
-      {showModal && (
+        <div className="bank-filter-panel">
 
-        <div className="daily_modal-overlay">
+          <div className="bank-filter-grid">
 
-          <div className="daily_modal-box">
+            <div className="bank-filter-group">
 
-            <div className="daily_modal-header">
+              <label>SLNO</label>
 
-              <h3>
-
-                {isEdit
-                  ? "Update Bank Deposit"
-                  : "Add Bank Deposit"}
-
-              </h3>
-
-              <button
-                onClick={() =>
-                  setShowModal(false)
+              <input
+                type="text"
+                placeholder="Enter SLNO"
+                value={filterSlno}
+                onChange={(e) =>
+                  setFilterSlno(e.target.value)
                 }
-              >
-                ✕
-              </button>
+              />
 
             </div>
 
-            <form
-              onSubmit={handleSubmit}
-              className="daily_modal-body"
-            >
+            <div className="bank-filter-group">
 
               <label>Deposit Date</label>
 
               <input
                 type="date"
-                name="deposit_date"
-                value={form.deposit_date}
-                onChange={handleChange}
-                required
+                value={filterDate}
+                onChange={(e) =>
+                  setFilterDate(e.target.value)
+                }
               />
 
-              <label>Account Name</label>
+            </div>
 
-              <input
-                type="text"
-                name="account_name"
-                value={form.account_name}
-                onChange={handleChange}
-                required
-              />
+            <div className="bank-filter-group">
 
               <label>Account Number</label>
 
               <input
                 type="text"
-                name="account_number"
-                value={form.account_number}
-                onChange={handleChange}
-                required
+                placeholder="Enter Account Number"
+                value={filterAccountNo}
+                onChange={(e) =>
+                  setFilterAccountNo(e.target.value)
+                }
               />
 
-              <label>Amount Deposited</label>
+            </div>
 
-              <input
-                type="number"
-                step="0.01"
-                name="amount_deposited"
-                value={form.amount_deposited}
-                onChange={handleChange}
-                required
-              />
+            <div className="bank-filter-actions">
 
-              <button className="daily_save-btn">
-
-                {isEdit
-                  ? "✏️ UPDATE"
-                  : "💾 SAVE"}
-
+              <button
+                className="bank-apply-btn"
+                onClick={() => setCurrentPage(1)}
+              >
+                Apply
               </button>
 
-            </form>
+              <button
+                className="bank-clear-filter-btn"
+                onClick={() => {
+
+                  setFilterSlno("");
+                  setFilterDate("");
+                  setFilterAccountNo("");
+
+                  setCurrentPage(1);
+
+                }}
+              >
+                Clear
+              </button>
+
+            </div>
 
           </div>
 
@@ -462,8 +378,234 @@ const totalPages = Math.ceil(
 
       )}
 
+      <div className="bank-table-wrapper">
+
+        <table className="bank-table">
+
+          <thead>
+
+            <tr>
+
+              <th>SLNO</th>
+
+              <th>Deposit Date</th>
+
+              <th>Account Name</th>
+
+              <th>Account Number</th>
+
+              <th>Amount Deposited</th>
+
+              <th>Actions</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            {currentRows.length > 0 ? (
+
+              currentRows.map((item) => (
+
+                <tr key={item.id}>
+
+                  <td data-label="SLNO">
+                    {item.slno}
+                  </td>
+
+                  <td data-label="Deposit Date">
+                    {item.deposit_date}
+                  </td>
+
+                  <td data-label="Account Name">
+                    {item.account_name}
+                  </td>
+
+                  <td data-label="Account Number">
+                    {item.account_number}
+                  </td>
+
+                  <td data-label="Amount Deposited">
+                    {item.amount_deposited}
+                  </td>
+
+                  <td data-label="Actions">
+
+                    <button
+                      className="bank_edit-btn"
+                      onClick={() => editData(item)}
+                    >
+                      ✏️
+                    </button>
+
+                    <button
+                      className="bank_delete-btn"
+                      onClick={() => deleteData(item.id)}
+                    >
+                      <FaTrash />
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              ))
+
+            ) : (
+
+              <tr className="bank-empty-row">
+
+                <td colSpan="6">
+
+                  <div className="bank-no-data">
+
+                    <FaSearch className="bank-no-icon" />
+
+                    <p>🏦 Bank Not Found</p>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            )}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+      {/* ================= PAGINATION ================= */}
+
+      <div className="bank-pagination">
+
+        <button
+          className="page-btn"
+          disabled={currentPage === 1}
+          onClick={() =>
+            setCurrentPage(currentPage - 1)
+          }
+        >
+          ⬅ Previous
+        </button>
+
+        <span className="page-number">
+
+          Page {currentPage} of {totalPages}
+
+        </span>
+
+        <button
+          className="page-btn"
+          disabled={
+            currentPage === totalPages
+          }
+          onClick={() =>
+            setCurrentPage(currentPage + 1)
+          }
+        >
+          Next ➡
+        </button>
+
+      </div>
+
     </div>
-  );
+
+    {/* ================= MODAL ================= */}
+
+    {showModal && (
+
+      <div className="bank_modal-overlay">
+
+        <div className="bank_modal-box">
+
+          <div className="bank_modal-header">
+
+            <h3>
+
+              {isEdit
+                ? "Update Bank Deposit"
+                : "Add Bank Deposit"}
+
+            </h3>
+
+            <button
+              onClick={() =>
+                setShowModal(false)
+              }
+            >
+              ✕
+            </button>
+
+          </div>
+
+          <form
+            onSubmit={handleSubmit}
+            className="bank_modal-body"
+          >
+
+            <label>Deposit Date</label>
+
+            <input
+              type="date"
+              name="deposit_date"
+              value={form.deposit_date}
+              onChange={handleChange}
+              required
+            />
+
+            <label>Account Name</label>
+
+            <input
+              type="text"
+              name="account_name"
+              value={form.account_name}
+              onChange={handleChange}
+              required
+            />
+
+            <label>Account Number</label>
+
+            <input
+              type="text"
+              name="account_number"
+              value={form.account_number}
+              onChange={handleChange}
+              required
+            />
+
+            <label>Amount Deposited</label>
+
+            <input
+              type="number"
+              step="0.01"
+              name="amount_deposited"
+              value={form.amount_deposited}
+              onChange={handleChange}
+              required
+            />
+
+            <button className="bank_save-btn">
+
+              {isEdit
+                ? "✏️ UPDATE"
+                : "💾 SAVE"}
+
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    )}
+
+  </div>
+);
 };
 
 export default BankDeposit;

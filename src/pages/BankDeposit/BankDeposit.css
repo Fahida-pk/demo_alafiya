@@ -1,59 +1,96 @@
-/* SEARCH */
+/* ================= RESET ================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ================= TOP NAVBAR ================= */
+
+.top-navbar {
+  position: relative;
+  margin-left: 280px;
+  width: calc(100% - 280px);
+  height: 64px;
+  z-index: 1000;
+  width: 100%;
+}
+
+/* ================= PAGE ================= */
+
+.bank-page {
+  padding: 16px;
+  background: #f4f7fb;
+  width: 100%;
+}
+
+/* ================= CARD ================= */
+
+.bank-list-card {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 100%;
+}
+
+/* ================= HEADER ================= */
+
+.bank-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.bank-card-header h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ================= ADD BUTTON ================= */
+
+.add-bank-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  background: linear-gradient(to right, #6d28d9, #8b5cf6);
+  box-shadow: 0 10px 25px rgba(109, 40, 217, 0.35);
+  transition: 0.25s ease;
+}
+
+.add-bank-top:hover {
+  transform: translateY(-2px);
+}
+
+/* ================= TOOLBAR ================= */
+
+.bank-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+/* ================= SEARCH ================= */
 
 .bank-search-wrapper {
   display: flex;
   justify-content: flex-end;
   margin-top: 15px;
   margin-bottom: 15px;
-}
-/* NO DATA */
-
-.bank-empty-row td {
-  height: 260px;
-  padding: 0 !important;
-}
-
-/* NO DATA */
-
-.bank-empty-row td {
-  height: 260px;
-  padding: 0 !important;
-}
-
-.bank-no-data {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-  color: #777;
-  font-size: 16px;
-}
-/* ================= SEARCH EMPTY ================= */
-
-.bank-empty-row td {
-  padding: 40px 20px;
-}
-
-.bank-no-data {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  gap: 10px;
-
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.bank-no-icon {
-  font-size: 38px;
-  color: #8b5cf6;
 }
 
 .bank-search-box {
@@ -95,32 +132,300 @@
   color: #666;
 }
 
-/* NO DATA */
+/* ================= FILTER ================= */
+
+.bank-filter-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bank-filter-select,
+.bank-filter-btn {
+  height: 45px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  font-weight: 600;
+}
+
+/* ================= FILTER PANEL ================= */
+
+.bank-filter-panel {
+  width: 100%;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.bank-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  align-items: end;
+}
+
+.bank-filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.bank-filter-group label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.bank-filter-group input {
+  height: 44px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 0 12px;
+}
+
+.bank-filter-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.bank-apply-btn,
+.bank-clear-filter-btn {
+  height: 44px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bank-apply-btn {
+  background: linear-gradient(to right,#6d28d9,#8b5cf6);
+}
+
+.bank-clear-filter-btn {
+  background: #ef4444;
+}
+
+/* ================= TABLE ================= */
+
+.bank-table-wrapper {
+  width: 1200px;
+  height: 350px;
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.bank-table {
+  min-width: 1800px;
+  border-collapse: collapse;
+  width: max-content;
+}
+
+.bank-table thead th {
+  background: #f3f4f6;
+
+  color: #000;
+
+  padding: 16px 20px;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  text-align: left;
+
+  border-bottom: 1px solid #d1d5db;
+
+  white-space: nowrap;
+}
+
+.bank-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.bank-table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.bank-table tbody tr:hover {
+  background: #ede9fe;
+}
+
+/* ================= BUTTONS ================= */
+
+.bank_edit-btn {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.bank_delete-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+/* ================= MESSAGE ================= */
+
+.bank_message-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 320px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  z-index: 9999;
+}
+
+.bank_message-box.success {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.bank_message-box.error {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* ================= MODAL ================= */
+
+.bank_modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.bank_modal-box {
+  background: #fff;
+  width: 95%;
+  max-width: 600px;
+  padding: 24px;
+  border-radius: 14px;
+}
+
+.bank_modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bank_modal-header button {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.bank_modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.bank_modal-body label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.bank_modal-body input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+.bank_save-btn {
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(to right,#2563eb,#7c3aed);
+}
+
+/* ================= PAGINATION ================= */
+
+.bank-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.page-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right,#6d28d9,#8b5cf6);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================= NO DATA ================= */
+
+.bank-empty-row td {
+  height: 260px;
+  padding: 0 !important;
+}
 
 .bank-no-data {
-  text-align: center;
-  padding: 60px 20px;
-  color: #777;
-  font-size: 16px;
-
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-.daily-table tbody tr td.bank-no-data {
-  height: 250px;
-  vertical-align: middle;
-}
-.bank-no-icon {
-  font-size: 55px;
-  margin-bottom: 12px;
-  color: #bdbdbd;
+  gap: 10px;
+  text-align: center;
+  color: #777;
+  font-size: 16px;
+  font-weight: 600;
 }
 
-/* MOBILE */
+.bank-no-icon {
+  font-size: 38px;
+  color: #8b5cf6;
+}
+
+/* ================= MOBILE ================= */
 
 @media (max-width: 768px) {
+
+  .bank-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
   .bank-search-wrapper {
     justify-content: center;
@@ -128,6 +433,37 @@
 
   .bank-search-box {
     width: 100%;
+  }
+
+  .bank-filter-box {
+    width: 100%;
+  }
+
+  .bank-filter-select,
+  .bank-filter-btn {
+    flex: 1;
+  }
+
+  .bank-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bank-filter-actions {
+    width: 100%;
+  }
+
+  .bank-apply-btn,
+  .bank-clear-filter-btn {
+    flex: 1;
+  }
+
+  .bank-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .bank-table {
+    min-width: 100%;
   }
 
 }
