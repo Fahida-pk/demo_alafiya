@@ -175,49 +175,71 @@ const totalPages = Math.ceil(
       </button>
 
       {/* ================= TABLE ================= */}
-
 <div className="daily-settlement-list-card">
 
+  {/* HEADER */}
   <div className="daily-card-header">
 
-<h3>
-  <HiOutlineClipboardDocumentList className="daily-heading-icon" />
-  DAILY SETTLEMENT
-</h3>
+    <h3>
+      <HiOutlineClipboardDocumentList className="daily-heading-icon" />
+      DAILY SETTLEMENT
+    </h3>
+
+  </div>
+
+  {/* SEARCH + FILTER */}
+  <div className="daily-toolbar">
+
     <div className="daily-search-wrapper">
 
-  <div className="daily-search-box">
+      <div className="daily-search-box">
 
-    <FaSearch className="daily-search-icon" />
+        <FaSearch className="daily-search-icon" />
 
-    <input
-      type="text"
-      placeholder="Search Daily Settlement..."
-      value={search}
-      onChange={(e) => {
-        setSearch(e.target.value);
-        setCurrentPage(1);
-      }}
-      className="daily-search-input"
-    />
+        <input
+          type="text"
+          placeholder="Search Daily Settlement..."
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setCurrentPage(1);
+          }}
+          className="daily-search-input"
+        />
 
-    {search && (
-      <button
-        className="daily-clear-btn"
-        onClick={() => {
-          setSearch("");
-          setCurrentPage(1);
-        }}
-      >
-        ✕
+        {search && (
+          <button
+            className="daily-clear-btn"
+            onClick={() => {
+              setSearch("");
+              setCurrentPage(1);
+            }}
+          >
+            ✕
+          </button>
+        )}
+
+      </div>
+
+    </div>
+
+    <div className="daily-filter-box">
+
+      <select className="daily-filter-select">
+        <option>10 per page</option>
+        <option>25 per page</option>
+        <option>50 per page</option>
+      </select>
+
+      <button className="daily-filter-btn">
+        ⏳ Filters
       </button>
-    )}
+
+    </div>
 
   </div>
 
-</div>
-  </div>
-
+  {/* TABLE */}
   <div className="daily-table-wrapper">
 
     <table className="daily-table">

@@ -14,7 +14,58 @@
   z-index: 1000;
   width: 100%;
 }
+/* ================= TOOLBAR ================= */
 
+.daily-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+/* FILTER AREA */
+
+.daily-filter-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.daily-filter-select {
+  height: 44px;
+  padding: 0 12px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+
+  font-size: 14px;
+  outline: none;
+
+  background: #fff;
+}
+
+.daily-filter-btn {
+  height: 44px;
+  padding: 0 16px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+
+  background: #fff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.daily-filter-btn:hover {
+  background: #f3f4f6;
+}
 /* ================= PAGE ================= */
 .daily-settlement-page {
   padding: 16px;
@@ -638,4 +689,22 @@
     font-size: 18px;
     color: #8b5cf6;
   }
+}
+@media (max-width: 576px) {
+
+  .daily-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .daily-filter-box {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .daily-filter-select,
+  .daily-filter-btn {
+    flex: 1;
+  }
+
 }
