@@ -1,4 +1,5 @@
 /* ================= RESET ================= */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,6 +7,7 @@
 }
 
 /* ================= TOP NAVBAR ================= */
+
 .top-navbar {
   position: relative;
   margin-left: 280px;
@@ -16,6 +18,7 @@
 }
 
 /* ================= PAGE ================= */
+
 .settlement-page {
   padding: 16px;
   background: #f4f7fb;
@@ -23,6 +26,7 @@
 }
 
 /* ================= CARD ================= */
+
 .settlement-list-card {
   background: #ffffff;
   padding: 24px;
@@ -32,6 +36,7 @@
 }
 
 /* ================= HEADER ================= */
+
 .settlement-card-header {
   display: flex;
   justify-content: space-between;
@@ -43,9 +48,19 @@
   font-size: 22px;
   font-weight: 700;
   color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.settlement-heading-icon{
+    color:  #6d28d9;
+    
+    font-size: 25px;
+
 }
 
 /* ================= ADD BUTTON ================= */
+
 .add-settlement-top {
   display: inline-flex;
   align-items: center;
@@ -68,6 +83,7 @@
 }
 
 /* ================= TABLE WRAPPER ================= */
+
 .settlement-table-wrapper {
   width: 1200px;
   height: 350px;
@@ -80,14 +96,16 @@
 }
 
 /* ================= TABLE ================= */
+
 .settlement-table {
-  min-width: 2000px;
+  min-width: 2200px;
   border-collapse: collapse;
   width: max-content;
   table-layout: fixed;
 }
 
 /* ================= TABLE HEADER ================= */
+
 .settlement-table thead th {
   background: #f3f4f6;
   color: #000;
@@ -100,6 +118,7 @@
 }
 
 /* ================= TABLE BODY ================= */
+
 .settlement-table td {
   padding: 16px 20px;
   font-size: 14px;
@@ -117,6 +136,7 @@
 }
 
 /* ================= COLUMN WIDTH ================= */
+
 .settlement-table th,
 .settlement-table td {
   min-width: 240px;
@@ -128,6 +148,7 @@
 }
 
 /* ================= ACTION BUTTONS ================= */
+
 .settlement_edit-btn {
   background: #22c55e;
   color: #fff;
@@ -148,6 +169,7 @@
 }
 
 /* ================= MESSAGE BOX ================= */
+
 .settlement_message-box {
   position: fixed;
   top: 50%;
@@ -171,6 +193,7 @@
 }
 
 /* ================= MODAL ================= */
+
 .settlement_modal-overlay {
   position: fixed;
   inset: 0;
@@ -233,6 +256,7 @@
 }
 
 /* ================= SAVE BUTTON ================= */
+
 .settlement_save-btn {
   margin-top: 10px;
   padding: 12px;
@@ -246,6 +270,7 @@
 }
 
 /* ================= PAGINATION ================= */
+
 .settlement-pagination {
   display: flex;
   justify-content: center;
@@ -282,6 +307,7 @@
 }
 
 /* ================= TOOLBAR ================= */
+
 .settlement-toolbar {
   display: flex;
   justify-content: space-between;
@@ -292,6 +318,7 @@
 }
 
 /* ================= SEARCH ================= */
+
 .settlement-search-wrapper {
   flex: 1;
 }
@@ -331,6 +358,7 @@
 }
 
 /* ================= FILTER ================= */
+
 .settlement-filter-box {
   display: flex;
   align-items: center;
@@ -348,9 +376,10 @@
 }
 
 /* ================= FILTER PANEL ================= */
+
 .settlement-filter-panel {
   background: #f9fafb;
-  width: 100% !important;
+  width: 100%;
   border: 1px solid #e5e7eb;
   border-radius: 14px;
   padding: 18px;
@@ -387,20 +416,6 @@
   gap: 10px;
 }
 
-.settlement-no-data {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  text-align: center;
-  color: #777;
-  font-size: 16px;
-  font-weight: 600;
-}
-
 .settlement-apply-btn,
 .settlement-clear-filter-btn {
   height: 44px;
@@ -420,7 +435,25 @@
   background: #ef4444;
 }
 
+/* ================= NO DATA ================= */
+
+.settlement-no-data {
+  width: 100%;
+  height: 100%;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  color: #777;
+  font-size: 16px;
+  font-weight: 600;
+}
+
 /* ================= MOBILE ================= */
+
 @media (max-width: 576px) {
 
   html,
@@ -498,12 +531,13 @@
     width: 100%;
     max-width: 100%;
   }
-.settlement-search-box {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  overflow: visible;
-}
+
+  .settlement-search-box {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
 
   .settlement-search-input {
     width: 100% !important;
@@ -537,6 +571,7 @@
     background: transparent;
     font-size: 14px;
     cursor: pointer;
+    z-index: 10;
   }
 
   .settlement-filter-box {
@@ -656,24 +691,7 @@
     font-size: 13px;
     padding: 10px;
   }
-.settlement-clear-btn {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background: transparent;
-  font-size: 16px;
-  width: 24px;
-  height: 24px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-  z-index: 10;
-}
   .page-number {
     display: none;
   }

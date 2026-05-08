@@ -9,17 +9,20 @@ const API = "https://zyntaweb.com/demoalafiya/api/daily_settlement.php";
 const DailySettlement = () => {
 
   const [data, setData] = useState([]);
-
   const [showModal, setShowModal] = useState(false);
-const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");
   const [isEdit, setIsEdit] = useState(false);
-const [currentPage, setCurrentPage] = useState(1);
-const [showFilters, setShowFilters] = useState(false);
-const [filterSlno, setFilterSlno] = useState("");
-const [filterReceiptNo, setFilterReceiptNo] = useState("");
 
-const [filterDate, setFilterDate] = useState("");
-const rowsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [showFilters, setShowFilters] = useState(false);
+
+  const [filterSlno, setFilterSlno] = useState("");
+  const [filterReceiptNo, setFilterReceiptNo] = useState("");
+  const [filterDate, setFilterDate] = useState("");
+
+  const rowsPerPage = 5;
+
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
 
@@ -41,7 +44,7 @@ const rowsPerPage = 5;
   const autoHide = () =>
     setTimeout(() => setMessage(""), 3000);
 
-  /* ================= LOAD ================= */
+  /* ================= LOAD DATA ================= */
 
   const loadData = async () => {
 
@@ -53,9 +56,7 @@ const rowsPerPage = 5;
   };
 
   useEffect(() => {
-
     loadData();
-
   }, []);
 
   /* ================= HANDLE CHANGE ================= */
@@ -103,50 +104,58 @@ const rowsPerPage = 5;
 
     loadData();
   };
+
   /* ================= SEARCH FILTER ================= */
 
-const filteredData = data.filter((item) => {
+  const filteredData = data.filter((item) => {
 
-  const matchesSearch =
-    Object.values(item)
-      .join(" ")
-      .toLowerCase()
-      .includes(search.toLowerCase());
+    const matchesSearch =
+      Object.values(item)
+        .join(" ")
+        .toLowerCase()
+        .includes(search.toLowerCase());
 
-  const matchesSlno =
-    filterSlno === "" ||
-    item.slno
-      ?.toLowerCase()
-      .includes(filterSlno.toLowerCase());
+    const matchesSlno =
+      filterSlno === "" ||
+      item.slno
+        ?.toLowerCase()
+        .includes(filterSlno.toLowerCase());
 
-  const matchesReceipt =
-    filterReceiptNo === "" ||
-    item.last_payment_receipt_no
-      ?.toString()
-      .includes(filterReceiptNo);
-const matchesDate =
-  filterDate === "" ||
-  item.settlement_date === filterDate;
-  return (
-    matchesSearch &&
-    matchesSlno &&
-    matchesReceipt &&
-    matchesDate
+    const matchesReceipt =
+      filterReceiptNo === "" ||
+      item.last_payment_receipt_no
+        ?.toString()
+        .includes(filterReceiptNo);
+
+    const matchesDate =
+      filterDate === "" ||
+      item.settlement_date === filterDate;
+
+    return (
+      matchesSearch &&
+      matchesSlno &&
+      matchesReceipt &&
+      matchesDate
+    );
+  });
+
+  /* ================= PAGINATION ================= */
+
+  const indexOfLastRow =
+    currentPage * rowsPerPage;
+
+  const indexOfFirstRow =
+    indexOfLastRow - rowsPerPage;
+
+  const currentRows = filteredData.slice(
+    indexOfFirstRow,
+    indexOfLastRow
   );
-});
-/* ================= PAGINATION ================= */
 
-const indexOfLastRow = currentPage * rowsPerPage;
+  const totalPages = Math.ceil(
+    filteredData.length / rowsPerPage
+  );
 
-const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-const currentRows = filteredData.slice(
-  indexOfFirstRow,
-  indexOfLastRow
-);
-
-const totalPages = Math.ceil(
-  filteredData.length / rowsPerPage
-);
   /* ================= EDIT ================= */
 
   const editData = (item) => {
@@ -180,451 +189,464 @@ const totalPages = Math.ceil(
 
   return (
 
-  <div className="settlement-page">
+    <div className="settlement-page">
 
-  <TopNavbar />
+      <TopNavbar />
 
-  {message && (
-    <div className={`settlement_message-box ${messageType}`}>
-      {message}
-    </div>
-  )}
-
-  <button
-    className="add-settlement-top"
-    onClick={() => {
-      setForm(emptyForm);
-      setIsEdit(false);
-      setShowModal(true);
-    }}
-  >
-    <FaPlus /> Add Daily Settlement
-  </button>
-
-  {/* ================= TABLE ================= */}
-
-  <div className="settlement-list-card">
-
-    {/* HEADER */}
-
-    <div className="settlement-card-header">
-
-      <h3>
-        <HiOutlineClipboardDocumentList className="settlement-heading-icon" />
-       DAILY SETTLEMENT
-      </h3>
-
-    </div>
-
-    {/* SEARCH + FILTER */}
-
-    <div className="settlement-toolbar">
-
-      <div className="settlement-search-wrapper">
-
-        <div className="settlement-search-box">
-
-          <FaSearch className="settlement-search-icon" />
-<input
-  type="search"
-  placeholder="Search Daily Settlement..."
-  value={search}
-  onChange={(e) => {
-    setSearch(e.target.value);
-    setCurrentPage(1);
-  }}
-  className="settlement-search-input"
-/>
-
-{search && (
-  <button
-    type="button"
-    className="settlement-clear-btn"
-    onClick={() => {
-      setSearch("");
-      setCurrentPage(1);
-    }}
-  >
-    ✕
-  </button>
-)}
-
-        </div>
-
-      </div>
-
-      <div className="settlement-filter-box">
-
-        <select className="settlement-filter-select">
-          <option>10 per page</option>
-          <option>25 per page</option>
-          <option>50 per page</option>
-        </select>
-
-        <button
-          className="settlement-filter-btn"
-          onClick={() => setShowFilters(!showFilters)}
+      {message && (
+        <div
+          className={`settlement_message-box ${messageType}`}
         >
-          ⏳ Filters
-        </button>
+          {message}
+        </div>
+      )}
 
-      </div>
+      <button
+        className="add-settlement-top"
+        onClick={() => {
 
-    </div>
+          setForm(emptyForm);
 
-    {/* FILTER PANEL */}
+          setIsEdit(false);
 
-    {showFilters && (
+          setShowModal(true);
+        }}
+      >
+        <FaPlus /> Add Daily Settlement
+      </button>
 
-      <div className="settlement-filter-panel">
+      {/* ================= TABLE ================= */}
 
-        <div className="settlement-filter-grid">
+      <div className="settlement-list-card">
 
-          <div className="settlement-filter-group">
+        <div className="settlement-card-header">
 
-            <label>SLNO</label>
-
-            <input
-              type="text"
-              placeholder="Enter SLNO"
-              value={filterSlno}
-              onChange={(e) =>
-                setFilterSlno(e.target.value)
-              }
-            />
-
-          </div>
-
-          <div className="settlement-filter-group">
-
-            <label>Settlement Date</label>
-
-            <input
-              type="date"
-              value={filterDate}
-              onChange={(e) =>
-                setFilterDate(e.target.value)
-              }
-            />
-
-          </div>
-
-          <div className="settlement-filter-group">
-
-            <label>Last Payment Receipt No</label>
-
-            <input
-              type="text"
-              placeholder="Enter Receipt No"
-              value={filterReceiptNo}
-              onChange={(e) =>
-                setFilterReceiptNo(e.target.value)
-              }
-            />
-
-          </div>
-
-          <div className="settlement-filter-actions">
-
-            <button
-              className="settlement-apply-btn"
-              onClick={() => setCurrentPage(1)}
-            >
-              Apply
-            </button>
-
-            <button
-              className="settlement-clear-filter-btn"
-              onClick={() => {
-                setFilterSlno("");
-                setFilterReceiptNo("");
-                setFilterDate("");
-                setCurrentPage(1);
-              }}
-            >
-              Clear
-            </button>
-
-          </div>
+          <h3>
+            <HiOutlineClipboardDocumentList className="settlement-heading-icon" />
+            DAILY SETTLEMENT
+          </h3>
 
         </div>
 
-      </div>
+        {/* SEARCH + FILTER */}
 
-    )}
+        <div className="settlement-toolbar">
 
-    {/* TABLE */}
+          <div className="settlement-search-wrapper">
 
-    <div className="settlement-table-wrapper">
+            <div className="settlement-search-box">
 
-      <table className="settlement-table">
+              <FaSearch className="settlement-search-icon" />
 
-        <thead>
+              <input
+                type="text"
+                placeholder="Search Daily Settlement..."
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="settlement-search-input"
+              />
 
-          <tr>
-
-            <th>SLNO</th>
-            <th>Settlement Date</th>
-            <th>Settlement From Date</th>
-            <th>Settlement To Date</th>
-            <th>Last Payment Receipt No</th>
-            <th>Last Expense Voucher No</th>
-            <th>Last Sales Document</th>
-            <th>Contra</th>
-            <th>Amount</th>
-            <th>Actions</th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          {currentRows.map((item) => (
-
-            <tr key={item.id}>
-
-              <td data-label="SLNO">
-                {item.slno}
-              </td>
-
-              <td data-label="Settlement Date">
-                {item.settlement_date}
-              </td>
-
-              <td data-label="Settlement From Date">
-                {item.settlement_from_date}
-              </td>
-
-              <td data-label="Settlement To Date">
-                {item.settlement_to_date}
-              </td>
-
-              <td data-label="Last Payment Receipt No">
-                {item.last_payment_receipt_no}
-              </td>
-
-              <td data-label="Last Expense Voucher No">
-                {item.last_expense_voucher_no}
-              </td>
-
-              <td data-label="Last Sales Document">
-                {item.last_sales_document}
-              </td>
-
-              <td data-label="Contra">
-                {item.contra}
-              </td>
-
-              <td data-label="Amount">
-                {item.amount}
-              </td>
-
-              <td data-label="Actions">
-
+              {search && (
                 <button
-                  className="settlement_edit-btn"
-                  onClick={() => editData(item)}
+                  type="button"
+                  className="settlement-clear-btn"
+                  onClick={() => {
+                    setSearch("");
+                    setCurrentPage(1);
+                  }}
                 >
-                  ✏️
+                  ✕
                 </button>
+              )}
 
-                <button
-                  className="settlement_delete-btn"
-                  onClick={() => deleteData(item.id)}
-                >
-                  <FaTrash />
-                </button>
+            </div>
 
-              </td>
+          </div>
 
-            </tr>
+          <div className="settlement-filter-box">
 
-          ))}
+            <select className="settlement-filter-select">
+              <option>10 per page</option>
+              <option>25 per page</option>
+              <option>50 per page</option>
+            </select>
 
-          {currentRows.length === 0 && (
+            <button
+              className="settlement-filter-btn"
+              onClick={() =>
+                setShowFilters(!showFilters)
+              }
+            >
+              ⏳ Filters
+            </button>
 
-            <tr className="settlement-empty-row">
+          </div>
 
-              <td colSpan="10">
+          {showFilters && (
 
-                <div className="settlement-no-data">
+            <div className="settlement-filter-panel">
 
-                  <FaSearch className="settlement-no-icon" />
+              <div className="settlement-filter-grid">
 
-                  <p>
-                    <HiOutlineClipboardDocumentList className="settlement-heading-icon" />
-                    No Daily Settlement Found
-                  </p>
+                <div className="settlement-filter-group">
+
+                  <label>SLNO</label>
+
+                  <input
+                    type="text"
+                    placeholder="Enter SLNO"
+                    value={filterSlno}
+                    onChange={(e) =>
+                      setFilterSlno(e.target.value)
+                    }
+                  />
 
                 </div>
 
-              </td>
+                <div className="settlement-filter-group">
 
-            </tr>
+                  <label>Settlement Date</label>
+
+                  <input
+                    type="date"
+                    value={filterDate}
+                    onChange={(e) =>
+                      setFilterDate(e.target.value)
+                    }
+                  />
+
+                </div>
+
+                <div className="settlement-filter-group">
+
+                  <label>Last Payment Receipt No</label>
+
+                  <input
+                    type="text"
+                    placeholder="Enter Receipt No"
+                    value={filterReceiptNo}
+                    onChange={(e) =>
+                      setFilterReceiptNo(e.target.value)
+                    }
+                  />
+
+                </div>
+
+                <div className="settlement-filter-actions">
+
+                  <button
+                    className="settlement-apply-btn"
+                    onClick={() => setCurrentPage(1)}
+                  >
+                    Apply
+                  </button>
+
+                  <button
+                    className="settlement-clear-filter-btn"
+                    onClick={() => {
+
+                      setFilterSlno("");
+                      setFilterReceiptNo("");
+                      setFilterDate("");
+                      setCurrentPage(1);
+                    }}
+                  >
+                    Clear
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
 
           )}
 
-        </tbody>
+        </div>
 
-      </table>
+        {/* ================= TABLE ================= */}
 
-    </div>
+        <div className="settlement-table-wrapper">
 
-    {/* PAGINATION */}
+          <table className="settlement-table">
 
-    <div className="settlement-pagination">
+            <thead>
 
-      <button
-        className="page-btn"
-        disabled={currentPage === 1}
-        onClick={() =>
-          setCurrentPage(currentPage - 1)
-        }
-      >
-        ⬅ Previous
-      </button>
+              <tr>
 
-      <span className="page-number">
-        Page {currentPage} of {totalPages}
-      </span>
+                <th>SLNO</th>
+                <th>Settlement Date</th>
+                <th>Settlement From Date</th>
+                <th>Settlement To Date</th>
+                <th>Last Payment Receipt No</th>
+                <th>Last Expense Voucher No</th>
+                <th>Last Sales Document</th>
+                <th>Contra</th>
+                <th>Amount</th>
+                <th>Actions</th>
 
-      <button
-        className="page-btn"
-        disabled={currentPage === totalPages}
-        onClick={() =>
-          setCurrentPage(currentPage + 1)
-        }
-      >
-        Next ➡
-      </button>
+              </tr>
 
-    </div>
+            </thead>
 
-  </div>
+            <tbody>
 
-  {/* ================= MODAL ================= */}
+              {currentRows.map((item) => (
 
-  {showModal && (
+                <tr key={item.id}>
 
-    <div className="settlement_modal-overlay">
+                  <td data-label="SLNO">
+                    {item.slno}
+                  </td>
 
-      <div className="settlement_modal-box">
+                  <td data-label="Settlement Date">
+                    {item.settlement_date}
+                  </td>
 
-        <div className="settlement_modal-header">
+                  <td data-label="Settlement From Date">
+                    {item.settlement_from_date}
+                  </td>
 
-          <h3>
-            {isEdit
-              ? "Update Settlement"
-              : "Add Settlement"}
-          </h3>
+                  <td data-label="Settlement To Date">
+                    {item.settlement_to_date}
+                  </td>
+
+                  <td data-label="Last Payment Receipt No">
+                    {item.last_payment_receipt_no}
+                  </td>
+
+                  <td data-label="Last Expense Voucher No">
+                    {item.last_expense_voucher_no}
+                  </td>
+
+                  <td data-label="Last Sales Document">
+                    {item.last_sales_document}
+                  </td>
+
+                  <td data-label="Contra">
+                    {item.contra}
+                  </td>
+
+                  <td data-label="Amount">
+                    {item.amount}
+                  </td>
+
+                  <td data-label="Actions">
+
+                    <button
+                      className="settlement_edit-btn"
+                      onClick={() =>
+                        editData(item)
+                      }
+                    >
+                      ✏️
+                    </button>
+
+                    <button
+                      className="settlement_delete-btn"
+                      onClick={() =>
+                        deleteData(item.id)
+                      }
+                    >
+                      <FaTrash />
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              ))}
+
+              {currentRows.length === 0 && (
+
+                <tr className="settlement-empty-row">
+
+                  <td colSpan="10">
+
+                    <div className="settlement-no-data">
+
+                      <FaSearch className="settlement-no-icon" />
+
+                      <p>
+                        <HiOutlineClipboardDocumentList className="settlement-heading-icon" />
+                        No Daily Settlement Found
+                      </p>
+
+                    </div>
+
+                  </td>
+
+                </tr>
+
+              )}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        {/* ================= PAGINATION ================= */}
+
+        <div className="settlement-pagination">
 
           <button
-            onClick={() => setShowModal(false)}
+            className="page-btn"
+            disabled={currentPage === 1}
+            onClick={() =>
+              setCurrentPage(currentPage - 1)
+            }
           >
-            ✕
+            ⬅ Previous
+          </button>
+
+          <span className="page-number">
+            Page {currentPage} of {totalPages}
+          </span>
+
+          <button
+            className="page-btn"
+            disabled={
+              currentPage === totalPages
+            }
+            onClick={() =>
+              setCurrentPage(currentPage + 1)
+            }
+          >
+            Next ➡
           </button>
 
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="settlement_modal-body"
-        >
-
-          <label>Settlement Date</label>
-
-          <input
-            type="date"
-            name="settlement_date"
-            value={form.settlement_date}
-            onChange={handleChange}
-            required
-          />
-
-          <label>Settlement From Date</label>
-
-          <input
-            type="date"
-            name="settlement_from_date"
-            value={form.settlement_from_date}
-            onChange={handleChange}
-            required
-          />
-
-          <label>Settlement To Date</label>
-
-          <input
-            type="date"
-            name="settlement_to_date"
-            value={form.settlement_to_date}
-            onChange={handleChange}
-            required
-          />
-
-          <label>Last Payment Receipt No</label>
-
-          <input
-            type="text"
-            name="last_payment_receipt_no"
-            value={form.last_payment_receipt_no}
-            onChange={handleChange}
-          />
-
-          <label>Last Expense Voucher No</label>
-
-          <input
-            type="text"
-            name="last_expense_voucher_no"
-            value={form.last_expense_voucher_no}
-            onChange={handleChange}
-          />
-
-          <label>Last Sales Document</label>
-
-          <input
-            type="text"
-            name="last_sales_document"
-            value={form.last_sales_document}
-            onChange={handleChange}
-          />
-
-          <label>Contra</label>
-
-          <input
-            type="text"
-            name="contra"
-            value={form.contra}
-            onChange={handleChange}
-          />
-
-          <label>Amount</label>
-
-          <input
-            type="number"
-            step="0.01"
-            name="amount"
-            value={form.amount}
-            onChange={handleChange}
-          />
-
-          <button className="settlement_save-btn">
-
-            {isEdit
-              ? "✏️ UPDATE"
-              : "💾 SAVE"}
-
-          </button>
-
-        </form>
-
       </div>
 
+      {/* ================= MODAL ================= */}
+
+      {showModal && (
+
+        <div className="settlement_modal-overlay">
+
+          <div className="settlement_modal-box">
+
+            <div className="settlement_modal-header">
+
+              <h3>
+                {isEdit
+                  ? "Update Settlement"
+                  : "Add Settlement"}
+              </h3>
+
+              <button
+                onClick={() =>
+                  setShowModal(false)
+                }
+              >
+                ✕
+              </button>
+
+            </div>
+
+            <form
+              onSubmit={handleSubmit}
+              className="settlement_modal-body"
+            >
+
+              <label>Settlement Date</label>
+
+              <input
+                type="date"
+                name="settlement_date"
+                value={form.settlement_date}
+                onChange={handleChange}
+                required
+              />
+
+              <label>Settlement From Date</label>
+
+              <input
+                type="date"
+                name="settlement_from_date"
+                value={form.settlement_from_date}
+                onChange={handleChange}
+                required
+              />
+
+              <label>Settlement To Date</label>
+
+              <input
+                type="date"
+                name="settlement_to_date"
+                value={form.settlement_to_date}
+                onChange={handleChange}
+                required
+              />
+
+              <label>Last Payment Receipt No</label>
+
+              <input
+                type="text"
+                name="last_payment_receipt_no"
+                value={form.last_payment_receipt_no}
+                onChange={handleChange}
+              />
+
+              <label>Last Expense Voucher No</label>
+
+              <input
+                type="text"
+                name="last_expense_voucher_no"
+                value={form.last_expense_voucher_no}
+                onChange={handleChange}
+              />
+
+              <label>Last Sales Document</label>
+
+              <input
+                type="text"
+                name="last_sales_document"
+                value={form.last_sales_document}
+                onChange={handleChange}
+              />
+
+              <label>Contra</label>
+
+              <input
+                type="text"
+                name="contra"
+                value={form.contra}
+                onChange={handleChange}
+              />
+
+              <label>Amount</label>
+
+              <input
+                type="number"
+                step="0.01"
+                name="amount"
+                value={form.amount}
+                onChange={handleChange}
+              />
+
+              <button className="settlement_save-btn">
+
+                {isEdit
+                  ? "✏️ UPDATE"
+                  : "💾 SAVE"}
+
+              </button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      )}
+
     </div>
-
-  )}
-
-</div>
   );
 };
 
