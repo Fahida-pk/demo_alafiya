@@ -221,8 +221,7 @@ const BankDepositReport = () => {
             </div>
 
             {/* ================= TABLE ================= */}
-
-         <table className="bank-report-table">
+<table className="bank-report-table">
 
   <thead>
 
@@ -233,8 +232,6 @@ const BankDepositReport = () => {
       <th>Date</th>
 
       <th>Bank Account</th>
-
-      <th>Account No</th>
 
       <th>Amount</th>
 
@@ -260,10 +257,6 @@ const BankDepositReport = () => {
           {row.bank_account}
         </td>
 
-        <td data-label="Account No">
-          {row.account_number}
-        </td>
-
         <td data-label="Amount">
           ₹ {row.amount}
         </td>
@@ -277,7 +270,7 @@ const BankDepositReport = () => {
     <tr className="bank-total-row">
 
       <td
-        colSpan="4"
+        colSpan="3"
         className="bank-total-text"
       >
         Total
