@@ -473,3 +473,70 @@ background: linear-gradient(
   }
 
 }
+/* ================= MOBILE FILTER FIX ================= */
+@media (max-width: 768px) {
+
+  .erp-filter-box {
+    display: none;
+    width: 100%;
+    margin-top: 12px;
+
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+
+    padding: 14px;
+
+    max-height: 70vh;
+    overflow-y: auto;
+
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .erp-filter-box.active {
+    display: block;
+  }
+
+  .erp-filter-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .erp-filter-grid label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .erp-filter-grid input,
+  .erp-filter-grid select {
+    width: 100%;
+    height: 44px;
+    border-radius: 10px;
+    padding: 0 12px;
+  }
+
+  .erp-filter-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .erp-filter-actions button {
+    flex: 1;
+    height: 44px;
+  }
+
+  /* MOBILE FILTER SCROLLBAR */
+  .erp-filter-box::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .erp-filter-box::-webkit-scrollbar-thumb {
+    background: #8b5cf6;
+    border-radius: 10px;
+  }
+}

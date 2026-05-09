@@ -138,49 +138,67 @@ const GrnList = () => {
           </div>
         </div>
 
-        {/* FILTER */}
-        {showFilters && (
-          <div className="erp-filter-box">
-            <div className="erp-filter-grid">
+       
+<div className={`erp-filter-box ${showFilters ? "active" : ""}`}>
 
-              <div>
-                <label>GRN No</label>
-                <input
-                  value={filterGrn}
-                  onChange={(e) => setFilterGrn(e.target.value)}
-                />
-              </div>
+  <div className="erp-filter-grid">
 
-              <div>
-                <label>Supplier</label>
-                <select
-                  value={filterSupplier}
-                  onChange={(e) => setFilterSupplier(e.target.value)}
-                >
-                  <option value="">All</option>
-                  {suppliers.map((s, i) => (
-                    <option key={i}>{s}</option>
-                  ))}
-                </select>
-              </div>
+    {/* GRN NO */}
+    <div>
+      <label>GRN No</label>
 
-              <div>
-                <label>Date</label>
-                <input
-                  type="date"
-                  value={filterDate}
-                  onChange={(e) => setFilterDate(e.target.value)}
-                />
-              </div>
+      <input
+        value={filterGrn}
+        onChange={(e) => setFilterGrn(e.target.value)}
+        placeholder="Enter GRN No"
+      />
+    </div>
 
-              <div className="erp-filter-actions">
-                <button className="erp-apply">Apply</button>
-                <button className="erp-clear" onClick={handleClear}>Clear</button>
-              </div>
+    {/* SUPPLIER */}
+    <div>
+      <label>Supplier</label>
 
-            </div>
-          </div>
-        )}
+      <select
+        value={filterSupplier}
+        onChange={(e) => setFilterSupplier(e.target.value)}
+      >
+        <option value="">All</option>
+
+        {suppliers.map((s, i) => (
+          <option key={i}>{s}</option>
+        ))}
+      </select>
+    </div>
+
+    {/* DATE */}
+    <div>
+      <label>Date</label>
+
+      <input
+        type="date"
+        value={filterDate}
+        onChange={(e) => setFilterDate(e.target.value)}
+      />
+    </div>
+
+    {/* BUTTONS */}
+    <div className="erp-filter-actions">
+
+      <button className="erp-apply">
+        Apply
+      </button>
+
+      <button
+        className="erp-clear"
+        onClick={handleClear}
+      >
+        Clear
+      </button>
+
+    </div>
+
+  </div>
+</div>
 
         {/* TABLE */}
         <div className="erp-table-container">
