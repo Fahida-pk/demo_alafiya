@@ -42,6 +42,9 @@ const ExpenseReport = () => {
 
   const [data, setData] = useState([]);
 
+  const [totalAmount, setTotalAmount] =
+    useState(0);
+
   const [hasSearched, setHasSearched] =
     useState(false);
 
@@ -111,6 +114,10 @@ const ExpenseReport = () => {
 
       setData(result.data || []);
 
+      setTotalAmount(
+        result.total_amount || 0
+      );
+
       setHasSearched(true);
 
     } catch (error) {
@@ -118,6 +125,8 @@ const ExpenseReport = () => {
       console.log(error);
 
       setData([]);
+
+      setTotalAmount(0);
 
       setHasSearched(true);
     }
@@ -154,7 +163,7 @@ const ExpenseReport = () => {
 
         </h3>
 
-        {/* ================= FILTER ================= */}
+        {/* FILTER */}
 
         <div className="expense-report-filter-section">
 
@@ -226,8 +235,6 @@ const ExpenseReport = () => {
 
               <div className="expense-report-dropdown-box">
 
-                {/* SEARCH */}
-
                 <div className="expense-report-search-box">
 
                   <input
@@ -247,8 +254,6 @@ const ExpenseReport = () => {
                   />
 
                 </div>
-
-                {/* OPTIONS */}
 
                 <div className="expense-report-options">
 
@@ -320,7 +325,7 @@ const ExpenseReport = () => {
 
         </div>
 
-        {/* ================= TABLE ================= */}
+        {/* TABLE */}
 
         {hasSearched && data.length > 0 ? (
 
@@ -360,11 +365,13 @@ const ExpenseReport = () => {
 
                 <tr>
 
+                  <th>SLNO</th>
+
+                  <th>Doc Num</th>
+
                   <th>Date</th>
 
-                  <th>
-                    Expense Class
-                  </th>
+                  <th>Expense Class</th>
 
                   <th>Amount</th>
 
@@ -378,6 +385,13 @@ const ExpenseReport = () => {
 
                   <tr key={i}>
 
+                    <td data-label="SLNO">
+                      {i + 1}
+                    </td>
+<td data-label="Doc Num">
+  {row.slno}
+</td>
+
                     <td data-label="Date">
                       {row.date}
                     </td>
@@ -386,13 +400,34 @@ const ExpenseReport = () => {
                       {row.expense_class}
                     </td>
 
-                    <td data-label="Amount">
-                      {row.amount}
+                    <td
+                      data-label="Amount"
+                      className="amount-cell"
+                    >
+                      ₹ {Number(row.amount).toFixed(2)}
                     </td>
 
                   </tr>
 
                 ))}
+
+                {/* TOTAL */}
+
+                <tr className="expense-total-row">
+
+                  <td
+                    colSpan="5"
+                    className="expense-total-single"
+                  >
+
+                    Grand Total
+                    &nbsp;&nbsp;
+
+                    ₹ {Number(totalAmount).toFixed(2)}
+
+                  </td>
+
+                </tr>
 
               </tbody>
 
@@ -417,7 +452,6 @@ const ExpenseReport = () => {
       </div>
 
     </div>
-
   );
 };
 

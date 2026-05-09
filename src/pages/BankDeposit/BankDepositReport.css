@@ -215,6 +215,10 @@ body {
 
 /* MOBILE */
 
+/* MOBILE VIEW */
+
+/* ================= MOBILE ================= */
+
 @media (max-width: 768px) {
 
   .bank-report-page {
@@ -222,11 +226,12 @@ body {
   }
 
   .bank-report-card {
-    padding: 12px;
+    padding: 15px;
   }
 
   .bank-report-filter-section {
     flex-direction: column;
+    align-items: stretch;
     gap: 15px;
   }
 
@@ -235,22 +240,52 @@ body {
     width: 100%;
   }
 
+  .bank-report-filter-group input {
+    width: 100%;
+  }
+
+  .bank-report-btn {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  /* TABLE */
+
   .bank-report-table {
-    table-layout: auto;
+    width: 100%;
+    table-layout: auto !important;
+    border-collapse: collapse;
   }
 
   .bank-report-table th,
   .bank-report-table td {
-    white-space: nowrap;
-    font-size: 13px;
-  }
-
-  .bank-total-label,
-  .bank-total-amount {
+    width: auto !important;
+    white-space: normal !important;
+    word-break: break-word;
+    padding: 10px;
     font-size: 14px;
   }
-}
 
+  .bank-report-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+    color: #555;
+  }
+
+  /* TOTAL */
+
+  .bank-total-row td {
+    text-align: right !important;
+    font-weight: bold;
+    font-size: 16px !important;
+  }
+
+  .bank-total-row td::before {
+    display: none;
+  }
+}
 
 /* PRINT */
 @media print {
