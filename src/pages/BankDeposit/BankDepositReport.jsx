@@ -4,14 +4,12 @@ import TopNavbar from "../dashboard/TopNavbar";
 
 import "./BankDepositReport.css";
 
-import { FaUniversity } from "react-icons/fa";
+import { BsBank2 } from "react-icons/bs";
 
 import { MdReceiptLong } from "react-icons/md";
 
 const API =
   "https://zyntaweb.com/demoalafiya/api/bankdepositreport.php";
-const Bank_CLASS_API =
-  "https://zyntaweb.com/demoalafiya/api/Bankdeposit.php?dropdown=1";
 
 const COMPANY_API =
   "https://zyntaweb.com/demoalafiya/api/company.php";
@@ -118,7 +116,7 @@ const BankDepositReport = () => {
 
         <h3 className="bank-report-title">
 
-          <FaUniversity
+          <BsBank2
             style={{ color: "#4e73df" }}
           />
 
@@ -166,7 +164,7 @@ const BankDepositReport = () => {
 
           </div>
 
-          {/* BUTTON */}
+          {/* GENERATE */}
 
           <button
             className="bank-report-btn generate"
@@ -224,80 +222,82 @@ const BankDepositReport = () => {
 
             {/* ================= TABLE ================= */}
 
-            <table className="bank-report-table">
+         <table className="bank-report-table">
 
-              <thead>
+  <thead>
 
-                <tr>
+    <tr>
 
-                  <th>Date</th>
+      <th>SlNo</th>
 
-                  <th>
-                    Bank Account
-                  </th>
+      <th>Date</th>
 
-                  <th>Amount</th>
+      <th>Bank Account</th>
 
-                </tr>
+      <th>Account No</th>
 
-              </thead>
+      <th>Amount</th>
 
-              <tbody>
+    </tr>
 
-                {data.map((row, i) => (
+  </thead>
 
-                  <tr key={i}>
+  <tbody>
 
-                    <td data-label="Date">
-                      {row.date}
-                    </td>
+    {data.map((row, i) => (
 
-                    <td data-label="Bank Account">
-                      {row.bank_account}
-                    </td>
+      <tr key={i}>
 
-                    <td data-label="Amount">
-                      ₹ {row.amount}
-                    </td>
+        <td data-label="SlNo">
+          {row.slno}
+        </td>
 
-                  </tr>
+        <td data-label="Date">
+          {row.date}
+        </td>
 
-                ))}
+        <td data-label="Bank Account">
+          {row.bank_account}
+        </td>
 
-              </tbody>
+        <td data-label="Account No">
+          {row.account_number}
+        </td>
 
-              {/* ================= TOTAL ================= */}
+        <td data-label="Amount">
+          ₹ {row.amount}
+        </td>
 
-              <tfoot>
+      </tr>
 
-                <tr>
+    ))}
 
-                  <th
-                    colSpan="2"
-                    style={{
-                      textAlign: "right",
-                    }}
-                  >
+    {/* TOTAL ROW */}
 
-                    Total
+    <tr className="bank-total-row">
 
-                  </th>
+      <td
+        colSpan="4"
+        className="bank-total-text"
+      >
+        Total
+      </td>
 
-                  <th>
+      <td className="bank-total-amount">
 
-                    ₹{" "}
+        ₹{" "}
 
-                    {Number(
-                      totalAmount
-                    ).toFixed(2)}
+        {Number(
+          totalAmount
+        ).toFixed(2)}
 
-                  </th>
+      </td>
 
-                </tr>
+    </tr>
 
-              </tfoot>
+  </tbody>
 
-            </table>
+</table>
 
           </div>
 
