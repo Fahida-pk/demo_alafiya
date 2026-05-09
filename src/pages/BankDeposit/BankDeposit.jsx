@@ -382,100 +382,113 @@ const totalPages = Math.ceil(
 
         <table className="bank-table">
 
-          <thead>
+         <thead>
 
-            <tr>
+  <tr>
 
-              <th>SLNO</th>
+    <th>SLNO</th>
 
-              <th>Deposit Date</th>
+    <th>ID</th>
 
-              <th>Account Name</th>
+    <th>DOC NUM</th>
 
-              <th>Account Number</th>
+    <th>Deposit Date</th>
 
-              <th>Amount Deposited</th>
+    <th>Account Name</th>
 
-              <th>Actions</th>
+    <th>Account Number</th>
 
-            </tr>
+    <th>Amount Deposited</th>
 
-          </thead>
+    <th>Actions</th>
 
-          <tbody>
+  </tr>
 
-            {currentRows.length > 0 ? (
+</thead>
 
-              currentRows.map((item) => (
+<tbody>
 
-                <tr key={item.id}>
+  {currentRows.length > 0 ? (
 
-                  <td data-label="SLNO">
-                    {item.slno}
-                  </td>
+    currentRows.map((item, index) => (
 
-                  <td data-label="Deposit Date">
-                    {item.deposit_date}
-                  </td>
+      <tr key={item.id}>
 
-                  <td data-label="Account Name">
-                    {item.account_name}
-                  </td>
+        {/* AUTO SERIAL NUMBER */}
+        <td data-label="SLNO">
+          {indexOfFirstRow + index + 1}
+        </td>
 
-                  <td data-label="Account Number">
-                    {item.account_number}
-                  </td>
+        {/* DATABASE ID */}
+        <td data-label="ID">
+          {item.id}
+        </td>
 
-                  <td data-label="Amount Deposited">
-                    {item.amount_deposited}
-                  </td>
+        {/* DOC NUMBER */}
+        <td data-label="DOC NUM">
+          {item.slno}
+        </td>
 
-                  <td data-label="Actions">
+        <td data-label="Deposit Date">
+          {item.deposit_date}
+        </td>
 
-                    <button
-                      className="bank_edit-btn"
-                      onClick={() => editData(item)}
-                    >
-                      ✏️
-                    </button>
+        <td data-label="Account Name">
+          {item.account_name}
+        </td>
 
-                    <button
-                      className="bank_delete-btn"
-                      onClick={() => deleteData(item.id)}
-                    >
-                      <FaTrash />
-                    </button>
+        <td data-label="Account Number">
+          {item.account_number}
+        </td>
 
-                  </td>
+        <td data-label="Amount Deposited">
+          {item.amount_deposited}
+        </td>
 
-                </tr>
+        <td data-label="Actions">
 
-              ))
+          <button
+            className="bank_edit-btn"
+            onClick={() => editData(item)}
+          >
+            ✏️
+          </button>
 
-            ) : (
+          <button
+            className="bank_delete-btn"
+            onClick={() => deleteData(item.id)}
+          >
+            <FaTrash />
+          </button>
 
-              <tr className="bank-empty-row">
+        </td>
 
-                <td colSpan="6">
+      </tr>
 
-                  <div className="bank-no-data">
+    ))
 
-                    <FaSearch className="bank-no-icon" />
+  ) : (
 
-                    <p>🏦 Bank Not Found</p>
+    <tr className="bank-empty-row">
 
-                  </div>
+      <td colSpan="8">
 
-                </td>
+        <div className="bank-no-data">
 
-              </tr>
+          <FaSearch className="bank-no-icon" />
 
-            )}
+          <p>🏦 Bank Not Found</p>
 
-          </tbody>
+        </div>
 
-        </table>
+      </td>
 
+    </tr>
+
+  )}
+
+</tbody>
+</table>
       </div>
 
       {/* ================= PAGINATION ================= */}

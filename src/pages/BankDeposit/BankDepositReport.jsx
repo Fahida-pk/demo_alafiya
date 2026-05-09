@@ -172,59 +172,65 @@ const BankDepositReport = () => {
 
             <table className="bank-report-table">
 
-              <thead>
+            <thead>
 
-                <tr>
+  <tr>
 
-                  <th>SlNo</th>
+    <th>SLNO</th>
 
-                  <th>Date</th>
+    <th>Document Number</th>
 
-                  <th>Bank Account</th>
+    <th>Date</th>
 
-                  <th>Amount</th>
+    <th>Bank Account</th>
 
-                </tr>
+    <th>Amount</th>
 
-              </thead>
+  </tr>
 
-              <tbody>
+</thead>
 
-                {data.map((row, i) => (
+<tbody>
 
-                  <tr key={i}>
+  {data.map((row, i) => (
 
-                    <td>{row.slno}</td>
+    <tr key={i}>
 
-                    <td>{row.date}</td>
+      {/* SERIAL NUMBER */}
+      <td>{i + 1}</td>
 
-                    <td>{row.bank_account}</td>
+      {/* DOCUMENT NUMBER */}
+      <td>{row.slno}</td>
 
-                    <td className="amount-cell">
-                      ₹ {Number(row.amount).toFixed(2)}
-                    </td>
+      <td>{row.date}</td>
 
-                  </tr>
+      <td>{row.bank_account}</td>
 
-                ))}
+      <td className="amount-cell">
+        ₹ {Number(row.amount).toFixed(2)}
+      </td>
 
-                {/* TOTAL ROW */}
+    </tr>
 
-                <tr className="bank-total-row">
+  ))}
 
-                  <td
-                    colSpan="4"
-                    className="bank-total-full"
-                  >
+  {/* TOTAL ROW */}
 
-                    Total : ₹{" "}
-                    {Number(totalAmount).toFixed(2)}
+  <tr className="bank-total-row">
 
-                  </td>
+    <td
+      colSpan="5"
+      className="bank-total-full"
+    >
 
-                </tr>
+      Total : ₹{" "}
+      {Number(totalAmount).toFixed(2)}
 
-              </tbody>
+    </td>
+
+  </tr>
+
+</tbody>
 
             </table>
 
