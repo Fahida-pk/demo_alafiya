@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
-
 import TopNavbar from "../dashboard/TopNavbar";
-
 import "./BankDepositReport.css";
-
 import { BsBank2 } from "react-icons/bs";
-
 import { MdReceiptLong } from "react-icons/md";
 
 const API =
@@ -16,39 +12,25 @@ const COMPANY_API =
 
 const BankDepositReport = () => {
 
-  const [fromDate, setFromDate] =
-    useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
-  const [toDate, setToDate] =
-    useState("");
+  const [company, setCompany] = useState({});
 
-  const [company, setCompany] =
-    useState({});
+  const [data, setData] = useState([]);
 
-  const [data, setData] =
-    useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
 
-  const [totalAmount, setTotalAmount] =
-    useState(0);
-
-  const [hasSearched, setHasSearched] =
-    useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
 
   /* ================= LOAD COMPANY ================= */
 
   useEffect(() => {
 
     fetch(COMPANY_API)
-
       .then((res) => res.json())
-
-      .then((res) =>
-        setCompany(res || {})
-      )
-
-      .catch((err) =>
-        console.log(err)
-      );
+      .then((res) => setCompany(res || {}))
+      .catch((err) => console.log(err));
 
   }, []);
 
@@ -66,18 +48,14 @@ const BankDepositReport = () => {
     try {
 
       const res = await fetch(
-
         `${API}?from_date=${fromDate}&to_date=${toDate}`
-
       );
 
       const result = await res.json();
 
       setData(result.data || []);
 
-      setTotalAmount(
-        result.total_amount || 0
-      );
+      setTotalAmount(result.total_amount || 0);
 
       setHasSearched(true);
 
@@ -105,30 +83,24 @@ const BankDepositReport = () => {
     <div className="bank-report-page">
 
       <div className="no-print">
-
         <TopNavbar />
-
       </div>
 
       <div className="bank-report-card">
 
-        {/* ================= TITLE ================= */}
+        {/* TITLE */}
 
         <h3 className="bank-report-title">
 
-          <BsBank2
-            style={{ color: "#4e73df" }}
-          />
+          <BsBank2 style={{ color: "#4e73df" }} />
 
           Bank Deposit Report
 
         </h3>
 
-        {/* ================= FILTER ================= */}
+        {/* FILTER */}
 
         <div className="bank-report-filter-section">
-
-          {/* FROM DATE */}
 
           <div className="bank-report-filter-group">
 
@@ -138,15 +110,11 @@ const BankDepositReport = () => {
               type="date"
               value={fromDate}
               onChange={(e) =>
-                setFromDate(
-                  e.target.value
-                )
+                setFromDate(e.target.value)
               }
             />
 
           </div>
-
-          {/* TO DATE */}
 
           <div className="bank-report-filter-group">
 
@@ -156,63 +124,45 @@ const BankDepositReport = () => {
               type="date"
               value={toDate}
               onChange={(e) =>
-                setToDate(
-                  e.target.value
-                )
+                setToDate(e.target.value)
               }
             />
 
           </div>
 
-          {/* GENERATE */}
-
           <button
             className="bank-report-btn generate"
             onClick={fetchReport}
           >
-
             Generate
-
           </button>
-
-          {/* PRINT */}
 
           <button
             className="bank-report-btn print"
             onClick={handlePrint}
           >
-
             Print
-
           </button>
 
         </div>
 
-        {/* ================= TABLE ================= */}
+        {/* TABLE */}
 
         {hasSearched && data.length > 0 ? (
 
           <div className="print-section">
 
-            {/* ================= PRINT HEADER ================= */}
+            {/* PRINT HEADER */}
 
             <div className="bank-report-print-header print-only">
 
-              <h2>
-                {company.company_name}
-              </h2>
+              <h2>{company.company_name}</h2>
 
-              <p>
-                {company.address}
-              </p>
+              <p>{company.address}</p>
 
-              <p>
-                {company.phone}
-              </p>
+              <p>{company.phone}</p>
 
-              <h3>
-                Bank Deposit Report
-              </h3>
+              <h3>Bank Deposit Report</h3>
 
               <p>
                 {fromDate} to {toDate}
@@ -220,77 +170,63 @@ const BankDepositReport = () => {
 
             </div>
 
-            {/* ================= TABLE ================= */}
-<table className="bank-report-table">
+            <table className="bank-report-table">
 
-  <thead>
+              <thead>
 
-    <tr>
+                <tr>
 
-      <th>SlNo</th>
+                  <th>SlNo</th>
 
-      <th>Date</th>
+                  <th>Date</th>
 
-      <th>Bank Account</th>
+                  <th>Bank Account</th>
 
-      <th>Amount</th>
+                  <th>Amount</th>
 
-    </tr>
+                </tr>
 
-  </thead>
+              </thead>
 
-  <tbody>
+              <tbody>
 
-    {data.map((row, i) => (
+                {data.map((row, i) => (
 
-      <tr key={i}>
+                  <tr key={i}>
 
-        <td data-label="SlNo">
-          {row.slno}
-        </td>
+                    <td>{row.slno}</td>
 
-        <td data-label="Date">
-          {row.date}
-        </td>
+                    <td>{row.date}</td>
 
-        <td data-label="Bank Account">
-          {row.bank_account}
-        </td>
+                    <td>{row.bank_account}</td>
 
-        <td data-label="Amount">
-          ₹ {row.amount}
-        </td>
+                    <td className="amount-cell">
+                      ₹ {Number(row.amount).toFixed(2)}
+                    </td>
 
-      </tr>
+                  </tr>
 
-    ))}
+                ))}
 
-    {/* TOTAL ROW */}
+                {/* TOTAL ROW */}
 
-    <tr className="bank-total-row">
+                <tr className="bank-total-row">
 
-      <td
-        colSpan="3"
-        className="bank-total-text"
-      >
-        Total
-      </td>
+                  <td
+                    colSpan="4"
+                    className="bank-total-full"
+                  >
 
-      <td className="bank-total-amount">
+                    Total : ₹{" "}
+                    {Number(totalAmount).toFixed(2)}
 
-        ₹{" "}
+                  </td>
 
-        {Number(
-          totalAmount
-        ).toFixed(2)}
+                </tr>
 
-      </td>
+              </tbody>
 
-    </tr>
-
-  </tbody>
-
-</table>
+            </table>
 
           </div>
 
@@ -311,7 +247,6 @@ const BankDepositReport = () => {
       </div>
 
     </div>
-
   );
 };
 

@@ -31,7 +31,13 @@ body {
   border: 1px solid #000 !important;
   background: #fff;
 }
-
+.bank-total-full{
+  text-align: center !important;
+  font-weight: bold !important;
+  font-size: 16px !important;
+  padding: 8px !important;
+  border: 1px solid #000 !important;
+}
 .bank-total-text {
   text-align: right !important;
   padding-right: 12px !important;
@@ -213,7 +219,30 @@ body {
 .print-only {
   display: none;
 }
+/* TOTAL ROW */
 
+.bank-total-row td {
+  font-weight: bold !important;
+  border: 1px solid #000 !important;
+  background: #fff !important;
+}
+
+/* TOTAL TEXT */
+
+.bank-total-text {
+  text-align: center !important;
+  padding: 6px !important;
+  font-weight: bold !important;
+}
+
+/* TOTAL AMOUNT */
+
+.bank-total-amount {
+  text-align: right !important;
+  padding-right: 10px !important;
+  white-space: nowrap !important;
+  font-weight: bold !important;
+}
 /* ================= MOBILE ================= */
 
 @media (max-width: 768px) {
@@ -270,11 +299,15 @@ body {
 
 /* ================= PRINT ================= */
 
+/* ================= PRINT ================= */
+
+/* ================= PRINT ================= */
+
 @media print {
 
   @page {
     size: A4 portrait;
-    margin: 4mm;
+    margin: 10mm;
   }
 
   html,
@@ -290,7 +323,7 @@ body {
     box-shadow: none !important;
   }
 
-  /* HIDE SCREEN ITEMS */
+  /* HIDE SCREEN */
 
   .no-print,
   .bank-report-filter-section,
@@ -325,25 +358,25 @@ body {
 
   .print-only h2 {
     margin: 0 !important;
-    font-size: 20px !important;
+    font-size: 22px !important;
     font-weight: bold !important;
   }
 
   .print-only h3 {
     margin: 3px 0 !important;
-    font-size: 16px !important;
+    font-size: 18px !important;
     font-weight: bold !important;
   }
 
   .print-only p {
     margin: 0 !important;
-    font-size: 11px !important;
+    font-size: 12px !important;
   }
 
   /* TABLE */
 
   .bank-report-table {
-    width: 100% !important;
+    width: 130% !important;
     margin: 0 auto !important;
 
     border-collapse: collapse !important;
@@ -354,25 +387,25 @@ body {
 
   .bank-report-table th:nth-child(1),
   .bank-report-table td:nth-child(1) {
-    width:15% !important;
+    width: 12% !important;
     text-align: center !important;
   }
 
   .bank-report-table th:nth-child(2),
   .bank-report-table td:nth-child(2) {
-    width: 22% !important;
+    width: 20% !important;
     text-align: center !important;
   }
 
   .bank-report-table th:nth-child(3),
   .bank-report-table td:nth-child(3) {
-    width: 50% !important;
+    width: 55% !important;
     text-align: center !important;
   }
 
   .bank-report-table th:nth-child(4),
   .bank-report-table td:nth-child(4) {
-    width: 40% !important;
+    width: 50% !important;
     text-align: center !important;
   }
 
@@ -392,7 +425,7 @@ body {
     font-weight: bold !important;
   }
 
-  /* TOTAL ROW */
+  /* TOTAL */
 
   .bank-total-row td {
     font-weight: bold !important;
@@ -400,15 +433,10 @@ body {
     background: #fff !important;
   }
 
-  .bank-total-text {
+  .bank-total-full {
     text-align: center !important;
-    padding: 5px !important;
-  }
-
-  .bank-total-amount {
-    text-align: right !important;
-    padding-right: 8px !important;
-    white-space: nowrap !important;
+    font-size: 13px !important;
+    padding: 8px !important;
   }
 
   /* PAGE BREAK */
