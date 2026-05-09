@@ -178,7 +178,7 @@ const BankDepositReport = () => {
 
     <th>SLNO</th>
 
-    <th>Document Number</th>
+    <th>Doc num</th>
 
     <th>Date</th>
 
@@ -216,20 +216,11 @@ const BankDepositReport = () => {
 
   {/* TOTAL ROW */}
 
-  <tr className="bank-total-row">
-
-    <td
-      colSpan="5"
-      className="bank-total-full"
-    >
-
-      Total : ₹{" "}
-      {Number(totalAmount).toFixed(2)}
-
-    </td>
-
-  </tr>
-
+<tr className="bank-total-row">
+  <td colSpan="5" className="bank-total-single">
+    Grand Total&nbsp;&nbsp;&nbsp;₹ {Number(totalAmount).toFixed(2)}
+  </td>
+</tr>
 </tbody>
 
             </table>
