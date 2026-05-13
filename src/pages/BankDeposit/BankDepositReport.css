@@ -288,6 +288,14 @@ body {
 }
 
 /* PRINT */
+/* ================= PRINT PERFECT PDF STYLE ================= */
+
+/* ================= PRINT PERFECT FULL WIDTH PDF ================= */
+
+/* ================= EXACT PDF MODEL PRINT ================= */
+
+/* ================= FINAL EXACT PRINT MODEL ================= */
+
 @media print {
 
   @page {
@@ -297,14 +305,13 @@ body {
 
   html,
   body {
-    width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-    overflow: visible !important;
     background: #fff !important;
+    overflow: visible !important;
   }
 
-  /* HIDE SCREEN */
+  /* HIDE SCREEN ITEMS */
 
   .no-print,
   .bank-report-filter-section,
@@ -312,144 +319,175 @@ body {
     display: none !important;
   }
 
-  /* FULL PAGE */
+  /* REMOVE CARD STYLE */
 
   .bank-report-page,
   .bank-report-card,
   .print-section {
     width: 100% !important;
     max-width: 100% !important;
+
     margin: 0 auto !important;
     padding: 0 !important;
-    border: none !important;
+
     background: #fff !important;
+
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
   }
 
-  /* PRINT HEADER */
+  /* HEADER */
 
   .print-only {
     display: block !important;
     text-align: center !important;
-    margin-bottom: 5px !important;
+    margin-bottom: 6px !important;
   }
 
   .print-only h2 {
     margin: 0 !important;
-    font-size: 16px !important;
+    font-size: 18px !important;
     font-weight: bold !important;
+    line-height: 1.1 !important;
   }
 
   .print-only h3 {
-    margin: 2px 0 !important;
-    font-size: 13px !important;
+    margin: 4px 0 !important;
+    font-size: 15px !important;
     font-weight: bold !important;
   }
 
   .print-only p {
     margin: 0 !important;
-    font-size: 9px !important;
+    font-size: 10px !important;
+    line-height: 1.1 !important;
   }
 
   /* TABLE */
 
   .bank-report-table {
-    width: 100% !important;
+    width: 88% !important;
+
+    margin: 0 auto !important;
+
     border-collapse: collapse !important;
+
     table-layout: fixed !important;
   }
 
-  /* COLUMN WIDTH */
-
-  .bank-report-table th:nth-child(1),
-  .bank-report-table td:nth-child(1) {
-    width: 6% !important;
-
+  .bank-report-table thead {
+    display: table-header-group !important;
   }
 
-  .bank-report-table th:nth-child(2),
-  .bank-report-table td:nth-child(2) {
-    width: 16% !important;
+  .bank-report-table tr {
+    page-break-inside: avoid !important;
   }
-
-  .bank-report-table th:nth-child(3),
-  .bank-report-table td:nth-child(3) {
-    width: 18% !important;
-  }
-
-  .bank-report-table th:nth-child(4),
-  .bank-report-table td:nth-child(4) {
-    width: 48% !important;
-  }
-
-  .bank-report-table th:nth-child(4),
-.bank-report-table td:nth-child(4) {
-  width: 42% !important;
-}
 
   /* CELLS */
 
   .bank-report-table th,
   .bank-report-table td {
+
     border: 1px solid #000 !important;
+
     padding: 3px 4px !important;
+
     font-size: 10px !important;
-    line-height: 1.1 !important;
+
     text-align: center !important;
+
     white-space: nowrap !important;
   }
 
   .bank-report-table th {
     font-weight: bold !important;
+    background: #fff !important;
   }
 
+  /* REMOVE MOBILE LABEL */
+
+.bank-report-table td::before {
+  display: none !important;
+  content: none !important;
+}
+
+  /* COLUMN WIDTH */
+
+  /* SLNO */
+  .bank-report-table th:nth-child(1),
+  .bank-report-table td:nth-child(1) {
+    width: 6% !important;
+  }
+
+  /* DOC NUM */
+  .bank-report-table th:nth-child(2),
+  .bank-report-table td:nth-child(2) {
+    width: 16% !important;
+  }
+
+  /* DATE */
+  .bank-report-table th:nth-child(3),
+  .bank-report-table td:nth-child(3) {
+    width: 18% !important;
+  }
+
+  /* BANK ACCOUNT */
+  .bank-report-table th:nth-child(4),
+  .bank-report-table td:nth-child(4) {
+    width: 35% !important;
+  }
+
+  /* AMOUNT */
+  .bank-report-table th:nth-child(5),
+  .bank-report-table td:nth-child(5) {
+    width: 18% !important;
+
+    text-align: center !important;
+
+    padding-right: 10px !important;
+  }
+/* FIX TABLE BREAK ISSUE */
+
+.bank-report-table {
+  display: table !important;
+}
+
+.bank-report-table thead {
+  display: table-header-group !important;
+}
+
+.bank-report-table tbody {
+  display: table-row-group !important;
+}
+
+.bank-report-table tr {
+  display: table-row !important;
+}
+
+.bank-report-table th,
+.bank-report-table td {
+  display: table-cell !important;
+}
   /* TOTAL */
 
   .bank-total-row td {
     border: 1px solid #000 !important;
+
+    background: #fff !important;
+
     font-weight: bold !important;
   }
 
-  .bank-total-full {
+  .bank-total-single {
+
     text-align: right !important;
-    padding-right: 10px !important;
-    font-size: 10px !important;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
-  }.bank-total-full {
-  text-align: right !important;
-  padding-right: 12px !important;
-  font-size: 10px !important;
-  font-weight: bold !important;
-}
 
-.bank-total-row td {
-    border: 1px solid #666 !important;
-    background: #fff !important;
-    font-weight: bold;
-  }
-  /* PAGE BREAK */
+    padding-right: 12px !important;
 
-  table,
-  tr,
-  td,
-  th,
-  tbody,
-  thead {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-}
-@media print {
+    font-size: 16px !important;
 
-  .bank-total-row .bank-total-single {
-    text-align: right !important;
-    padding-right: 20px !important;
-    width: 100% !important;
-    display: table-cell !important;
-        font-weight: bold;
-          font-size: 20px !important;
-
-
+    font-weight: bold !important;
   }
 
 }

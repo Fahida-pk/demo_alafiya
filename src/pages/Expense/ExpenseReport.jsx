@@ -143,7 +143,7 @@ const ExpenseReport = () => {
 
     <div className="expense-report-page">
 
-      <div className="no-print">
+   <div className="expense-no-print">
 
         <TopNavbar />
 
@@ -329,11 +329,11 @@ const ExpenseReport = () => {
 
         {hasSearched && data.length > 0 ? (
 
-          <div className="print-section">
+          <div className="expense-print-section">
 
             {/* PRINT HEADER */}
 
-            <div className="expense-report-print-header print-only">
+         <div className="expense-report-print-header expense-print-only">
 
               <h2>
                 {company.company_name}

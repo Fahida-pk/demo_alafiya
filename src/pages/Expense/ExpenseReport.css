@@ -257,7 +257,7 @@ body {
 
 /* HIDE */
 
-.print-only {
+.expense-print-only {
   display: none;
 }
 
@@ -329,110 +329,242 @@ body {
   }
 }
 /* PRINT */
+/* ================= EXPENSE REPORT PRINT TABLE ================= */
+
 @media print {
 
   @page {
     size: A4 portrait;
-    margin: 8mm;
+    margin: 12mm;
   }
 
   html,
   body {
-    width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     background: #fff !important;
+    overflow: visible !important;
   }
 
-  .no-print,
+  * {
+    box-shadow: none !important;
+  }
+
+  /* HIDE SCREEN CONTENT */
+
+  .expense-no-print,
   .expense-report-filter-section,
   .expense-report-title {
     display: none !important;
   }
 
+  /* REMOVE CARD STYLE */
+
   .expense-report-page,
   .expense-report-card,
-  .print-section {
+  .expense-print-section {
+
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 !important;
+
+    margin: 0 auto !important;
     padding: 0 !important;
-    box-shadow: none !important;
-    border: none !important;
+
     background: #fff !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
   }
 
-  .print-only {
+  /* ================= HEADER ================= */
+
+  .expense-print-only {
+
     display: block !important;
-    text-align: center;
-    margin-bottom: 12px;
+
+    text-align: center !important;
+
+    margin-bottom: 16px !important;
   }
 
-  /* TABLE FULL WIDTH */
+  .expense-print-only h2 {
+
+    margin: 0 !important;
+
+    font-size: 24px !important;
+
+    font-weight: bold !important;
+  }
+
+  .expense-print-only h3 {
+
+    margin: 6px 0 !important;
+
+    font-size: 20px !important;
+
+    font-weight: bold !important;
+  }
+
+  .expense-print-only p {
+
+    margin: 2px 0 !important;
+
+    font-size: 12px !important;
+  }
+
+  /* ================= TABLE ================= */
 
   .expense-report-table {
+
     width: 100% !important;
-    min-width: 100% !important;
-    table-layout: fixed !important;
+
     border-collapse: collapse !important;
+
+    table-layout: fixed !important;
+
+    display: table !important;
+  }
+
+  .expense-report-table thead {
+    display: table-header-group !important;
+  }
+
+  .expense-report-table tbody {
+    display: table-row-group !important;
+  }
+
+  .expense-report-table tr {
+
+    display: table-row !important;
+
+    page-break-inside: avoid !important;
   }
 
   .expense-report-table th,
   .expense-report-table td {
+
+    display: table-cell !important;
+
     border: 1px solid #000 !important;
+
     padding: 6px !important;
+
     font-size: 12px !important;
+
+    line-height: 1.3 !important;
+
     text-align: center !important;
-    white-space: nowrap !important;
+
+    vertical-align: middle !important;
+
+    white-space: normal !important;
+
+    word-break: break-word !important;
   }
 
   .expense-report-table th {
+
+    background: #f3f4f6 !important;
+
     font-weight: bold !important;
   }
 
-  /* COLUMN WIDTH */
+  /* REMOVE MOBILE LABELS */
 
- /* COLUMN WIDTH */
+  .expense-report-table td::before {
+
+    display: none !important;
+
+    content: none !important;
+  }
+
+  /* ================= COLUMN WIDTH ================= */
+
+  /* SLNO */
 
   .expense-report-table th:nth-child(1),
   .expense-report-table td:nth-child(1) {
-    width: 8% !important;
+    width: 10% !important;
   }
+
+  /* DOC NUM */
 
   .expense-report-table th:nth-child(2),
   .expense-report-table td:nth-child(2) {
     width: 20% !important;
   }
 
+  /* DATE */
+
   .expense-report-table th:nth-child(3),
   .expense-report-table td:nth-child(3) {
-    width: 22% !important;
+    width: 20% !important;
   }
+
+  /* EXPENSE CLASS */
 
   .expense-report-table th:nth-child(4),
   .expense-report-table td:nth-child(4) {
-    width: 32% !important;
+    width: 30% !important;
   }
 
-  /* AMOUNT COLUMN BIGGER */
+  /* AMOUNT */
 
   .expense-report-table th:nth-child(5),
   .expense-report-table td:nth-child(5) {
-    width: 18% !important;
+
+    width: 20% !important;
+
     text-align: right !important;
+
     padding-right: 14px !important;
   }
 
-  /* TOTAL RIGHT */
+  /* ================= TOTAL ================= */
 
   .expense-total-row td {
-  text-align: right !important;
-  padding-right: 14px !important;
-}
 
-.expense-total-single {
-  text-align: right !important;
-  padding-right: 14px !important;
-  font-weight: bold !important;
+    border: 1px solid #000 !important;
+
+    background: #fafafa !important;
+
+    font-weight: bold !important;
+  }
+
+  .expense-total-single {
+
+    text-align: right !important;
+
+    padding-right: 14px !important;
+
+    font-size: 20px !important;
+
+    font-weight: bold !important;
+  }
+
 }
+/* ================= GRAND TOTAL RIGHT FIX ================= */
+
+@media print {
+
+  .expense-total-row td {
+    text-align: right !important;
+  }
+
+  .expense-total-single {
+
+    width: 100% !important;
+
+    display: table-cell !important;
+
+    text-align: right !important;
+
+    padding-right: 16px !important;
+
+    font-size: 20px !important;
+
+    font-weight: bold !important;
+  }
+
 }

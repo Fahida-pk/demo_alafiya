@@ -269,20 +269,28 @@ html, body {
 }
 
 /* ================= PRINT ================= */
+/* ================= GRN PRINT TABLE MODEL ================= */
+
 @media print {
 
   @page {
     size: A4 landscape;
-    margin: 8mm;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    overflow: visible !important;
   }
 
   * {
     box-shadow: none !important;
   }
 
-  body {
-    background: #fff;
-  }
+  /* HIDE SCREEN CONTENT */
 
   .no-print,
   .grn-filter-section,
@@ -290,59 +298,158 @@ html, body {
     display: none !important;
   }
 
+  /* REMOVE CARD STYLE */
+
   .grn-page-wrapper,
   .grn-card-container {
+
     width: 100% !important;
     max-width: 100% !important;
+
     margin: 0 auto !important;
     padding: 0 !important;
+
+    background: #fff !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
   }
+
+  /* ================= HEADER ================= */
 
   .print-only {
     display: block !important;
   }
 
+  .grn-print-header {
+
+    text-align: center !important;
+
+    margin-bottom: 16px !important;
+  }
+
+  .grn-print-header h2 {
+
+    margin: 0 !important;
+
+    font-size: 24px !important;
+
+    font-weight: bold !important;
+  }
+
+  .grn-print-header h3 {
+
+    margin: 6px 0 !important;
+
+    font-size: 20px !important;
+
+    font-weight: bold !important;
+  }
+
+  .grn-print-header p {
+
+    margin: 2px 0 !important;
+
+    font-size: 12px !important;
+  }
+
+  /* ================= TABLE ================= */
+
   .grn-table {
+
     width: 100% !important;
+
     border-collapse: collapse !important;
-    table-layout: auto !important;
+
+    table-layout: fixed !important;
+
+    display: table !important;
   }
 
-  th, td {
+  .grn-table thead {
+    display: table-header-group !important;
+  }
+
+  .grn-table tbody {
+    display: table-row-group !important;
+  }
+
+  .grn-table tr {
+
+    display: table-row !important;
+
+    page-break-inside: avoid !important;
+  }
+
+  .grn-table th,
+  .grn-table td {
+
+    display: table-cell !important;
+
     border: 1px solid #000 !important;
-    padding: 4px 6px !important;
-    font-size: 11px !important;
+
+    padding: 6px !important;
+
+    font-size: 12px !important;
+
+    line-height: 1.3 !important;
+
+    text-align: center !important;
+
+    vertical-align: middle !important;
+
+    white-space: normal !important;
+
+    word-break: break-word !important;
   }
 
-  th {
+  .grn-table th {
+
     background: #f3f4f6 !important;
+
+    font-weight: bold !important;
   }
 
-}
-@media (max-width: 768px) {
+  /* REMOVE MOBILE LABELS */
+
   .grn-table td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    display: block;
-    margin-bottom: 4px;
-    color: #555;
-  }
-}
-@media (max-width: 768px) {
 
-  /* 🔥 MAKE EVERYTHING FULL WIDTH */
-  .grn-filter-group,
-  .grn-select-wrapper,
-  .grn-filter-group input,
-  .grn-filter-group select,
-  .grn-select-display,
-  .grn-dropdown-box {
-    width: 100% !important;
+    display: none !important;
+
+    content: none !important;
   }
 
-  /* 🔥 BUTTON FULL WIDTH */
-  .grn-btn {
-    width: 100%;
+  /* ================= COLUMN WIDTH ================= */
+
+  .grn-table th:nth-child(1),
+  .grn-table td:nth-child(1) {
+    width: 15% !important;
+  }
+
+  .grn-table th:nth-child(2),
+  .grn-table td:nth-child(2) {
+    width: 20% !important;
+  }
+
+  .grn-table th:nth-child(3),
+  .grn-table td:nth-child(3) {
+    width: 20% !important;
+  }
+
+  .grn-table th:nth-child(4),
+  .grn-table td:nth-child(4) {
+    width: 15% !important;
+  }
+
+  .grn-table th:nth-child(5),
+  .grn-table td:nth-child(5) {
+    width: 15% !important;
+  }
+
+  .grn-table th:nth-child(6),
+  .grn-table td:nth-child(6) {
+    width: 15% !important;
   }
 
 }
