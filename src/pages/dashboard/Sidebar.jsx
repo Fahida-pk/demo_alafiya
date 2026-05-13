@@ -27,6 +27,7 @@ import { MdAssessment} from "react-icons/md";   // ⭐ BEST (report analytics lo
 import { RiBankFill } from "react-icons/ri";
 import { BsBank2 } from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
+import { MdSummarize } from "react-icons/md";
 import {
   FaClipboardCheck,
   FaUniversity,
@@ -268,10 +269,15 @@ const [inventoryOpen, setInventoryOpen] = useState(false);
       <FiCornerUpLeft className="sidebar-icon" />
       <span>OHA Report</span>
     </Link>
+ 
     <Link to="/current-stock-report" onClick={() => setMobileOpen(false)}>
   <MdAssessment className="sidebar-icon" />
       <span>Current Stock Report</span>
     </Link>
+       <Link to="/daily-report-summary" onClick={() => setMobileOpen(false)}>
+  <MdSummarize className="sidebar-icon" />
+  <span>Daily Report Summary</span>
+</Link>
     <Link
   to="/expense-report"
   onClick={() => setMobileOpen(false)}

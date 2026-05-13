@@ -32,7 +32,7 @@ import ProtectedRoute from "./pages/login/ProtectedRoute";
 import Expense  from "./pages/Expense/expense";
 import ExpenseReport from "./pages/Expense/ExpenseReport";
 import BankDepositReport from  "./pages/BankDeposit/BankDepositReport";
-
+import DailyReportSummary from "./pages/daily_settlement/dailyreport";
 import BankDeposit from  "./pages/BankDeposit/BankDeposit";
 function App() {
   return (
@@ -81,7 +81,7 @@ function App() {
           <Route path="/grn-report" element={<GRNReport />} />
           <Route path="/oha-report" element={<OHAReport />} />
           <Route path="/bank-deposit-report" element={<BankDepositReport />} />
-
+          <Route path="/daily-report-summary" element={<DailyReportSummary />} />
           <Route path="/expense-report" element={<ExpenseReport />} />
           <Route
             path="/current-stock-report"

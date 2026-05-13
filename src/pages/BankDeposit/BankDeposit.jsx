@@ -388,7 +388,6 @@ const totalPages = Math.ceil(
 
     <th>SLNO</th>
 
-    <th>ID</th>
 
     <th>DOC NUM</th>
 
@@ -420,10 +419,7 @@ const totalPages = Math.ceil(
         </td>
 
         {/* DATABASE ID */}
-        <td data-label="ID">
-          {item.id}
-        </td>
-
+        
         {/* DOC NUMBER */}
         <td data-label="DOC NUM">
           {item.slno}
