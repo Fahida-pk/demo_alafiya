@@ -266,6 +266,17 @@ html, body {
     width: auto !important;
     white-space: normal !important;
   }
+  @media (max-width: 768px) {
+
+  .grn-filter-group,
+  .grn-select-wrapper,
+  .grn-filter-group input,
+  .grn-filter-group select {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+
+}
 }
 
 /* ================= PRINT ================= */
